@@ -5,6 +5,130 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Senior Backend Engineer Interview Mastery 2026</title>
 <style id="main-styles">
+/* ── Override / improvement layer ───────────────────── */
+
+/* Hero banner */
+.hero{background:linear-gradient(135deg,rgba(232,93,38,.12) 0%,rgba(253,184,19,.08) 50%,rgba(29,209,161,.08) 100%);border:1px solid rgba(232,93,38,.2);border-radius:16px;padding:32px 28px;margin-bottom:28px}
+.hero-title{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,var(--saffron),var(--gold),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;margin-bottom:8px}
+.hero-sub{font-size:.88rem;color:var(--text2);margin-bottom:16px;line-height:1.6}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.hero-pill{padding:5px 12px;border-radius:20px;font-size:.78rem;font-weight:600;background:var(--card);border:1px solid var(--border)}
+.hero-pill.s{border-color:var(--saffron);color:var(--saffron)}
+.hero-pill.g{border-color:var(--gold);color:var(--gold)}
+.hero-pill.t{border-color:var(--teal);color:var(--teal)}
+.hero-pill.p{border-color:var(--purple);color:var(--purple)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:10px}
+.hero-cta .btn{padding:10px 20px;font-size:.9rem;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.hero-cta .btn-primary{background:linear-gradient(135deg,var(--saffron),#ff6b35);border:none;color:#fff;box-shadow:0 4px 16px rgba(232,93,38,.3)}
+.hero-cta .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(232,93,38,.4)}
+.hero-cta .btn-secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
+.hero-cta .btn-secondary:hover{background:rgba(29,209,161,.1);border-color:var(--teal);color:var(--teal)}
+
+/* Quick nav cards */
+.quick-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:28px}
+.quick-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;text-align:center}
+.quick-card:hover{transform:translateY(-3px);border-color:var(--saffron);box-shadow:0 8px 24px rgba(232,93,38,.15)}
+.quick-card-icon{font-size:1.8rem;margin-bottom:8px}
+.quick-card-title{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:4px}
+.quick-card-sub{font-size:.75rem;color:var(--text2)}
+
+/* Better section cards in study guide */
+.guide-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
+.guide-section:hover{border-color:rgba(232,93,38,.2)}
+.guide-h2{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.guide-h3{font-size:.88rem;font-weight:600;color:var(--teal);margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+.guide-h3::before{content:'';display:inline-block;width:3px;height:14px;background:var(--teal);border-radius:2px}
+
+/* Better question card body - the big fix */
+.card-body{padding:4px 18px 20px;border-top:1px solid var(--border)}
+.section{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(255,255,255,.02)}
+.section.intent{background:rgba(52,152,219,.06);border-left:3px solid var(--blue)}
+.section.weak{background:rgba(231,76,60,.06);border-left:3px solid var(--red)}
+.section.strong{background:rgba(29,209,161,.06);border-left:3px solid var(--teal)}
+.section.principal{background:rgba(253,184,19,.06);border-left:3px solid var(--gold)}
+.section.real{background:rgba(155,89,182,.06);border-left:3px solid var(--purple)}
+.section.mistakes{background:rgba(232,93,38,.06);border-left:3px solid var(--saffron)}
+.section.followups{background:rgba(255,255,255,.03);border-left:3px solid var(--border)}
+.section .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.section p{font-size:.92rem;line-height:1.85;color:var(--text);margin:0}
+.section ul{padding-left:20px;font-size:.9rem;color:var(--text);line-height:2}
+.section ul li{margin-bottom:2px}
+
+/* Better card header */
+.card-header{padding:16px 18px;gap:12px}
+.card-title{font-size:1rem;font-weight:500;line-height:1.5;color:var(--text)}
+.card-left{min-width:0;width:auto;flex-direction:row;align-items:center;gap:6px;flex-wrap:wrap;flex-shrink:0;max-width:160px}
+.q-num{font-size:.75rem;font-weight:700;color:var(--text2);font-family:monospace}
+.cat-badge{font-size:.7rem;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.diff-badge{font-size:.7rem;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.06)}
+
+/* Better sidebar */
+.cat-item{padding:7px 12px;border-radius:8px;cursor:pointer;font-size:.84rem;color:var(--text2);transition:all .15s;display:flex;justify-content:space-between;align-items:center;user-select:none;border:1px solid transparent}
+.cat-item:hover{background:rgba(232,93,38,.08);color:var(--text);border-color:rgba(232,93,38,.15)}
+.cat-item.active{background:rgba(232,93,38,.12);color:var(--saffron);border-color:rgba(232,93,38,.2);border-left:3px solid var(--saffron);padding-left:9px;font-weight:600}
+.cat-count{font-size:.72rem;background:rgba(255,255,255,.08);padding:2px 7px;border-radius:8px;font-weight:500}
+.cat-item.active .cat-count{background:rgba(232,93,38,.2);color:var(--saffron)}
+
+/* Better tabs */
+.tab{padding:13px 22px;cursor:pointer;font-size:.9rem;font-weight:500;color:var(--text2);border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.tab:hover{color:var(--text);background:rgba(255,255,255,.03)}
+.tab.active{color:var(--saffron);border-bottom-color:var(--saffron);font-weight:600}
+
+/* Better buttons */
+.btn{cursor:pointer;transition:all .2s;user-select:none}
+.btn:hover{transform:translateY(-1px)}
+.icon-btn{cursor:pointer;transition:all .15s;border-radius:6px;padding:5px 6px}
+.icon-btn:hover{opacity:1;background:rgba(255,255,255,.08);transform:scale(1.15)}
+.icon-btn.active{opacity:1}
+
+/* Better header search */
+#search:focus{border-color:var(--saffron);box-shadow:0 0 0 2px rgba(232,93,38,.15)}
+
+/* Better diff chips */
+.diff-chip{cursor:pointer;user-select:none;transition:all .15s}
+.diff-chip:hover{opacity:.9;transform:scale(1.03)}
+
+/* Cheat list improvement */
+.cheat-list li{border-radius:10px;border:1px solid var(--border);transition:all .2s}
+.cheat-list li:hover{border-color:rgba(232,93,38,.3);background:rgba(232,93,38,.05)}
+.cheat-list li::before{content:counter(cl);counter-increment:cl;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:linear-gradient(135deg,var(--saffron),var(--gold));border-radius:50%;color:#fff;font-size:.7rem;font-weight:700;margin-right:10px;flex-shrink:0}
+.cheat-list{counter-reset:cl}
+
+/* Table improvements */
+table{border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+th{font-size:.8rem;padding:10px 14px}
+td{font-size:.83rem;padding:9px 14px}
+tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+
+/* Progress in sidebar */
+.progress-bar{height:8px;border-radius:4px}
+.progress-fill{border-radius:4px}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--saffron)}
+
+/* Stats tab */
+.stat-card{transition:all .2s;cursor:default}
+.stat-card:hover{border-color:rgba(232,93,38,.25);transform:translateY(-2px)}
+
+/* Code blocks */
+pre{background:var(--bg3)!important;border-radius:10px!important;padding:14px 16px!important;font-size:.82rem!important;overflow-x:auto;border:1px solid var(--border)!important;line-height:1.7}
+code{background:rgba(29,209,161,.12);color:var(--teal);padding:2px 6px;border-radius:4px;font-size:.85em}
+
+/* Q count bar */
+.q-meta{background:var(--bg2);border-radius:10px;padding:10px 16px;margin-bottom:14px;border:1px solid var(--border)}
+
+/* Section label colors */
+.section.intent .label{color:var(--blue)}
+.section.weak .label{color:var(--red)}
+.section.strong .label{color:var(--teal)}
+.section.principal .label{color:var(--gold)}
+.section.real .label{color:var(--purple)}
+.section.mistakes .label{color:var(--saffron)}
+.section.followups .label{color:var(--text2)}
 :root{--bg:#0C0A15;--bg2:#13101F;--bg3:#1A1628;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:#E8E6F0;--text2:#9B97B2;--saffron:#E85D26;--gold:#FDB813;--teal:#1DD1A1;--purple:#9B59B6;--red:#E74C3C;--blue:#3498DB;--radius:12px;--shadow:0 8px 32px rgba(0,0,0,0.4)}
 [data-theme="light"]{--bg:#F5F3FF;--bg2:#EDE8FF;--bg3:#E0D9FF;--card:rgba(255,255,255,0.8);--border:rgba(0,0,0,0.1);--text:#1A1628;--text2:#6B6880;--shadow:0 4px 16px rgba(0,0,0,0.1)}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -176,7 +300,58 @@ code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:.85em;col
     <div class="tab-content">
       <div class="tab-pane active" id="pane-guide">
         <div class="guide-wrap">
-<div class="guide-h1">Senior Backend Engineer Interview Mastery 2026</div>
+
+<div class="hero">
+  <div class="hero-title">Senior Backend Engineer<br>Interview Mastery 2026</div>
+  <div class="hero-sub">The most comprehensive backend interview prep — FAANG · Walmart · Adobe · Microsoft · Atlassian · Flipkart · Razorpay · PhonePe · Swiggy · Uber India</div>
+  <div class="hero-pills">
+    <span class="hero-pill s">113 Questions</span>
+    <span class="hero-pill g">25 Categories</span>
+    <span class="hero-pill t">Principal-level Answers</span>
+    <span class="hero-pill p">Real-world Examples</span>
+    <span class="hero-pill s">100% Offline</span>
+    <span class="hero-pill g">Progress Tracking</span>
+  </div>
+  <div class="hero-cta">
+    <button class="btn btn-primary" onclick="document.querySelector('.tab:nth-child(2)').click()">❓ Start Practicing →</button>
+    <button class="btn btn-secondary" onclick="openInterviewMode()">🎯 Interview Mode</button>
+    <button class="btn btn-secondary" onclick="openMockMode()">⏱ Mock Interview</button>
+  </div>
+</div>
+
+<div class="quick-cards">
+  <div class="quick-card" onclick="document.querySelector('.tab:nth-child(2)').click()">
+    <div class="quick-card-icon">❓</div>
+    <div class="quick-card-title">Question Bank</div>
+    <div class="quick-card-sub">113 questions across 25 categories</div>
+  </div>
+  <div class="quick-card" onclick="openInterviewMode()">
+    <div class="quick-card-icon">🎯</div>
+    <div class="quick-card-title">Interview Mode</div>
+    <div class="quick-card-sub">One at a time, reveal &amp; self-rate</div>
+  </div>
+  <div class="quick-card" onclick="openMockMode()">
+    <div class="quick-card-icon">⏱</div>
+    <div class="quick-card-title">Mock Interview</div>
+    <div class="quick-card-sub">Timed 45-min session</div>
+  </div>
+  <div class="quick-card" onclick="document.querySelector('.tab:nth-child(3)').click()">
+    <div class="quick-card-icon">📊</div>
+    <div class="quick-card-title">Statistics</div>
+    <div class="quick-card-sub">Progress per category</div>
+  </div>
+  <div class="quick-card" onclick="randomQ()">
+    <div class="quick-card-icon">🎲</div>
+    <div class="quick-card-title">Random Question</div>
+    <div class="quick-card-sub">Test yourself randomly</div>
+  </div>
+  <div class="quick-card" onclick="window.print()">
+    <div class="quick-card-icon">🖨</div>
+    <div class="quick-card-title">Print / PDF</div>
+    <div class="quick-card-sub">Save for offline reading</div>
+  </div>
+</div>
+
 <div class="guide-section">
 <div class="guide-h2">⚡ 60-Second Cheat Sheet — 10 Core Principles</div>
 <ul class="cheat-list">
@@ -1496,7 +1671,6 @@ principal:'The LMAX Disruptor pattern is the high-performance Java alternative t
 real:'Cloudflare\'s event logging runs at billions of events per day using Kafka + ClickHouse. Discord uses Cassandra for message storage at similar scale. Uber uses their own high-throughput event system (Cherami) for real-time event collection.',
 mistakes:['Synchronous writes for each event — immediately saturates DB at 1M/sec','No batching — each Kafka produce call has overhead; batch 100 events to amortize it','JSON encoding at 1M events/sec — 50% bandwidth/CPU savings from switching to Avro or Protobuf'],
 fu:['What is the LMAX Disruptor and how does it achieve 25M events/sec?','How does ClickHouse\'s MergeTree storage engine work?']}
-];
 ];
 // ── State ──────────────────────────────────────────────
 const S={
