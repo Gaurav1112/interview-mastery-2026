@@ -5,297 +5,407 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Senior Backend Engineer Interview Mastery 2026</title>
 <style id="main-styles">
-/* ── Override / improvement layer ───────────────────── */
+/* ── DESIGN TOKENS ───────────────────────────────────── */
+:root{
+  --bg:#08061A;--bg2:#0E0C1E;--bg3:#141228;--surface:#1A1730;--surface2:#231F3C;
+  --text:#ECE8FF;--text2:#8C88A8;--text3:#5A5675;
+  --saffron:#E85D26;--s2:rgba(232,93,38,.12);--s3:rgba(232,93,38,.06);
+  --gold:#F5A623;--g2:rgba(245,166,35,.12);
+  --teal:#17C492;--t2:rgba(23,196,146,.12);
+  --blue:#4B9FFF;--b2:rgba(75,159,255,.12);
+  --red:#FF5757;--r2:rgba(255,87,87,.1);
+  --purple:#A78BFA;--p2:rgba(167,139,250,.12);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --radius:10px;--radius-lg:14px;
+  --shadow:0 4px 24px rgba(0,0,0,.4);--shadow-lg:0 8px 40px rgba(0,0,0,.5);
+}
+[data-theme=light]{
+  --bg:#F2F0FF;--bg2:#ECEAFF;--bg3:#E3E0FF;--surface:#fff;--surface2:#F5F3FF;
+  --text:#1A1628;--text2:#6B6585;--text3:#9B97B2;
+  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.14);
+  --s2:rgba(232,93,38,.08);--s3:rgba(232,93,38,.04);
+  --shadow:0 4px 16px rgba(0,0,0,.1);--shadow-lg:0 8px 32px rgba(0,0,0,.15);
+}
 
-/* Hero banner */
-.hero{background:linear-gradient(135deg,rgba(232,93,38,.12) 0%,rgba(253,184,19,.08) 50%,rgba(29,209,161,.08) 100%);border:1px solid rgba(232,93,38,.2);border-radius:16px;padding:32px 28px;margin-bottom:28px}
-.hero-title{font-size:1.9rem;font-weight:800;background:linear-gradient(135deg,var(--saffron),var(--gold),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2;margin-bottom:8px}
-.hero-sub{font-size:.88rem;color:var(--text2);margin-bottom:16px;line-height:1.6}
-.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.hero-pill{padding:5px 12px;border-radius:20px;font-size:.78rem;font-weight:600;background:var(--card);border:1px solid var(--border)}
-.hero-pill.s{border-color:var(--saffron);color:var(--saffron)}
-.hero-pill.g{border-color:var(--gold);color:var(--gold)}
-.hero-pill.t{border-color:var(--teal);color:var(--teal)}
-.hero-pill.p{border-color:var(--purple);color:var(--purple)}
-.hero-cta{display:flex;flex-wrap:wrap;gap:10px}
-.hero-cta .btn{padding:10px 20px;font-size:.9rem;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
-.hero-cta .btn-primary{background:linear-gradient(135deg,var(--saffron),#ff6b35);border:none;color:#fff;box-shadow:0 4px 16px rgba(232,93,38,.3)}
-.hero-cta .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(232,93,38,.4)}
-.hero-cta .btn-secondary{background:var(--card);border:1px solid var(--border);color:var(--text)}
-.hero-cta .btn-secondary:hover{background:rgba(29,209,161,.1);border-color:var(--teal);color:var(--teal)}
+/* ── RESET ───────────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+code,pre,kbd{font-family:'JetBrains Mono','Fira Code','SF Mono','Courier New',monospace}
+button{cursor:pointer;font-family:inherit}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--text3)}
 
-/* Quick nav cards */
-.quick-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:28px}
-.quick-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;text-align:center}
-.quick-card:hover{transform:translateY(-3px);border-color:var(--saffron);box-shadow:0 8px 24px rgba(232,93,38,.15)}
-.quick-card-icon{font-size:1.8rem;margin-bottom:8px}
-.quick-card-title{font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:4px}
-.quick-card-sub{font-size:.75rem;color:var(--text2)}
+/* ── LAYOUT ──────────────────────────────────────────── */
+#app{display:flex;flex-direction:column;height:100vh;overflow:hidden}
 
-/* Better section cards in study guide */
-.guide-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px}
-.guide-section:hover{border-color:rgba(232,93,38,.2)}
-.guide-h2{font-size:1rem;font-weight:700;color:var(--gold);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.guide-h3{font-size:.88rem;font-weight:600;color:var(--teal);margin:16px 0 8px;display:flex;align-items:center;gap:6px}
-.guide-h3::before{content:'';display:inline-block;width:3px;height:14px;background:var(--teal);border-radius:2px}
+/* ── HEADER ──────────────────────────────────────────── */
+header{height:52px;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;z-index:100}
+.logo{font-size:.88rem;font-weight:800;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap;letter-spacing:-.02em}
+.logo-tag{font-size:.62rem;font-weight:500;color:var(--text3);-webkit-text-fill-color:var(--text3);margin-left:6px;letter-spacing:.06em;text-transform:uppercase}
+.search-wrap{flex:1;max-width:400px;position:relative}
+#search{width:100%;padding:6px 12px 6px 30px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem;outline:none;transition:border-color .2s,box-shadow .2s}
+#search::placeholder{color:var(--text3)}
+#search:focus{border-color:var(--saffron);box-shadow:0 0 0 3px var(--s2)}
+.search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:.78rem;pointer-events:none}
+.header-actions{display:flex;gap:5px;margin-left:auto;align-items:center}
+.hbtn{padding:5px 11px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:.75rem;font-weight:500;transition:all .15s;white-space:nowrap;letter-spacing:.01em}
+.hbtn:hover{background:var(--surface);color:var(--text);border-color:var(--border2)}
+.hbtn.accent{background:var(--saffron);border-color:var(--saffron);color:#fff;font-weight:600}
+.hbtn.accent:hover{background:#d44f1e;box-shadow:0 2px 12px rgba(232,93,38,.3)}
+.hbtn.soft{background:var(--surface);border-color:var(--border2);color:var(--text)}
+.hbtn.soft:hover{border-color:var(--teal);color:var(--teal)}
 
-/* Better question card body - the big fix */
-.card-body{padding:4px 18px 20px;border-top:1px solid var(--border)}
-.section{margin-top:18px;padding:14px 16px;border-radius:10px;background:rgba(255,255,255,.02)}
-.section.intent{background:rgba(52,152,219,.06);border-left:3px solid var(--blue)}
-.section.weak{background:rgba(231,76,60,.06);border-left:3px solid var(--red)}
-.section.strong{background:rgba(29,209,161,.06);border-left:3px solid var(--teal)}
-.section.principal{background:rgba(253,184,19,.06);border-left:3px solid var(--gold)}
-.section.real{background:rgba(155,89,182,.06);border-left:3px solid var(--purple)}
-.section.mistakes{background:rgba(232,93,38,.06);border-left:3px solid var(--saffron)}
-.section.followups{background:rgba(255,255,255,.03);border-left:3px solid var(--border)}
-.section .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;gap:5px}
-.section p{font-size:.92rem;line-height:1.85;color:var(--text);margin:0}
-.section ul{padding-left:20px;font-size:.9rem;color:var(--text);line-height:2}
-.section ul li{margin-bottom:2px}
-
-/* Better card header */
-.card-header{padding:16px 18px;gap:12px}
-.card-title{font-size:1rem;font-weight:500;line-height:1.5;color:var(--text)}
-.card-left{min-width:0;width:auto;flex-direction:row;align-items:center;gap:6px;flex-wrap:wrap;flex-shrink:0;max-width:160px}
-.q-num{font-size:.75rem;font-weight:700;color:var(--text2);font-family:monospace}
-.cat-badge{font-size:.7rem;padding:3px 8px;border-radius:4px;white-space:nowrap}
-.diff-badge{font-size:.7rem;font-weight:700;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.06)}
-
-/* Better sidebar */
-.cat-item{padding:7px 12px;border-radius:8px;cursor:pointer;font-size:.84rem;color:var(--text2);transition:all .15s;display:flex;justify-content:space-between;align-items:center;user-select:none;border:1px solid transparent}
-.cat-item:hover{background:rgba(232,93,38,.08);color:var(--text);border-color:rgba(232,93,38,.15)}
-.cat-item.active{background:rgba(232,93,38,.12);color:var(--saffron);border-color:rgba(232,93,38,.2);border-left:3px solid var(--saffron);padding-left:9px;font-weight:600}
-.cat-count{font-size:.72rem;background:rgba(255,255,255,.08);padding:2px 7px;border-radius:8px;font-weight:500}
-.cat-item.active .cat-count{background:rgba(232,93,38,.2);color:var(--saffron)}
-
-/* Better tabs */
-.tab{padding:13px 22px;cursor:pointer;font-size:.9rem;font-weight:500;color:var(--text2);border-bottom:2px solid transparent;transition:all .2s;user-select:none}
-.tab:hover{color:var(--text);background:rgba(255,255,255,.03)}
-.tab.active{color:var(--saffron);border-bottom-color:var(--saffron);font-weight:600}
-
-/* Better buttons */
-.btn{cursor:pointer;transition:all .2s;user-select:none}
-.btn:hover{transform:translateY(-1px)}
-.icon-btn{cursor:pointer;transition:all .15s;border-radius:6px;padding:5px 6px}
-.icon-btn:hover{opacity:1;background:rgba(255,255,255,.08);transform:scale(1.15)}
-.icon-btn.active{opacity:1}
-
-/* Better header search */
-#search:focus{border-color:var(--saffron);box-shadow:0 0 0 2px rgba(232,93,38,.15)}
-
-/* Better diff chips */
-.diff-chip{cursor:pointer;user-select:none;transition:all .15s}
-.diff-chip:hover{opacity:.9;transform:scale(1.03)}
-
-/* Cheat list improvement */
-.cheat-list li{border-radius:10px;border:1px solid var(--border);transition:all .2s}
-.cheat-list li:hover{border-color:rgba(232,93,38,.3);background:rgba(232,93,38,.05)}
-.cheat-list li::before{content:counter(cl);counter-increment:cl;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:linear-gradient(135deg,var(--saffron),var(--gold));border-radius:50%;color:#fff;font-size:.7rem;font-weight:700;margin-right:10px;flex-shrink:0}
-.cheat-list{counter-reset:cl}
-
-/* Table improvements */
-table{border-radius:8px;overflow:hidden;border:1px solid var(--border)}
-th{font-size:.8rem;padding:10px 14px}
-td{font-size:.83rem;padding:9px 14px}
-tr:nth-child(even) td{background:rgba(255,255,255,.02)}
-
-/* Progress in sidebar */
-.progress-bar{height:8px;border-radius:4px}
-.progress-fill{border-radius:4px}
-
-/* Scrollbar */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--saffron)}
-
-/* Stats tab */
-.stat-card{transition:all .2s;cursor:default}
-.stat-card:hover{border-color:rgba(232,93,38,.25);transform:translateY(-2px)}
-
-/* Code blocks */
-pre{background:var(--bg3)!important;border-radius:10px!important;padding:14px 16px!important;font-size:.82rem!important;overflow-x:auto;border:1px solid var(--border)!important;line-height:1.7}
-code{background:rgba(29,209,161,.12);color:var(--teal);padding:2px 6px;border-radius:4px;font-size:.85em}
-
-/* Q count bar */
-.q-meta{background:var(--bg2);border-radius:10px;padding:10px 16px;margin-bottom:14px;border:1px solid var(--border)}
-
-/* Section label colors */
-.section.intent .label{color:var(--blue)}
-.section.weak .label{color:var(--red)}
-.section.strong .label{color:var(--teal)}
-.section.principal .label{color:var(--gold)}
-.section.real .label{color:var(--purple)}
-.section.mistakes .label{color:var(--saffron)}
-.section.followups .label{color:var(--text2)}
-:root{--bg:#0C0A15;--bg2:#13101F;--bg3:#1A1628;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:#E8E6F0;--text2:#9B97B2;--saffron:#E85D26;--gold:#FDB813;--teal:#1DD1A1;--purple:#9B59B6;--red:#E74C3C;--blue:#3498DB;--radius:12px;--shadow:0 8px 32px rgba(0,0,0,0.4)}
-[data-theme="light"]{--bg:#F5F3FF;--bg2:#EDE8FF;--bg3:#E0D9FF;--card:rgba(255,255,255,0.8);--border:rgba(0,0,0,0.1);--text:#1A1628;--text2:#6B6880;--shadow:0 4px 16px rgba(0,0,0,0.1)}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
-code,pre,kbd{font-family:'JetBrains Mono','Fira Code','Courier New',monospace}
-/* Layout */
-#app{display:flex;flex-direction:column;height:100vh}
-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0;z-index:100}
-.logo{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
-.logo span{font-size:.7rem;font-weight:400;opacity:.7;-webkit-text-fill-color:var(--text2)}
-#search{flex:1;max-width:400px;padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:24px;color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s}
-#search:focus{border-color:var(--saffron)}
-#search::placeholder{color:var(--text2)}
-.header-btns{display:flex;gap:8px;margin-left:auto}
-.btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-size:.82rem;transition:all .2s;white-space:nowrap}
-.btn:hover{background:var(--saffron);border-color:var(--saffron);color:#fff}
-.btn.gold{background:var(--gold);border-color:var(--gold);color:#111}
-.btn.teal{background:var(--teal);border-color:var(--teal);color:#111}
+/* ── BODY WRAP ───────────────────────────────────────── */
 .body-wrap{display:flex;flex:1;overflow:hidden}
-/* Sidebar */
-aside{width:260px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
-.sidebar-section{padding:12px 14px;border-bottom:1px solid var(--border)}
-.sidebar-title{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:8px}
-.progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:4px}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--saffron),var(--gold));border-radius:3px;transition:width .5s}
-.progress-text{font-size:.75rem;color:var(--text2)}
-.diff-filters{display:flex;gap:6px;flex-wrap:wrap}
-.diff-chip{padding:4px 10px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;font-size:.75rem;transition:all .2s}
-.diff-chip.active,.diff-chip:hover{color:#fff}
-.diff-chip[data-d="all"].active{background:var(--saffron);border-color:var(--saffron)}
-.diff-chip[data-d="easy"].active{background:var(--teal);border-color:var(--teal);color:#111}
-.diff-chip[data-d="medium"].active{background:var(--gold);border-color:var(--gold);color:#111}
-.diff-chip[data-d="hard"].active{background:var(--saffron);border-color:var(--saffron)}
-.cat-list{list-style:none}
-.cat-item{padding:6px 10px;border-radius:8px;cursor:pointer;font-size:.83rem;display:flex;justify-content:space-between;align-items:center;transition:all .2s;color:var(--text2)}
-.cat-item:hover,.cat-item.active{background:var(--card);color:var(--text)}
-.cat-item.active{border-left:3px solid var(--saffron);padding-left:7px}
-.cat-count{font-size:.72rem;background:var(--border);padding:2px 6px;border-radius:8px}
-/* Main */
+
+/* ── SIDEBAR ─────────────────────────────────────────── */
+aside{width:236px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;padding-bottom:16px}
+.sb-block{padding:12px 12px 0}
+.sb-label{font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-bottom:7px;padding:0 2px}
+.sb-divider{height:1px;background:var(--border);margin:10px 0}
+
+/* Progress ring */
+.progress-ring-wrap{display:flex;align-items:center;gap:10px;padding:6px 0 10px}
+.progress-ring-svg{transform:rotate(-90deg)}
+.progress-ring-bg{fill:none;stroke:var(--border);stroke-width:3}
+.progress-ring-fill{fill:none;stroke:url(#ringGrad);stroke-width:3;stroke-linecap:round;stroke-dasharray:100.53;stroke-dashoffset:100.53;transition:stroke-dashoffset .6s ease}
+.progress-ring-text{line-height:1}
+.progress-ring-pct{font-size:1.1rem;font-weight:800;color:var(--text);display:block;letter-spacing:-.03em}
+.progress-ring-sub{font-size:.68rem;color:var(--text3);display:block;margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+
+/* Diff chips */
+.diff-chips{display:flex;gap:4px;flex-wrap:wrap}
+.diff-chip{padding:3px 8px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:.7rem;font-weight:500;transition:all .15s;letter-spacing:.01em}
+.diff-chip:hover{border-color:var(--border2);color:var(--text2)}
+.diff-chip.active[data-d=all]{background:var(--s2);border-color:var(--saffron);color:var(--saffron)}
+.diff-chip.active[data-d=easy]{background:var(--t2);border-color:var(--teal);color:var(--teal)}
+.diff-chip.active[data-d=medium]{background:var(--g2);border-color:var(--gold);color:var(--gold)}
+.diff-chip.active[data-d=hard]{background:var(--r2);border-color:var(--red);color:var(--red)}
+
+/* Category list */
+.cat-list{list-style:none;margin-top:2px}
+.cat-item{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:.79rem;color:var(--text2);transition:all .12s;margin:1px 4px;user-select:none;position:relative}
+.cat-item:hover{background:var(--surface);color:var(--text)}
+.cat-item.active{background:var(--s2);color:var(--saffron);font-weight:600}
+.cat-item.active::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:2px;background:var(--saffron);border-radius:0 2px 2px 0}
+.cat-name{flex:1;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cat-meta{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.cat-count{font-size:.67rem;color:var(--text3);font-weight:600;font-variant-numeric:tabular-nums}
+.cat-item.active .cat-count{color:rgba(232,93,38,.7)}
+.cat-dot{width:5px;height:5px;border-radius:50%;background:var(--border2);flex-shrink:0;transition:all .15s}
+.cat-item.active .cat-dot{background:var(--saffron);box-shadow:0 0 5px rgba(232,93,38,.6)}
+/* Bookmark special */
+.cat-item.bk-item{font-style:italic}
+.cat-item.bk-item.active{background:var(--g2);color:var(--gold)}
+.cat-item.bk-item.active::before{background:var(--gold)}
+.cat-item.bk-item.active .cat-dot{background:var(--gold);box-shadow:0 0 5px rgba(245,166,35,.6)}
+
+/* ── MAIN ────────────────────────────────────────────── */
 main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);flex-shrink:0}
-.tab{padding:12px 20px;cursor:pointer;font-size:.88rem;color:var(--text2);border-bottom:2px solid transparent;transition:all .2s}
-.tab.active{color:var(--saffron);border-bottom-color:var(--saffron)}
-.tab-content{flex:1;overflow-y:auto;padding:20px}
+.tab{padding:0 16px;height:44px;display:flex;align-items:center;cursor:pointer;font-size:.8rem;font-weight:500;color:var(--text3);border-bottom:2px solid transparent;transition:all .15s;user-select:none;gap:5px;white-space:nowrap}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--text);border-bottom-color:var(--saffron);font-weight:600}
+.tab-content{flex:1;overflow-y:auto;padding:20px 22px}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
-/* Question Cards */
-.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:.82rem;color:var(--text2)}
-#q-count{font-weight:600;color:var(--text)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;transition:all .2s;backdrop-filter:blur(10px)}
-.card:hover{border-color:rgba(232,93,38,.3)}
-.card.answered{border-left:3px solid var(--teal)}
-.card-header{padding:14px 16px;cursor:pointer;display:flex;align-items:flex-start;gap:10px}
-.card-left{display:flex;flex-direction:column;gap:4px;flex-shrink:0;min-width:80px}
-.q-num{font-size:.72rem;color:var(--text2);font-family:monospace}
-.cat-badge{font-size:.68rem;padding:2px 6px;background:rgba(232,93,38,.15);color:var(--saffron);border-radius:4px;white-space:nowrap}
-.diff-badge{font-size:.68rem;font-weight:600;text-transform:uppercase}
-.card-title{flex:1;font-size:.95rem;font-weight:500;line-height:1.4;padding-top:2px}
-.card-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.icon-btn{background:none;border:none;cursor:pointer;font-size:1rem;padding:4px;border-radius:6px;transition:all .2s;opacity:.4}
-.icon-btn:hover,.icon-btn.active{opacity:1;transform:scale(1.1)}
-.chevron{font-size:.75rem;color:var(--text2);padding:4px}
+
+/* ── QUESTION LIST TOOLBAR ───────────────────────────── */
+.q-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.q-count-text{font-size:.76rem;color:var(--text3)}
+.q-count-text strong{color:var(--text2)}
+.answered-badge{font-size:.72rem;color:var(--teal);font-weight:600;background:var(--t2);padding:2px 8px;border-radius:4px}
+
+/* ── QUESTION CARDS ──────────────────────────────────── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:7px;transition:border-color .15s}
+.card:hover{border-color:var(--border2)}
+.card.answered{border-left:2px solid var(--teal)}
+.card.expanded{border-color:rgba(232,93,38,.22);box-shadow:0 0 0 1px rgba(232,93,38,.06),0 4px 20px rgba(0,0,0,.25)}
+.card-header{padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:9px;user-select:none}
+.card-meta{display:flex;align-items:center;gap:4px;flex-shrink:0;margin-top:2px;flex-wrap:wrap;max-width:130px}
+.q-num{font-size:.65rem;color:var(--text3);font-family:monospace;font-weight:700}
+.cat-badge{font-size:.62rem;padding:2px 5px;background:var(--s2);color:var(--saffron);border-radius:3px;white-space:nowrap;font-weight:700;letter-spacing:.01em}
+.diff-badge{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:1px 5px;border-radius:3px}
+.diff-badge.easy{color:var(--teal);background:var(--t2)}
+.diff-badge.medium{color:var(--gold);background:var(--g2)}
+.diff-badge.hard{color:var(--red);background:var(--r2)}
+.card-title{flex:1;font-size:.86rem;font-weight:500;line-height:1.5;color:var(--text)}
+.card-actions{display:flex;align-items:center;gap:1px;flex-shrink:0}
+.act-btn{background:none;border:none;color:var(--text3);font-size:.8rem;padding:4px 5px;border-radius:4px;transition:all .12s;line-height:1}
+.act-btn:hover{background:var(--surface);color:var(--text2)}
+.act-btn.active{color:var(--saffron)}
+.act-btn.fav.active{color:var(--gold)}
+.act-btn.ans.active{color:var(--teal)}
+.chevron{font-size:.6rem;color:var(--text3);padding:4px 3px;transition:transform .2s;display:inline-block}
+.card.expanded .chevron{transform:rotate(180deg)}
+
 /* Card body */
-.card-body{padding:0 16px 16px;border-top:1px solid var(--border)}
-.section{margin-top:14px}
-.label{display:block;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
-.section.intent .label{color:var(--blue)}
-.section.weak .label{color:var(--red)}
-.section.strong .label{color:var(--teal)}
-.section.principal .label{color:var(--gold)}
-.section.real .label{color:var(--purple)}
-.section.mistakes .label{color:var(--saffron)}
-.section.followups .label{color:var(--text2)}
-.section p{font-size:.88rem;line-height:1.7;color:var(--text2)}
-.section ul{padding-left:18px;font-size:.88rem;color:var(--text2);line-height:1.8}
-.card-body pre{background:var(--bg3);border-radius:8px;padding:12px;font-size:.8rem;overflow-x:auto;margin-top:8px;border:1px solid var(--border)}
-/* Expanded card glow */
-.card:has(.card-body){border-color:rgba(232,93,38,.25);box-shadow:0 0 24px rgba(232,93,38,.08)}
-/* Study guide */
-.guide-wrap{max-width:860px}
-.guide-section{margin-bottom:32px}
-.guide-h1{font-size:1.5rem;font-weight:700;background:linear-gradient(135deg,var(--saffron),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px}
-.guide-h2{font-size:1.1rem;font-weight:600;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.guide-h3{font-size:.95rem;font-weight:600;color:var(--teal);margin:14px 0 8px}
-.guide-p{font-size:.9rem;line-height:1.75;color:var(--text2);margin-bottom:10px}
-.cheat-list{list-style:none;display:grid;gap:8px}
-.cheat-list li{padding:10px 14px;background:var(--card);border-radius:8px;border-left:3px solid var(--saffron);font-size:.88rem;line-height:1.5}
+.card-body{padding:0 14px 16px;border-top:1px solid var(--border)}
+.ans-section{margin-top:14px;border-radius:7px;overflow:hidden}
+.ans-section+.ans-section{margin-top:8px}
+.ans-hdr{display:flex;align-items:center;gap:5px;padding:7px 11px;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.ans-body{padding:11px 13px;font-size:.84rem;line-height:1.8;color:var(--text2)}
+.ans-body p{margin:0}
+.ans-body ul{padding-left:17px}
+.ans-body li{margin-bottom:3px}
+/* Section type theming */
+.as-intent .ans-hdr{background:var(--b2);color:var(--blue);border:1px solid rgba(75,159,255,.15);border-bottom:none;border-radius:7px 7px 0 0}
+.as-intent .ans-body{background:rgba(75,159,255,.04);border:1px solid rgba(75,159,255,.15);border-top:none;border-radius:0 0 7px 7px}
+.as-weak .ans-hdr{background:var(--r2);color:var(--red);border:1px solid rgba(255,87,87,.15);border-bottom:none;border-radius:7px 7px 0 0}
+.as-weak .ans-body{background:rgba(255,87,87,.04);border:1px solid rgba(255,87,87,.15);border-top:none;border-radius:0 0 7px 7px}
+.as-strong .ans-hdr{background:var(--t2);color:var(--teal);border:1px solid rgba(23,196,146,.2);border-bottom:none;border-radius:7px 7px 0 0}
+.as-strong .ans-body{background:rgba(23,196,146,.05);border:1px solid rgba(23,196,146,.2);border-top:none;border-radius:0 0 7px 7px;font-size:.86rem;color:var(--text)}
+.as-principal .ans-hdr{background:var(--g2);color:var(--gold);border:1px solid rgba(245,166,35,.2);border-bottom:none;border-radius:7px 7px 0 0}
+.as-principal .ans-body{background:rgba(245,166,35,.04);border:1px solid rgba(245,166,35,.2);border-top:none;border-radius:0 0 7px 7px}
+.as-real .ans-hdr{background:var(--p2);color:var(--purple);border:1px solid rgba(167,139,250,.15);border-bottom:none;border-radius:7px 7px 0 0}
+.as-real .ans-body{background:rgba(167,139,250,.04);border:1px solid rgba(167,139,250,.15);border-top:none;border-radius:0 0 7px 7px;font-style:italic}
+.as-mistakes .ans-hdr{background:var(--s2);color:var(--saffron);border:1px solid rgba(232,93,38,.2);border-bottom:none;border-radius:7px 7px 0 0}
+.as-mistakes .ans-body{background:rgba(232,93,38,.04);border:1px solid rgba(232,93,38,.2);border-top:none;border-radius:0 0 7px 7px}
+.as-fu .ans-hdr{background:transparent;color:var(--text3);border:1px solid var(--border);border-bottom:none;border-radius:7px 7px 0 0}
+.as-fu .ans-body{background:var(--bg3);border:1px solid var(--border);border-top:none;border-radius:0 0 7px 7px;font-style:normal}
+.fu-chips{display:flex;flex-wrap:wrap;gap:5px}
+.fu-chip{padding:3px 9px;border-radius:4px;background:var(--surface);border:1px solid var(--border2);font-size:.74rem;color:var(--text2);cursor:pointer;transition:all .12s;font-style:normal}
+.fu-chip:hover{border-color:var(--saffron);color:var(--saffron);background:var(--s2)}
+/* Notes */
+.as-notes .ans-hdr{background:transparent;color:var(--text3);border:1px solid var(--border);border-bottom:none;border-radius:7px 7px 0 0}
+.note-area{width:100%;padding:9px 13px;background:var(--bg3);border:1px solid var(--border);border-top:none;border-radius:0 0 7px 7px;color:var(--text);font-size:.82rem;font-family:inherit;resize:vertical;min-height:65px;outline:none;transition:border-color .15s}
+.note-area:focus{border-color:var(--saffron)}
+.note-area::placeholder{color:var(--text3)}
+
+/* Code blocks */
+pre{background:var(--bg3)!important;border:1px solid var(--border)!important;border-radius:7px!important;padding:11px 13px!important;font-size:.77rem!important;overflow-x:auto;line-height:1.65;margin:10px 0 0!important}
+code{background:var(--bg3);color:var(--teal);padding:1px 5px;border-radius:3px;font-size:.83em}
+pre code{background:none;color:inherit;padding:0;font-size:inherit}
+
+/* ── HERO ────────────────────────────────────────────── */
+.guide-wrap{max-width:820px}
+.hero{background:linear-gradient(145deg,rgba(232,93,38,.1),rgba(245,166,35,.07) 50%,rgba(23,196,146,.07));border:1px solid rgba(232,93,38,.18);border-radius:var(--radius-lg);padding:26px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,93,38,.1),transparent 70%);pointer-events:none}
+.hero-eyebrow{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--saffron);margin-bottom:7px}
+.hero-title{font-size:1.65rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;background:linear-gradient(135deg,var(--saffron),var(--gold) 55%,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:7px}
+.hero-sub{font-size:.8rem;color:var(--text2);line-height:1.6;margin-bottom:16px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.hero-pill{padding:3px 9px;border-radius:4px;font-size:.7rem;font-weight:600;border:1px solid;letter-spacing:.02em}
+.hero-pill.s{border-color:var(--saffron);color:var(--saffron);background:var(--s2)}
+.hero-pill.g{border-color:var(--gold);color:var(--gold);background:var(--g2)}
+.hero-pill.t{border-color:var(--teal);color:var(--teal);background:var(--t2)}
+.hero-pill.p{border-color:var(--purple);color:var(--purple);background:var(--p2)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:7px}
+.cta-btn{padding:7px 16px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid;letter-spacing:.01em;font-family:inherit}
+.cta-primary{background:var(--saffron);border-color:var(--saffron);color:#fff}
+.cta-primary:hover{background:#d44f1e;box-shadow:0 4px 14px rgba(232,93,38,.35)}
+.cta-secondary{background:var(--surface);border-color:var(--border2);color:var(--text2)}
+.cta-secondary:hover{border-color:var(--teal);color:var(--teal);background:var(--t2)}
+
+/* Quick cards */
+.quick-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:7px;margin-bottom:24px}
+.quick-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:13px 11px;cursor:pointer;transition:all .15s;text-align:center}
+.quick-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.qc-icon{font-size:1.3rem;margin-bottom:5px}
+.qc-title{font-size:.74rem;font-weight:600;color:var(--text);margin-bottom:2px}
+.qc-sub{font-size:.67rem;color:var(--text3);line-height:1.4}
+
+/* Guide sections */
+.guide-section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;transition:border-color .15s}
+.guide-section:hover{border-color:var(--border2)}
+.gs-head{display:flex;align-items:center;gap:7px;margin-bottom:13px;padding-bottom:9px;border-bottom:1px solid var(--border)}
+.gs-title{font-size:.86rem;font-weight:700;color:var(--gold);letter-spacing:-.01em}
+.guide-h3{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin:16px 0 7px;display:flex;align-items:center;gap:5px}
+.guide-h3::before{content:'';display:inline-block;width:2px;height:12px;background:var(--teal);border-radius:1px}
+.guide-p{font-size:.83rem;line-height:1.75;color:var(--text2);margin-bottom:9px}
+
+/* Guide tables */
+table{width:100%;border-collapse:collapse;font-size:.79rem;margin-bottom:13px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+th{background:var(--surface);padding:7px 11px;text-align:left;font-weight:700;color:var(--gold);border-bottom:1px solid var(--border2);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+td{padding:7px 11px;border-bottom:1px solid var(--border);color:var(--text2);line-height:1.5}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface)}
+
+/* Cheat list */
+.cheat-list{list-style:none;display:grid;gap:5px;counter-reset:cl}
+.cheat-list li{counter-increment:cl;display:flex;align-items:flex-start;gap:9px;padding:9px 13px;background:var(--bg3);border-radius:6px;border:1px solid var(--border);font-size:.82rem;line-height:1.5;transition:border-color .12s}
+.cheat-list li:hover{border-color:rgba(232,93,38,.25)}
+.cheat-list li::before{content:counter(cl);display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;background:var(--s2);border:1px solid rgba(232,93,38,.3);border-radius:4px;color:var(--saffron);font-size:.63rem;font-weight:700;flex-shrink:0;margin-top:1px}
 .cheat-list li strong{color:var(--saffron)}
-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:16px}
-th{background:var(--bg3);padding:8px 12px;text-align:left;font-weight:600;color:var(--gold);border:1px solid var(--border)}
-td{padding:8px 12px;border:1px solid var(--border);color:var(--text2);line-height:1.5}
-tr:hover td{background:var(--card)}
-code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:.85em;color:var(--teal)}
-.star-tip{display:flex;gap:12px;margin-bottom:10px}
-.star-label{font-weight:700;color:var(--saffron);min-width:30px;font-size:.9rem}
-.star-text{font-size:.88rem;color:var(--text2);line-height:1.6}
-.playbook-list{list-style:none;display:grid;gap:6px;counter-reset:pb}
-.playbook-list li{counter-increment:pb;padding:8px 14px 8px 40px;background:var(--card);border-radius:8px;position:relative;font-size:.88rem;color:var(--text2);line-height:1.5}
-.playbook-list li::before{content:counter(pb);position:absolute;left:12px;top:10px;font-weight:700;color:var(--saffron);font-size:.85rem}
-/* Stats */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
-.stat-cat{font-size:.8rem;color:var(--text2);margin-bottom:4px}
-.stat-nums{font-size:.85rem;color:var(--text2);margin-bottom:6px}
-.stat-nums strong{color:var(--text);font-size:1rem}
-/* Modals */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);display:none}
+.playbook-list{list-style:none;display:grid;gap:5px;counter-reset:pb}
+.playbook-list li{counter-increment:pb;padding:8px 13px 8px 34px;background:var(--bg3);border-radius:6px;position:relative;font-size:.82rem;color:var(--text2);line-height:1.5;border:1px solid var(--border)}
+.playbook-list li::before{content:counter(pb);position:absolute;left:10px;top:9px;font-weight:700;color:var(--saffron);font-size:.72rem}
+.star-tip{display:flex;gap:9px;margin-bottom:7px;align-items:flex-start}
+.star-label{font-weight:800;color:var(--saffron);min-width:22px;font-size:.84rem;padding-top:1px}
+.star-text{font-size:.82rem;color:var(--text2);line-height:1.6}
+
+/* Inline code formula highlight */
+.formula{display:inline-block;background:var(--bg3);border:1px solid var(--border);border-radius:5px;padding:8px 13px;font-family:monospace;font-size:.85rem;color:var(--teal);margin:6px 0}
+
+/* ── ALISHA'S QUESTIONS ─────────────────────────────── */
+.aq-intro{background:linear-gradient(135deg,rgba(232,93,38,.08),rgba(245,166,35,.06));border:1px solid rgba(232,93,38,.25);border-radius:10px;padding:14px 17px;margin-bottom:18px;font-size:.83rem;line-height:1.65;color:var(--text2)}
+.aq-intro strong{color:var(--saffron)}
+.aq-intro em{color:var(--gold);font-style:normal;font-weight:600}
+.aq-grid{display:grid;gap:10px}
+.aq-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s}
+.aq-card:hover{border-color:var(--border2)}
+.aq-head{display:flex;align-items:flex-start;gap:11px;padding:13px 15px}
+.aq-num{display:flex;align-items:center;justify-content:center;min-width:26px;height:26px;background:var(--s2);border:1px solid rgba(232,93,38,.3);border-radius:5px;color:var(--saffron);font-size:.67rem;font-weight:800;flex-shrink:0;margin-top:1px;letter-spacing:.02em}
+.aq-title{font-size:.88rem;font-weight:700;color:var(--text);line-height:1.35}
+.aq-tags{display:flex;flex-wrap:wrap;gap:4px;padding:0 15px 10px;margin-top:-4px}
+.aq-tag{font-size:.61rem;font-weight:600;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.05em}
+.aq-tag.s{background:var(--s2);color:var(--saffron);border:1px solid rgba(232,93,38,.2)}
+.aq-tag.t{background:var(--t2);color:var(--teal);border:1px solid rgba(23,196,146,.2)}
+.aq-tag.g{background:var(--g2);color:var(--gold);border:1px solid rgba(245,166,35,.2)}
+.aq-tag.b{background:var(--b2);color:var(--blue);border:1px solid rgba(75,159,255,.2)}
+.aq-tag.p{background:var(--p2);color:var(--purple);border:1px solid rgba(167,139,250,.2)}
+details.aq-deep{border-top:1px solid var(--border)}
+details.aq-deep summary{padding:9px 15px;font-size:.78rem;font-weight:600;color:var(--text2);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;transition:color .12s;user-select:none}
+details.aq-deep summary::-webkit-details-marker{display:none}
+details.aq-deep summary::before{content:'▶';font-size:.55rem;color:var(--text3);transition:transform .15s;display:inline-block}
+details.aq-deep[open] summary::before{transform:rotate(90deg)}
+details.aq-deep[open] summary{color:var(--saffron)}
+.aq-body{padding:4px 15px 14px}
+.aq-arch{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px 13px;font-family:monospace;font-size:.73rem;color:var(--teal);line-height:1.7;margin:8px 0;overflow-x:auto;white-space:pre}
+.aq-code{background:var(--bg);border:1px solid var(--border);border-left:2px solid var(--teal);border-radius:0 7px 7px 0;padding:10px 13px;font-family:monospace;font-size:.72rem;color:var(--text2);line-height:1.7;margin:8px 0;overflow-x:auto;white-space:pre}
+.aq-trap{background:rgba(255,87,87,.06);border:1px solid rgba(255,87,87,.2);border-radius:7px;padding:9px 13px;margin:8px 0;font-size:.79rem;line-height:1.5;color:var(--text2)}
+.aq-trap strong{color:var(--red)}
+.aq-secret{background:rgba(23,196,146,.06);border:1px solid rgba(23,196,146,.2);border-radius:7px;padding:9px 13px;margin:8px 0;font-size:.79rem;line-height:1.5;color:var(--text2)}
+.aq-secret strong{color:var(--teal)}
+.aq-label{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin:12px 0 5px}
+.aq-jqlink{display:inline-flex;align-items:center;gap:5px;font-size:.76rem;color:var(--saffron);border:1px solid rgba(232,93,38,.25);border-radius:5px;padding:4px 10px;cursor:pointer;transition:all .12s;background:var(--s2);margin-top:6px;text-decoration:none}
+.aq-jqlink:hover{background:var(--saffron);color:#fff;border-color:var(--saffron)}
+
+/* ── STATS TAB ───────────────────────────────────────── */
+.stats-overview{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.stat-summary{flex:1;min-width:120px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px}
+.ss-val{font-size:1.5rem;font-weight:800;color:var(--text);letter-spacing:-.03em;line-height:1}
+.ss-label{font-size:.68rem;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px;margin-bottom:14px}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;transition:all .15s}
+.stat-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.stat-cat{font-size:.77rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.stat-nums{font-size:.7rem;color:var(--text3);margin-bottom:5px;display:flex;justify-content:space-between}
+.stat-nums strong{color:var(--saffron)}
+.stat-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.stat-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--saffron),var(--gold));transition:width .6s ease}
+.stat-fill.full{background:linear-gradient(90deg,var(--teal),#14A880)}
+.stat-pct{font-size:.67rem;color:var(--text3);margin-top:3px;text-align:right}
+.stats-actions{display:flex;gap:7px;margin-top:12px}
+
+/* ── MODALS ──────────────────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .modal-overlay.open{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:700px;width:90%;max-height:85vh;overflow-y:auto;position:relative}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer}
-.modal h2{font-size:1.1rem;font-weight:600;margin-bottom:6px;color:var(--gold)}
-.modal-q{font-size:1rem;font-weight:500;line-height:1.5;margin-bottom:16px;padding:12px;background:var(--card);border-radius:8px}
-.modal-reveal{margin-bottom:16px}
-.modal-nav{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap}
-.modal-timer{font-size:2rem;font-weight:700;color:var(--saffron);font-family:monospace;text-align:center;padding:10px}
-.rating-btns{display:flex;gap:8px;justify-content:center}
-.rating-btn{padding:8px 20px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:.9rem}
-.rating-btn.r1{background:var(--red);color:#fff}
-.rating-btn.r2{background:var(--gold);color:#111}
-.rating-btn.r3{background:var(--teal);color:#111}
-/* Toast */
-.toast{position:fixed;bottom:24px;right:24px;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:10px 18px;border-radius:8px;font-size:.88rem;z-index:2000;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:22px;max-width:660px;width:92%;max-height:88vh;overflow-y:auto;position:relative;box-shadow:var(--shadow-lg)}
+.modal-close{position:absolute;top:13px;right:14px;background:var(--surface);border:1px solid var(--border);color:var(--text2);width:27px;height:27px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;transition:all .12s}
+.modal-close:hover{background:var(--r2);border-color:var(--red);color:var(--red)}
+.modal-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:-.01em}
+.modal-sub{font-size:.75rem;color:var(--text3);margin-bottom:18px}
+.modal-q{font-size:.95rem;font-weight:600;line-height:1.5;color:var(--text);padding:13px 15px;background:var(--bg3);border-radius:8px;border:1px solid var(--border);margin-bottom:13px}
+.reveal-btn{width:100%;padding:9px;background:var(--surface);border:1px dashed var(--border2);border-radius:6px;color:var(--text2);font-size:.82rem;cursor:pointer;transition:all .15s;font-family:inherit;font-weight:500}
+.reveal-btn:hover{border-color:var(--saffron);color:var(--saffron);background:var(--s2)}
+.modal-timer{font-size:2.2rem;font-weight:800;color:var(--saffron);font-family:monospace;text-align:center;letter-spacing:.05em;padding:8px}
+.modal-timer.warn{color:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.modal-nav{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:14px;flex-wrap:wrap}
+.rating-btns{display:flex;gap:7px;justify-content:center}
+.rating-btn{padding:7px 18px;border-radius:5px;border:none;cursor:pointer;font-weight:700;font-size:.8rem;transition:all .15s;letter-spacing:.01em}
+.rating-btn.r1{background:var(--r2);color:var(--red);border:1px solid rgba(255,87,87,.3)}
+.rating-btn.r1:hover{background:var(--red);color:#fff}
+.rating-btn.r2{background:var(--g2);color:var(--gold);border:1px solid rgba(245,166,35,.3)}
+.rating-btn.r2:hover{background:var(--gold);color:#111}
+.rating-btn.r3{background:var(--t2);color:var(--teal);border:1px solid rgba(23,196,146,.3)}
+.rating-btn.r3:hover{background:var(--teal);color:#111}
+.setup-form{display:grid;gap:12px}
+.form-group label{display:block;font-size:.72rem;font-weight:600;color:var(--text2);margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.form-group select,.form-group input[type=number]{width:100%;padding:7px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.83rem;outline:none;transition:border-color .15s}
+.form-group select:focus,.form-group input:focus{border-color:var(--saffron)}
+
+/* Generic button */
+.btn{padding:6px 13px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;font-size:.78rem;font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:5px;font-family:inherit}
+.btn:hover{border-color:var(--border2);color:var(--text)}
+.btn-primary{background:var(--saffron);border-color:var(--saffron);color:#fff;font-weight:600}
+.btn-primary:hover{background:#d44f1e}
+.btn-danger{background:var(--r2);border-color:rgba(255,87,87,.3);color:var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+
+/* Flashcard */
+.flashcard-wrap{perspective:1000px;margin-bottom:14px}
+.flashcard{width:100%;height:210px;cursor:pointer;position:relative;transform-style:preserve-3d;transition:transform .45s ease}
+.flashcard.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:22px;border-radius:9px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fc-front{background:var(--bg3);border:1px solid var(--border2);flex-direction:column;gap:8px;text-align:center}
+.fc-back{background:var(--t2);border:1px solid rgba(23,196,146,.25);transform:rotateY(180deg);text-align:center}
+.fc-q{font-size:.9rem;font-weight:600;line-height:1.5;color:var(--text)}
+.fc-cat{font-size:.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.fc-hint{font-size:.68rem;color:var(--text3);position:absolute;bottom:10px;right:12px}
+.fc-answer{font-size:.8rem;line-height:1.7;color:var(--text2);max-height:180px;overflow-y:auto}
+.fc-nav{display:flex;gap:7px;justify-content:space-between;align-items:center}
+.fc-prog{font-size:.72rem;color:var(--text3)}
+
+/* ── TOAST ───────────────────────────────────────────── */
+.toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px 15px;border-radius:6px;font-size:.78rem;z-index:2000;opacity:0;transform:translateY(7px);transition:all .25s;pointer-events:none;max-width:270px;box-shadow:var(--shadow)}
 .toast.show{opacity:1;transform:translateY(0)}
-/* Responsive */
-@media(max-width:768px){aside{display:none}.logo span{display:none}#search{max-width:200px}.header-btns .btn{display:none}.header-btns .btn:first-child{display:inline-flex}}
-@media print{aside,header,.tabs,.header-btns{display:none!important}.card-body{display:block!important}.tab-pane{display:block!important}}
+
+/* ── RESPONSIVE ──────────────────────────────────────── */
+@media(max-width:768px){aside{display:none}.logo-tag{display:none}#search{max-width:140px}.header-actions .hbtn:not(.accent):not(.soft){display:none}.tab-content{padding:14px}}
+
+/* ── PRINT ───────────────────────────────────────────── */
+@media print{aside,header,.tabs,.header-actions{display:none!important}.card-body{display:block!important}.tab-pane{display:block!important}.card{break-inside:avoid}}
+
 </style>
 </head>
 <body>
 <div id="app">
 <header>
-  <div class="logo">Senior Backend Mastery 2026 <span>| FAANG Ready</span></div>
-  <input type="text" id="search" placeholder="🔍 Search questions, topics...">
-  <div class="header-btns">
-    <button class="btn" onclick="randomQ()">🎲 Random</button>
-    <button class="btn teal" onclick="openInterviewMode()">🎯 Interview Mode</button>
-    <button class="btn gold" onclick="openMockMode()">⏱ Mock Interview</button>
-    <button class="btn" onclick="window.print()">🖨 Print</button>
-    <button class="btn" id="theme-btn" onclick="toggleTheme()">🌙</button>
+  <div class="logo">Backend Mastery 2026<span class="logo-tag">FAANG Ready</span></div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="search" placeholder="Search questions, topics, concepts...">
+  </div>
+  <div class="header-actions">
+    <button class="hbtn" onclick="randomQ()">Random</button>
+    <button class="hbtn accent" onclick="openInterviewMode()">Interview Mode</button>
+    <button class="hbtn soft" onclick="openMockMode()">Mock Interview</button>
+    <button class="hbtn" onclick="openFlashcards()">Flashcards</button>
+    <button class="hbtn" onclick="window.print()">Print</button>
+    <button class="hbtn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">◑</button>
   </div>
 </header>
 <div class="body-wrap">
   <aside id="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-title">Overall Progress</div>
-      <div class="progress-bar"><div class="progress-fill" id="overall-fill" style="width:0%"></div></div>
-      <div class="progress-text" id="overall-text">0 / 0 answered</div>
+    <div class="sb-block">
+      <div class="sb-label">Progress</div>
+      <div class="progress-ring-wrap">
+        <svg class="progress-ring-svg" width="44" height="44" viewBox="0 0 44 44">
+          <defs><linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#E85D26"/><stop offset="100%" stop-color="#F5A623"/></linearGradient></defs>
+          <circle class="progress-ring-bg" cx="22" cy="22" r="16"/>
+          <circle class="progress-ring-fill" id="ring-fill" cx="22" cy="22" r="16"/>
+        </svg>
+        <div class="progress-ring-text">
+          <span class="progress-ring-pct" id="ring-pct">0%</span>
+          <span class="progress-ring-sub" id="ring-sub">0 / 0 done</span>
+        </div>
+      </div>
     </div>
-    <div class="sidebar-section">
-      <div class="sidebar-title">Difficulty</div>
-      <div class="diff-filters">
+    <div class="sb-divider"></div>
+    <div class="sb-block">
+      <div class="sb-label">Difficulty</div>
+      <div class="diff-chips" style="margin-top:6px">
         <button class="diff-chip active" data-d="all" onclick="setDiff('all',this)">All</button>
         <button class="diff-chip" data-d="easy" onclick="setDiff('easy',this)">Easy</button>
         <button class="diff-chip" data-d="medium" onclick="setDiff('medium',this)">Medium</button>
         <button class="diff-chip" data-d="hard" onclick="setDiff('hard',this)">Hard</button>
       </div>
     </div>
-    <div class="sidebar-section" style="flex:1">
-      <div class="sidebar-title">Categories</div>
-      <ul class="cat-list" id="cat-list"></ul>
+    <div class="sb-divider"></div>
+    <div class="sb-block" style="flex:1">
+      <div class="sb-label">Categories</div>
+      <ul class="cat-list" id="cat-list" style="margin-top:5px"></ul>
     </div>
   </aside>
   <main>
     <div class="tabs">
-      <div class="tab active" onclick="setTab('guide',this)">📖 Study Guide</div>
-      <div class="tab" onclick="setTab('questions',this)">❓ Questions</div>
-      <div class="tab" onclick="setTab('stats',this)">📊 Statistics</div>
+      <div class="tab active" onclick="setTab('guide',this)">Study Guide</div>
+      <div class="tab" onclick="setTab('questions',this)">Questions</div>
+      <div class="tab" onclick="setTab('stats',this)">Statistics</div>
     </div>
     <div class="tab-content">
       <div class="tab-pane active" id="pane-guide">
@@ -543,6 +653,915 @@ COMMIT;
 <li><strong>Red flags to avoid:</strong> "We never had that problem", "I'd just use AWS for that", "I'd Google it", "My team handled that", "It depends" with no follow-up.</li>
 <li><strong>Showing principal-level thinking:</strong> Mention cost, mention operational burden, mention the team skills required, mention migration path. Juniors solve the problem; principals solve the problem in context.</li>
 </ol>
+</div>
+
+<div class="guide-section">
+<div class="guide-h2">🌟 Alisha's Questions — Real-World Production Crises</div>
+<div class="aq-intro">
+  <strong>Curated by Alisha Sharan</strong> — 20 real production incidents that became iconic interview questions. Each scenario maps to an actual company crisis. Master these and you demonstrate <em>Staff Engineer</em> thinking: not just "what happened" but "how would you have designed it differently?"
+</div>
+<div class="aq-grid">
+
+<!-- 1. URL Shortener IPL -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">01</div>
+    <div>
+      <div class="aq-title">URL Shortener Crashes During IPL Finals</div>
+    </div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">CDN</span><span class="aq-tag s">Redis Hot Key</span><span class="aq-tag t">Horizontal Scaling</span><span class="aq-tag g">Cache Stampede</span><span class="aq-tag b">HikariCP</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Architecture Flow</div>
+      <div class="aq-arch">Browser → CDN Edge (301 cache) → Load Balancer
+  → App Node (Caffeine L1, 10K entries) → Redis Cluster (L2)
+  → PostgreSQL Read Replica → Primary DB</div>
+      <div class="aq-label">Root Cause</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">A single short URL trending during IPL = one Redis slot getting 100K req/sec. Redis is single-threaded per slot — the hot key becomes the bottleneck. DB connection pool (HikariCP default: 10) exhausts on cache miss burst.</p>
+      <div class="aq-label">Java / Spring Boot Fix</div>
+      <div class="aq-code">// L1: Caffeine in-process cache (never hits Redis for top URLs)
+@Bean CacheManager cacheManager() {
+    return new CaffeineCacheManager("urls") {{
+        setCaffeine(Caffeine.newBuilder()
+            .maximumSize(10_000).expireAfterWrite(5, MINUTES));
+    }};
+}
+
+// L2: Redis — shard hot keys across 10 replicas
+String redisKey = "url:" + shortCode + ":" + (shortCode.hashCode() % 10);
+// Reads pick random suffix; writes replicate to all 10</div>
+      <div class="aq-label">301 vs 302 Redirect</div>
+      <div class="aq-secret"><strong>Secret:</strong> Use <strong>301 (Permanent)</strong> for popular stable URLs — browser caches it, zero subsequent requests to origin. Use <strong>302 (Temporary)</strong> when you need click analytics. Most candidates say "302 always" and burn origin capacity.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "Add more servers" is wrong. More app servers don't help a hot Redis key — they all hit the same Redis slot. Fix the cache tier first.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(114)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 2. WhatsApp Duplicates -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">02</div>
+    <div><div class="aq-title">WhatsApp Users Receive Duplicate Messages</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Idempotency</span><span class="aq-tag t">At-Least-Once</span><span class="aq-tag g">Kafka Retries</span><span class="aq-tag b">Deduplication</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Why Duplicates Happen</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">Kafka guarantees at-least-once delivery. On consumer crash after processing but before offset commit, the message is redelivered. Same with network retries — client resends if ACK not received.</p>
+      <div class="aq-label">Architecture Flow</div>
+      <div class="aq-arch">Client → WebSocket → Message Service
+  → Kafka (at-least-once) → Consumer → Redis Dedup Check
+  → if NEW: persist to Cassandra + push notification
+  → if DUPLICATE: drop silently, return 200 to producer</div>
+      <div class="aq-label">Java: Idempotent Consumer</div>
+      <div class="aq-code">@KafkaListener(topics = "messages", containerFactory = "factory")
+public void consume(Message msg, Acknowledgment ack) {
+    String key = msg.getSenderId() + ":" + msg.getClientMsgId();
+    // SETNX with TTL = idempotent window (24h)
+    Boolean isNew = redis.opsForValue()
+        .setIfAbsent(key, "1", 24, HOURS);
+    if (Boolean.TRUE.equals(isNew)) {
+        messageRepository.save(msg);
+        pushService.notify(msg.getReceiverId(), msg);
+    }
+    ack.acknowledge(); // manual commit AFTER processing
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> Idempotency key = <code>{senderId}:{clientGeneratedMessageId}</code>. The client generates the ID before sending — this is how WhatsApp, Signal, iMessage all work.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Saying "use Kafka exactly-once semantics" without explaining the additional latency cost and that it only helps within the Kafka pipeline, not at the application layer.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(115)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 3. Swiggy Location Lag -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">03</div>
+    <div><div class="aq-title">Swiggy Shows Wrong Rider Location</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">WebSocket</span><span class="aq-tag t">MQTT</span><span class="aq-tag g">Redis GEO</span><span class="aq-tag b">Kafka Streams</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Architecture Flow</div>
+      <div class="aq-arch">Rider App → MQTT Broker (low-overhead TCP)
+  → Location Processor → Redis GEO (current pos)
+  → Kafka (event log) → WebSocket Server
+  → Customer App (live updates)</div>
+      <div class="aq-label">Why MQTT over HTTP</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">MQTT is 80% less battery drain than HTTP polling. Persistent TCP connection + 2-byte minimal header. Rider sends location every 2 seconds — over 8-hour shift that's 14,400 updates. HTTP overhead would kill the battery.</p>
+      <div class="aq-label">Java: WebSocket Location Push</div>
+      <div class="aq-code">@MessageMapping("/rider/location")
+public void updateLocation(LocationEvent event) {
+    // Store current position in Redis GEO
+    geoOperations.add("riders",
+        new Point(event.getLng(), event.getLat()),
+        event.getRiderId());
+    // Push to customer via WebSocket
+    String dest = "/topic/order/" + event.getOrderId() + "/location";
+    template.convertAndSend(dest, event);
+    // Publish to Kafka for analytics/history
+    kafkaTemplate.send("rider-locations", event.getRiderId(), event);
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> The lag is usually not network — it's the <strong>smoothing algorithm</strong>. GPS points jump. Apps interpolate between last-known and new position (linear interpolation over 2s). Wrong interpolation = apparent lag.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Designing with HTTP polling ("rider calls an endpoint every 2 seconds") — this doesn't scale and destroys mobile battery. WebSocket + MQTT are the right answers.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(116)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 4. BookMyShow Double Booking -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">04</div>
+    <div><div class="aq-title">BookMyShow Sells the Same Seat Twice</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Race Condition</span><span class="aq-tag t">SELECT FOR UPDATE</span><span class="aq-tag g">Optimistic Lock</span><span class="aq-tag b">Redis SETNX</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Two Strategies</div>
+      <table style="margin:7px 0">
+        <tr><th>Strategy</th><th>When to Use</th><th>Java</th></tr>
+        <tr><td>Pessimistic (SELECT FOR UPDATE)</td><td>Flash sales (high contention)</td><td>@Lock(PESSIMISTIC_WRITE)</td></tr>
+        <tr><td>Optimistic (version column)</td><td>Normal booking (low contention)</td><td>@Version on entity</td></tr>
+        <tr><td>Redis SETNX (distributed)</td><td>Multi-instance, pre-hold</td><td>redisTemplate.setIfAbsent()</td></tr>
+      </table>
+      <div class="aq-label">Java: Pessimistic Lock (Flash Sale)</div>
+      <div class="aq-code">// Repository
+@Lock(LockModeType.PESSIMISTIC_WRITE)
+@Query("SELECT s FROM Seat s WHERE s.id = :id AND s.status = 'AVAILABLE'")
+Optional&lt;Seat&gt; findAndLockSeat(@Param("id") Long seatId);
+
+// Service — runs inside @Transactional
+@Transactional
+public Booking bookSeat(Long seatId, Long userId) {
+    Seat seat = seatRepo.findAndLockSeat(seatId)
+        .orElseThrow(() -> new SeatUnavailableException());
+    seat.setStatus(RESERVED);
+    seat.setUserId(userId);
+    seatRepo.save(seat);
+    return bookingRepo.save(new Booking(seat, userId));
+    // Lock released when @Transactional commits
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> BookMyShow uses a <strong>temporary hold</strong> pattern — seat is "HELD" for 8 minutes while payment completes. If payment fails or times out, a scheduled job releases the hold. This is why you see the countdown timer.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Using <code>synchronized</code> keyword — only works on a single JVM. With multiple app servers (which BookMyShow has), you need DB-level or distributed locking.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(117)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 5. Netflix Buffering -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">05</div>
+    <div><div class="aq-title">Netflix Buffers Right After New Season Drops</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">CDN</span><span class="aq-tag t">Cache Warming</span><span class="aq-tag g">Auto Scaling</span><span class="aq-tag b">Open Connect</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Netflix's Actual Architecture</div>
+      <div class="aq-arch">User → Netflix CDN Edge (Open Connect Appliance at ISP)
+  → ISP Peering Point → Netflix Regional CDN → Origin
+  [Most users never hit origin — served from ISP CDN]</div>
+      <div class="aq-label">Why Buffering Happens at Launch</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">On premiere, CDN edge nodes have <strong>cold cache</strong> — first request for each video chunk must go to origin. Origin gets hammered by millions of simultaneous first requests. Fix: <strong>pre-warm the CDN</strong> before release by pushing content to edge nodes 24h before premiere.</p>
+      <div class="aq-label">Cache Warming Strategy</div>
+      <div class="aq-code">// Pre-warming: push popular content to CDN before release
+@Scheduled(cron = "0 0 2 * * ?") // 2 AM before premiere
+public void warmCDNEdges() {
+    List&lt;String&gt; upcomingReleases = contentService.getReleasesToday();
+    upcomingReleases.parallelStream().forEach(contentId -> {
+        // Trigger CDN prefetch API (CloudFront/Akamai-specific)
+        cdnClient.createInvalidationAndPrefetch(contentId);
+        // Also set long Cache-Control headers
+        contentService.setMaxAge(contentId, Duration.ofDays(7));
+    });
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> Netflix uses <strong>Predictive Auto-Scaling</strong> — they scale up EC2 instances the night before Thursday (their biggest release day) based on ML prediction, not reactive CPU thresholds.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Not mentioning CDN at all. Without CDN, no scaling strategy is sufficient — 200M concurrent streams cannot be served from any origin cluster.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(118)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 6. Uber Surge Pricing -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">06</div>
+    <div><div class="aq-title">Uber Surge Pricing During Rain</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Kafka Streams</span><span class="aq-tag t">Real-Time Analytics</span><span class="aq-tag g">Geohash</span><span class="aq-tag b">Dynamic Pricing</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Architecture Flow</div>
+      <div class="aq-arch">Driver GPS → Kafka ("driver-locations")
+  → Kafka Streams (window: 5-min, key: geohash6)
+  → Count drivers per geohash → Rider requests per geohash
+  → Surge = riderRequests / availableDrivers
+  → Redis ("surge:{geohash}") → Pricing API</div>
+      <div class="aq-label">Java: Kafka Streams Surge Calculator</div>
+      <div class="aq-code">KStream&lt;String, LocationEvent&gt; drivers =
+    builder.stream("driver-locations");
+
+// Count available drivers per geohash in 5-min window
+KTable&lt;Windowed&lt;String&gt;, Long&gt; driverCounts = drivers
+    .filter((k, v) -> v.isAvailable())
+    .groupBy((k, v) -> GeoHash.encode(v.getLat(), v.getLng(), 6))
+    .windowedBy(TimeWindows.ofSizeWithNoGrace(ofMinutes(5)))
+    .count();
+
+// Join with rider demand → compute multiplier
+surgeMultipliers
+    .toStream()
+    .foreach((window, surge) ->
+        redis.opsForValue().set(
+            "surge:" + window.key(),
+            surge,
+            5, MINUTES));</div>
+      <div class="aq-secret"><strong>Secret:</strong> Uber uses <strong>Geohash level 6</strong> (~1.2km × 0.6km cells). Level too fine = not enough drivers per cell. Level too coarse = surge doesn't reflect local supply. Geohash 6 is the sweet spot for city-level matching.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Using batch processing (run every 5 minutes via scheduler). Stream processing is mandatory — surge needs to update in seconds, not minutes.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(119)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 7. Amazon Cart Stale Data -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">07</div>
+    <div><div class="aq-title">Amazon Cart Shows Old Data</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Cache Invalidation</span><span class="aq-tag t">Cache-Aside</span><span class="aq-tag g">Write-Through</span><span class="aq-tag b">TTL Strategy</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Cache Pattern Comparison</div>
+      <table style="margin:7px 0">
+        <tr><th>Pattern</th><th>How</th><th>Stale Risk</th></tr>
+        <tr><td>Cache-Aside</td><td>Read: check cache → miss → DB → cache. Write: DB then evict cache</td><td>Low (explicit eviction)</td></tr>
+        <tr><td>Write-Through</td><td>Write: DB + cache simultaneously</td><td>Low (always consistent)</td></tr>
+        <tr><td>Write-Behind</td><td>Write: cache first → async flush to DB</td><td>High (flush delay)</td></tr>
+      </table>
+      <div class="aq-label">Java: Cache-Aside with Spring Cache</div>
+      <div class="aq-code">@Cacheable(value = "cart", key = "#userId")
+public Cart getCart(String userId) {
+    return cartRepository.findByUserId(userId);
+}
+
+@CacheEvict(value = "cart", key = "#userId")
+@Transactional
+public void addItem(String userId, CartItem item) {
+    cartRepository.addItem(userId, item);
+    // Cache evicted → next read rebuilds from DB
+}
+
+// Protect against stampede on eviction
+@CachePut(value = "cart", key = "#userId")
+@Transactional
+public Cart updateAndRepopulate(String userId, CartItem item) {
+    Cart updated = cartRepository.updateAndReturn(userId, item);
+    return updated; // immediately re-populates cache
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> Amazon actually uses <strong>eventual consistency intentionally</strong> for the cart — showing a slightly stale cart is acceptable for 1-2 seconds. The shopping cart is a "low-stakes" read. Checkout is strict-consistent (hits DB directly, bypasses cache).</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Saying "set TTL to 0" (no TTL) — this is fine for correctness but dangerous if eviction never happens and cache grows unbounded. Always set a reasonable TTL even with explicit eviction.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(120)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 8. Instagram Notification Storm -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">08</div>
+    <div><div class="aq-title">Instagram Notification Storm (Celebrity Posts)</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Fanout-on-Write</span><span class="aq-tag t">Fanout-on-Read</span><span class="aq-tag g">Kafka</span><span class="aq-tag b">Backpressure</span><span class="aq-tag p">Hybrid Fanout</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">The Celebrity Problem</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">Virat Kohli posts → 200M followers. Fanout-on-write = 200M writes to Redis feeds. That takes minutes. Fanout-on-read = every follower reads his timeline on login. Both are wrong alone — hybrid is the answer.</p>
+      <div class="aq-label">Hybrid Fanout Architecture</div>
+      <div class="aq-arch">Post Published → Kafka ("posts")
+  → Fanout Service reads event
+    → IF user.followerCount &lt; 10K (regular): push to each follower's Redis feed
+    → IF user.followerCount ≥ 10K (celebrity): store post only in author's timeline
+  → On client read: merge celebrity posts (pull) + friend posts (push)</div>
+      <div class="aq-label">Java: Tiered Fanout</div>
+      <div class="aq-code">@KafkaListener(topics = "posts")
+public void fanout(PostEvent post) {
+    User author = userService.get(post.getAuthorId());
+
+    if (author.getFollowerCount() < 10_000) {
+        // Push to all followers' feed lists in Redis
+        List&lt;String&gt; followers = followService.getFollowers(post.getAuthorId());
+        followers.forEach(followerId ->
+            redisList.leftPush("feed:" + followerId, post.getId()));
+    }
+    // Celebrities: just store post; clients pull on read
+    timelineService.saveToAuthorTimeline(post);
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> Instagram uses a threshold of ~<strong>10,000 followers</strong> to switch from push to pull. The actual number is tuned by measuring fanout queue depth vs read latency tradeoff.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Designing a single fanout strategy for all users. Celebrity accounts break fanout-on-write. Regular users suffer latency from fanout-on-read. Hybrid is mandatory at scale.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(121)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 9. Saga Payment -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">09</div>
+    <div><div class="aq-title">Payment Deducted But Order Failed</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Saga Pattern</span><span class="aq-tag t">2PC vs Saga</span><span class="aq-tag g">Compensation</span><span class="aq-tag b">Temporal</span><span class="aq-tag p">Outbox Pattern</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Why 2PC Fails at Scale</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">2-Phase Commit: all participants hold locks until coordinator confirms. If coordinator crashes between "prepare" and "commit", locks are held indefinitely — the entire system freezes. Unusable across microservices.</p>
+      <div class="aq-label">Saga Orchestration Flow</div>
+      <div class="aq-arch">Saga Orchestrator (Temporal)
+  Step 1: createOrder()       ← if fails: nothing to undo
+  Step 2: reserveInventory()  ← if fails: (nothing paid yet)
+  Step 3: chargePayment()     ← if fails: compensate step 2
+  Step 4: dispatchRider()     ← if fails: compensate 3 + 2
+  Step 5: confirmDelivery()   ← happy path complete</div>
+      <div class="aq-label">Java: Compensating Transaction</div>
+      <div class="aq-code">@WorkflowInterface
+public interface OrderSaga {
+    @WorkflowMethod
+    void processOrder(Order order);
+}
+
+// In workflow implementation (Temporal):
+@Override
+public void processOrder(Order order) {
+    OrderActivities activities = Workflow.newActivityStub(...);
+
+    String inventoryReservation = activities.reserveInventory(order);
+    try {
+        String paymentId = activities.chargePayment(order);
+        try {
+            activities.dispatchRider(order);
+        } catch (ActivityFailure e) {
+            activities.refundPayment(paymentId); // compensate
+            activities.releaseInventory(inventoryReservation); // compensate
+            throw e;
+        }
+    } catch (ActivityFailure e) {
+        activities.releaseInventory(inventoryReservation); // compensate
+        throw e;
+    }
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> The <strong>Outbox Pattern</strong> is what makes Sagas reliable. Each local DB transaction also writes to an "outbox" table. A separate process reads the outbox and publishes to Kafka. This ensures events are published if-and-only-if the DB commit succeeds.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Designing choreography-based Saga for a 5-step order flow. Choreography scatters the business logic across 5 services — impossible to debug. Use orchestration (Temporal) for complex flows.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(122)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 10. YouTube Pipeline -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">10</div>
+    <div><div class="aq-title">YouTube Video Processing Pipeline</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Chunked Upload</span><span class="aq-tag t">Transcoding</span><span class="aq-tag g">Kafka Jobs</span><span class="aq-tag b">Async Workers</span><span class="aq-tag p">Progressive Availability</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Pipeline Architecture</div>
+      <div class="aq-arch">Upload Client → Chunked S3 Multipart (5MB chunks)
+  → Upload Complete Event → Kafka ("video-jobs")
+  → Transcoding Workers (one per resolution):
+     360p worker  → S3 output + DB status update
+     720p worker  → S3 output + DB status update
+     1080p worker → S3 output + DB status update
+     4K worker    → S3 output + DB status update
+  → All done → CDN invalidation → Video Live</div>
+      <div class="aq-label">Java: Parallel Transcoding</div>
+      <div class="aq-code">@KafkaListener(topics = "video-jobs")
+public CompletableFuture&lt;Void&gt; transcodeVideo(VideoJob job) {
+    List&lt;CompletableFuture&lt;TranscodeResult&gt;&gt; futures =
+        List.of(360, 720, 1080, 2160).stream()
+            .map(res -> CompletableFuture.supplyAsync(
+                () -> ffmpegService.transcode(job.getS3Key(), res),
+                transcodingThreadPool))
+            .toList();
+
+    return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+        .thenRun(() -> {
+            videoService.markReady(job.getVideoId());
+            cdnService.invalidate("/videos/" + job.getVideoId() + "/*");
+        });
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> YouTube makes the <strong>360p version available first</strong> (lowest quality, fastest to transcode). Users can watch within minutes of upload while 4K transcoding continues in background. This is "progressive availability."</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Processing resolutions sequentially. 1080p takes 5x longer than 360p — parallel transcoding is essential for reasonable time-to-availability.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(123)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 11. Kafka Duplicate Events -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">11</div>
+    <div><div class="aq-title">Kafka Consumer Processes Same Event Twice</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Exactly-Once</span><span class="aq-tag t">Offset Management</span><span class="aq-tag g">Idempotent Producer</span><span class="aq-tag b">Manual Commit</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Root Causes</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">1. <strong>Auto-commit before processing:</strong> offset committed at 5-sec interval — crash mid-processing replays from committed offset. 2. <strong>Producer retries:</strong> producer doesn't get ACK (network blip) and resends — Kafka stores duplicate.</p>
+      <div class="aq-label">Java: Manual Commit + Idempotent Consumer</div>
+      <div class="aq-code">// Producer: idempotent (no duplicates from retries)
+props.put("enable.idempotence", "true");
+props.put("acks", "all");
+props.put("retries", Integer.MAX_VALUE);
+
+// Consumer: manual ack only after successful processing
+@KafkaListener(
+    topics = "payments",
+    containerFactory = "manualAckFactory")
+public void process(PaymentEvent event, Acknowledgment ack) {
+    try {
+        // Idempotent operation: upsert by event ID
+        if (!processedEvents.contains(event.getId())) {
+            paymentService.process(event);
+            processedEvents.add(event.getId()); // Redis set
+        }
+        ack.acknowledge(); // ONLY after success
+    } catch (Exception e) {
+        // Don't ack — message will be redelivered
+        log.error("Processing failed, will retry", e);
+    }
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> Kafka's Exactly-Once Semantics (EOS) = <code>enable.idempotence=true</code> + <code>transactional.id</code>. But EOS only prevents duplicates within the Kafka → Kafka path (Kafka Streams). Writing to a DB still needs application-level idempotency check.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Saying "just use enable.idempotence=true and all duplicates are solved." EOS does NOT prevent duplicates when the final destination is a DB — that requires idempotent consumers at the application layer.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(124)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 12. Out-of-Order Events -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">12</div>
+    <div><div class="aq-title">Order Events Arrive Out of Sequence</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Kafka Partitions</span><span class="aq-tag t">Event Ordering</span><span class="aq-tag g">Sequence Numbers</span><span class="aq-tag b">Reorder Buffer</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Why Ordering Breaks</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">Kafka guarantees order within a partition. With 10 partitions and round-robin assignment, events for Order #123 land on different partitions — consumed out of order. Same partition key = same partition = ordered.</p>
+      <div class="aq-label">Fix: Partition by OrderId</div>
+      <div class="aq-code">// Producer: always use orderId as key → same partition
+kafkaTemplate.send("order-events",
+    order.getId().toString(), // KEY = orderId
+    event);
+
+// Consumer: per-partition ordering is guaranteed
+// But: if you need global ordering across partitions,
+// use a reorder buffer with sequence numbers:
+Map&lt;Long, TreeMap&lt;Long, OrderEvent&gt;&gt; buffers = new ConcurrentHashMap&lt;&gt;();
+
+public void process(OrderEvent event) {
+    TreeMap&lt;Long, OrderEvent&gt; orderBuffer =
+        buffers.computeIfAbsent(event.getOrderId(), k -> new TreeMap&lt;&gt;());
+    orderBuffer.put(event.getSequenceNo(), event);
+
+    // Process consecutive events from buffer
+    long expected = lastProcessed.getOrDefault(event.getOrderId(), 0L) + 1;
+    while (orderBuffer.containsKey(expected)) {
+        processEvent(orderBuffer.remove(expected++));
+    }
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> Producer-assigned <strong>sequence numbers</strong> are the key. Without sequence numbers, you can't detect gaps — you don't know if you received events 1, 3, 4 and are waiting for 2, or if 2 simply doesn't exist.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Using a single-partition topic to guarantee global ordering. A single partition = no parallelism = throughput bottleneck. Correct answer: partition by entity ID (orderId) and accept per-entity ordering.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(125)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 13. Notification Crash Flash Sale -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">13</div>
+    <div><div class="aq-title">Notification Service Crashes During Flash Sale</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Backpressure</span><span class="aq-tag t">Rate Limiting</span><span class="aq-tag g">Circuit Breaker</span><span class="aq-tag b">Queue Buffer</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Architecture: Queue as Shock Absorber</div>
+      <div class="aq-arch">Flash Sale Event → Kafka ("notifications") [absorbs spike]
+  → Notification Worker (consumes at safe rate)
+  → Rate Limiter (Bucket4j: 1000 SMS/sec per provider)
+  → Circuit Breaker (open if SMS provider fails)
+  → Fallback: push notification via FCM</div>
+      <div class="aq-label">Java: Rate Limiting + Circuit Breaker</div>
+      <div class="aq-code">// Rate limiter: max 1000 notifications/sec to SMS provider
+Bucket smsRateBucket = Bucket.builder()
+    .addLimit(Bandwidth.classic(1000, Refill.greedy(1000, ofSeconds(1))))
+    .build();
+
+@CircuitBreaker(name = "sms-provider", fallbackMethod = "pushFallback")
+@RateLimiter(name = "sms-limiter")
+public void sendSMS(String phone, String message) {
+    if (smsRateBucket.tryConsume(1)) {
+        twilioClient.send(phone, message);
+    } else {
+        // Requeue for later if rate-limited
+        kafkaTemplate.send("notifications-delayed", phone, message);
+    }
+}
+
+public void pushFallback(String phone, String message, Exception e) {
+    // Circuit open — fall back to FCM push
+    fcmService.send(phone, message);
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> The crash is usually not the notification service itself — it's the <strong>downstream SMS provider</strong> (Twilio/MSG91) getting overloaded and returning 429s. The service keeps retrying → retry storm → provider blocks your IP. Circuit breaker + exponential backoff prevents this.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Sending notifications synchronously inside the purchase transaction. Flash sale = 50K purchases in 30 seconds × 100ms SMS latency = guaranteed timeout. Always async via Kafka.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(126)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 14. Instagram No JOINs -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">14</div>
+    <div><div class="aq-title">Why Instagram Avoids JOINs at Scale</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Denormalization</span><span class="aq-tag t">NoSQL</span><span class="aq-tag g">Read Optimization</span><span class="aq-tag b">Single-Table Design</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Design Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">The JOIN Problem at Scale</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">A JOIN across posts (1B rows) + users (500M rows) requires a hash join or nested loop — billions of comparisons even with indexes. At Instagram's read QPS (millions/sec), this is physically impossible. Denormalization stores the answer pre-computed.</p>
+      <div class="aq-label">Denormalization Example</div>
+      <table style="margin:7px 0">
+        <tr><th>Normalized (unusable at scale)</th><th>Denormalized (Instagram)</th></tr>
+        <tr><td>posts: id, author_id, content<br>JOIN users ON posts.author_id = users.id</td><td>posts: id, author_id, author_name, author_avatar, content<br>(author data duplicated in post row)</td></tr>
+      </table>
+      <div class="aq-label">When Does Denormalization Break</div>
+      <div class="aq-code">// Problem: user changes their username
+// Denormalized: must UPDATE millions of post rows
+UPDATE posts SET author_name = 'new_name' WHERE author_id = 12345;
+// → Table scan on 1B row table → write amplification
+
+// Solution: keep immutable snapshot at write time (good for posts)
+// OR: store only author_id, resolve username at read time via Redis cache
+// (fast because Redis lookup = O(1), not a JOIN)</div>
+      <div class="aq-secret"><strong>Secret:</strong> Instagram actually uses a <strong>hybrid approach</strong>: most post metadata is denormalized for reads, but mutable user data (username, avatar) is fetched via Redis cache at display time. Not a pure JOIN and not pure denormalization — a pragmatic middle ground.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "Never denormalize — it violates 3NF." In transaction-heavy financial systems, normalization is correct. In read-heavy social systems serving millions QPS, denormalization is the only scalable design.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(127)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 15. DynamoDB Hot Partition -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">15</div>
+    <div><div class="aq-title">DynamoDB Hot Partition Problem</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Partition Keys</span><span class="aq-tag t">Write Sharding</span><span class="aq-tag g">Scatter-Gather</span><span class="aq-tag b">DynamoDB Design</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Why Hot Partitions Happen</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">DynamoDB auto-shards by partition key. If all writes go to the same partition (e.g., userId = popular celebrity), that partition gets 100% of writes but is capped at 1000 WCU/sec. Result: throttling errors.</p>
+      <div class="aq-label">Fix: Write Sharding</div>
+      <div class="aq-code">// BAD: userId as partition key for high-traffic user
+PutItemRequest bad = PutItemRequest.builder()
+    .tableName("posts")
+    .item(Map.of("PK", attr("USER#virat"), "SK", attr(postId)))
+    .build();
+
+// GOOD: append shard suffix to partition key
+int shard = ThreadLocalRandom.current().nextInt(10); // 0-9
+PutItemRequest good = PutItemRequest.builder()
+    .tableName("posts")
+    .item(Map.of("PK", attr("USER#virat#" + shard), "SK", attr(postId)))
+    .build();
+
+// Read: scatter-gather across all 10 shards
+List&lt;GetItemRequest&gt; shardReads = IntStream.range(0, 10)
+    .mapToObj(s -> GetItemRequest.builder()
+        .tableName("posts")
+        .key(Map.of("PK", attr("USER#virat#" + s)))
+        .build())
+    .toList();
+// Execute in parallel, merge results</div>
+      <div class="aq-secret"><strong>Secret:</strong> The shard count (10) must be chosen based on expected max writes. Too few = still hot. Too many = scatter-gather reads hit all shards unnecessarily. Most production systems use 10-20 shards and tune based on metrics.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "Just increase RCU/WCU provisioned capacity." Higher capacity doesn't fix hot partitions — a single partition is still capped regardless of total table capacity. Must fix the partition key design.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(128)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 16. Redis Cache Stampede -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">16</div>
+    <div><div class="aq-title">Redis Cache Stampede Causes Production Outage</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Cache Stampede</span><span class="aq-tag t">TTL Jitter</span><span class="aq-tag g">Mutex Lock</span><span class="aq-tag b">PER Algorithm</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">How a Stampede Happens</div>
+      <div class="aq-arch">Normal: User A reads → Cache hit → return data
+Stampede:
+  T=0: Popular key expires (TTL hit)
+  T=0.001: 10,000 concurrent requests → ALL get cache miss
+  T=0.002: 10,000 threads all query the DB simultaneously
+  → DB CPU spikes to 100% → query timeout → DB crash</div>
+      <div class="aq-label">Three Defenses</div>
+      <div class="aq-code">// 1. TTL Jitter — spread expiration across time window
+int ttl = BASE_TTL + ThreadLocalRandom.current().nextInt(JITTER_RANGE);
+redis.setex(key, ttl, value);
+
+// 2. Mutex Lock — first requester refreshes, others wait
+RLock lock = redisson.getLock("refresh:" + key);
+if (lock.tryLock(100, 5000, MILLISECONDS)) {
+    try {
+        String val = redis.get(key);
+        if (val == null) { // double-check after acquiring lock
+            val = db.fetchExpensiveData(key);
+            redis.setex(key, TTL + jitter(), val);
+        }
+        return val;
+    } finally { lock.unlock(); }
+} else {
+    return redis.get(key); // another thread is refreshing — wait and retry
+}
+
+// 3. PER (Probabilistic Early Recomputation) — preemptive refresh
+// When remaining TTL &lt; delta, probabilistically trigger refresh early
+long remainingTTL = redis.ttl(key);
+if (remainingTTL &lt; DELTA &amp;&amp; Math.random() &lt; (1.0 / remainingTTL)) {
+    asyncRefresh(key); // background refresh before expiry
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> The <strong>PER (Probabilistic Early Recomputation)</strong> algorithm is the most elegant solution — it avoids the stampede by probabilistically refreshing the cache before it expires, with no distributed lock needed.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "TTL jitter prevents stampede." Jitter prevents all keys from expiring at the same time (good for fleet-wide expiry). But it does NOT prevent a single high-traffic key from causing a stampede when IT expires. Need mutex or PER for that.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(129)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 17. RAG Hallucination -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">17</div>
+    <div><div class="aq-title">AI Chatbot Gives Wrong Answers (Hallucination)</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">RAG</span><span class="aq-tag t">Vector DB</span><span class="aq-tag g">Hallucination</span><span class="aq-tag b">Spring AI</span><span class="aq-tag p">pgvector</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Why LLMs Hallucinate</div>
+      <p style="font-size:.8rem;color:var(--text2);line-height:1.6;margin:5px 0">LLMs are next-token predictors trained to generate plausible text — not to retrieve facts. Without grounding, they generate what sounds correct. RAG (Retrieval-Augmented Generation) provides real documents as context so the model answers from evidence.</p>
+      <div class="aq-label">RAG Pipeline Architecture</div>
+      <div class="aq-arch">Ingestion:
+  Documents → Chunker (500 token chunks)
+  → Embedding Model (text-embedding-3-small)
+  → pgvector / Pinecone (store vectors)
+
+Query:
+  User Query → Embed → Vector Similarity Search (Top-K=5)
+  → Retrieved Chunks → Prompt: "Answer using ONLY this context:"
+  → LLM (GPT-4o) → Answer with source citations</div>
+      <div class="aq-label">Java: Spring AI RAG</div>
+      <div class="aq-code">@Autowired VectorStore vectorStore;  // pgvector backed
+@Autowired ChatClient chatClient;
+
+public String answerWithRAG(String userQuery) {
+    // 1. Retrieve relevant chunks
+    List&lt;Document&gt; relevant = vectorStore.similaritySearch(
+        SearchRequest.query(userQuery).withTopK(5));
+
+    // 2. Build grounded prompt
+    String context = relevant.stream()
+        .map(Document::getContent)
+        .collect(Collectors.joining("\n\n---\n\n"));
+
+    String prompt = """
+        Answer ONLY using the context below.
+        If the answer isn't in the context, say "I don't know."
+
+        Context: %s
+
+        Question: %s
+        """.formatted(context, userQuery);
+
+    return chatClient.prompt(prompt).call().content();
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> The <strong>"I don't know" instruction</strong> is critical. Without it, LLMs will hallucinate an answer even when the context doesn't contain relevant information. Always instruct the model to abstain when context is insufficient.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "RAG eliminates hallucination." RAG reduces it dramatically but does not eliminate it — the LLM can still misinterpret or confabulate from the retrieved context. Adding source citations allows users to verify answers.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(130)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 18. AI Cost Spike -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">18</div>
+    <div><div class="aq-title">AI Platform Bill Spikes 10x Overnight</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Token Optimization</span><span class="aq-tag t">Model Routing</span><span class="aq-tag g">Semantic Cache</span><span class="aq-tag b">Cost Control</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Cost Reduction Strategies</div>
+      <table style="margin:7px 0">
+        <tr><th>Strategy</th><th>Savings</th><th>Technique</th></tr>
+        <tr><td>Semantic caching</td><td>30-40%</td><td>Cache responses by query embedding similarity</td></tr>
+        <tr><td>Model routing</td><td>60-70% on routed queries</td><td>Simple queries → cheap model (Haiku/mini)</td></tr>
+        <tr><td>Prompt compression</td><td>20-30%</td><td>Summarize context, remove filler</td></tr>
+        <tr><td>Response streaming</td><td>UX, not cost</td><td>Faster perceived performance</td></tr>
+      </table>
+      <div class="aq-label">Java: Model Router</div>
+      <div class="aq-code">public String route(String query, String context) {
+    // Score query complexity (simple heuristic)
+    int complexityScore = scoreComplexity(query, context);
+
+    if (complexityScore &lt; 30) {
+        // Simple Q&amp;A → cheap model ($0.001/1K tokens)
+        return claudeHaiku.answer(query, context);
+    } else if (complexityScore &lt; 70) {
+        // Medium → Sonnet ($0.003/1K tokens)
+        return claudeSonnet.answer(query, context);
+    } else {
+        // Complex reasoning → Opus ($0.015/1K tokens)
+        return claudeOpus.answer(query, context);
+    }
+}
+
+// Semantic cache: check if similar query was asked before
+public Optional&lt;String&gt; checkSemanticCache(String query) {
+    float[] queryEmbed = embedder.embed(query);
+    return semanticCache.findSimilar(queryEmbed, threshold: 0.92f);
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> The biggest cost lever is often <strong>system prompt size</strong>. A 2000-token system prompt sent on every query × 10M daily queries = $300/day wasted. Cache the system prompt (Anthropic API supports prompt caching) or move static instructions to the RAG corpus.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "Use streaming to reduce costs." Streaming improves latency perception but does NOT reduce token count or cost. Actual cost reduction comes from fewer tokens (compression, caching) or cheaper models (routing).</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(131)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 19. Vector Search Latency -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">19</div>
+    <div><div class="aq-title">AI Search Feels Slow (Vector Search Latency)</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">HNSW</span><span class="aq-tag t">ANN Search</span><span class="aq-tag g">IVF vs HNSW</span><span class="aq-tag b">Recall vs Latency</span><span class="aq-tag p">pgvector</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Index Type Comparison</div>
+      <table style="margin:7px 0">
+        <tr><th>Index</th><th>Query Latency</th><th>Recall</th><th>Best For</th></tr>
+        <tr><td>Exact KNN (no index)</td><td>O(n) — slow at scale</td><td>100%</td><td>&lt;100K vectors</td></tr>
+        <tr><td>IVF (Inverted File)</td><td>Fast (probe k clusters)</td><td>90-95%</td><td>Batch/offline search</td></tr>
+        <tr><td>HNSW (Hierarchical NSW)</td><td>Very fast (&lt;10ms)</td><td>95-99%</td><td>Production real-time</td></tr>
+        <tr><td>DiskANN</td><td>Fast (SSD-based)</td><td>95%+</td><td>Billion-scale on disk</td></tr>
+      </table>
+      <div class="aq-label">Java: pgvector with HNSW</div>
+      <div class="aq-code">-- PostgreSQL: create HNSW index
+CREATE INDEX ON embeddings
+USING hnsw (embedding vector_cosine_ops)
+WITH (m = 16, ef_construction = 64);
+-- m: connections per node (more = better recall, more memory)
+-- ef_construction: build time quality (higher = better recall)
+
+-- Query: ANN search with HNSW
+SELECT id, content,
+       1 - (embedding &lt;=&gt; $1::vector) AS similarity
+FROM embeddings
+ORDER BY embedding &lt;=&gt; $1::vector  -- cosine distance operator
+LIMIT 5;
+
+// Java (Spring Data JPA + pgvector)
+@Query(value = """
+    SELECT e FROM Embedding e
+    ORDER BY cosine_distance(e.embedding, :query)
+    LIMIT :k
+    """, nativeQuery = false)
+List&lt;Embedding&gt; findTopK(
+    @Param("query") float[] queryVector,
+    @Param("k") int k);</div>
+      <div class="aq-secret"><strong>Secret:</strong> For pgvector HNSW, the <strong>ef_search parameter at query time</strong> controls the recall-speed tradeoff dynamically. Set <code>SET hnsw.ef_search = 40</code> for fast queries, increase to 100 for higher recall when needed.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> "ANN gives wrong results." ANN gives approximate results — typically 95-99% recall, which is indistinguishable to users. The 1-5% miss is acceptable for search UX. Saying you need exact KNN at scale reveals a misunderstanding of production constraints.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(132)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+<!-- 20. OTP Failover -->
+<div class="aq-card">
+  <div class="aq-head">
+    <div class="aq-num">20</div>
+    <div><div class="aq-title">OTP Service Fails During Peak Traffic</div></div>
+  </div>
+  <div class="aq-tags">
+    <span class="aq-tag s">Rate Limiting</span><span class="aq-tag t">Retry Storm</span><span class="aq-tag g">Provider Failover</span><span class="aq-tag b">Circuit Breaker</span><span class="aq-tag p">Exponential Backoff</span>
+  </div>
+  <details class="aq-deep">
+    <summary>Architecture + Java Deep Dive</summary>
+    <div class="aq-body">
+      <div class="aq-label">Multi-Provider Architecture</div>
+      <div class="aq-arch">OTP Request
+  → Primary: Twilio (circuit: CLOSED)
+    → if failure: circuit OPENS after 5 failures in 10s
+  → Secondary: MSG91 (circuit: CLOSED)
+    → if failure: circuit OPENS
+  → Tertiary: AWS SNS (fallback of last resort)
+  → if all fail: WhatsApp OTP via Facebook API</div>
+      <div class="aq-label">Java: Resilience4j Failover Chain</div>
+      <div class="aq-code">@CircuitBreaker(name = "twilio", fallbackMethod = "tryMsg91")
+public void sendOTPViaTwilio(String phone, String otp) {
+    twilioClient.sendSMS(phone, "Your OTP: " + otp);
+}
+
+@CircuitBreaker(name = "msg91", fallbackMethod = "tryAwsSNS")
+public void tryMsg91(String phone, String otp, Throwable t) {
+    msg91Client.sendSMS(phone, otp);
+}
+
+@CircuitBreaker(name = "awssns", fallbackMethod = "allProvidersFailed")
+public void tryAwsSNS(String phone, String otp, Throwable t) {
+    snsClient.publish(phone, "Your OTP: " + otp);
+}
+
+// Prevent retry storm: exponential backoff + jitter
+@Retry(name = "otp-retry", fallbackMethod = "retryExhausted")
+@RateLimiter(name = "otp-rate", fallbackMethod = "rateLimited")
+public void sendWithRetry(String phone, String otp) {
+    // retries: 3 attempts, backoff: 100ms * 2^attempt + jitter(50ms)
+    sendOTPViaTwilio(phone, otp);
+}</div>
+      <div class="aq-secret"><strong>Secret:</strong> OTP systems need <strong>rate limiting per phone number</strong> (not just global) — max 3 OTPs per phone per 10 minutes. Without this, a brute-force attacker can flood a victim's SMS and you get carrier blacklisting.</div>
+      <div class="aq-trap"><strong>Interview Trap:</strong> Not mentioning the <strong>retry storm</strong> — when primary provider goes down, 100K clients simultaneously retry. Without backoff+jitter, all retries hit the secondary provider in the same millisecond, crashing it too. Jitter spreads retries across a time window.</div>
+      <a class="aq-jqlink" onclick="jumpToQuestion(133)">→ Full Q&amp;A in Question Bank</a>
+    </div>
+  </details>
+</div>
+
+</div><!-- end aq-grid -->
+</div><!-- end guide-section -->
+
 </div>
 </div>
       </div>
@@ -2321,8 +3340,14 @@ function render(){
 function renderSidebar(){
   const totalDone=S.answered.size;
   const pct=QS.length?Math.round(totalDone/QS.length*100):0;
-  document.getElementById('overall-fill').style.width=pct+'%';
-  document.getElementById('overall-text').textContent=`${totalDone} / ${QS.length} answered (${pct}%)`;
+  // SVG progress ring — circumference = 2π×16 ≈ 100.53
+  const circ=100.53;
+  const fill=document.getElementById('ring-fill');
+  if(fill) fill.style.strokeDashoffset=circ-(circ*pct/100);
+  const pctEl=document.getElementById('ring-pct');
+  if(pctEl) pctEl.textContent=pct+'%';
+  const subEl=document.getElementById('ring-sub');
+  if(subEl) subEl.textContent=`${totalDone} / ${QS.length} done`;
 
   const li=CATS.map(c=>{
     const total=c==='All'?QS.length:QS.filter(q=>q.c===c).length;
@@ -2390,6 +3415,18 @@ function toggleTheme(){
   const dark=h.getAttribute('data-theme')==='dark';
   h.setAttribute('data-theme',dark?'light':'dark');
   document.getElementById('theme-btn').textContent=dark?'🌙':'☀️';
+}
+
+// ── Jump to specific question (used by Alisha's Questions links) ─
+function jumpToQuestion(id){
+  setTab('questions',document.querySelectorAll('.tab')[1]);
+  S.cat='All'; S.diff='all'; S.search='';
+  document.getElementById('search').value='';
+  render();
+  setTimeout(()=>{
+    S.expanded.add(id); render();
+    setTimeout(()=>{const el=document.getElementById('q'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);
+  },120);
 }
 
 // ── Random ──────────────────────────────────────────────
