@@ -350,6 +350,17 @@ details.aq-deep[open] summary{color:var(--saffron)}
 /* ── PRINT ───────────────────────────────────────────── */
 @media print{aside,header,.tabs,.header-actions{display:none!important}.card-body{display:block!important}.tab-pane{display:block!important}.card{break-inside:avoid}}
 
+
+/* ── Guide Table of Contents ── */
+.guide-toc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:24px}
+.guide-toc-title{font-size:.7rem;font-weight:700;letter-spacing:.1em;color:var(--text2);text-transform:uppercase;margin-bottom:12px}
+.guide-toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 12px}
+.guide-toc-link{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:.82rem;color:var(--text2);transition:background .15s,color .15s}
+.guide-toc-link:hover{background:var(--bg3);color:var(--text1)}
+.guide-toc-link.highlight{color:var(--saffron);font-weight:600}
+.toc-dot{width:5px;height:5px;border-radius:50%;background:var(--border2);flex-shrink:0}
+.guide-toc-link.highlight .toc-dot{background:var(--saffron)}
+.guide-section{scroll-margin-top:60px}
 </style>
 </head>
 <body>
@@ -462,7 +473,26 @@ details.aq-deep[open] summary{color:var(--saffron)}
   </div>
 </div>
 
-<div class="guide-section">
+<div class="guide-toc">
+  <div class="guide-toc-title">📚 Study Guide — Jump to Section</div>
+  <div class="guide-toc-grid">
+    <div class="guide-toc-link" onclick="jumpGuide('sec-cheatsheet')"><span class="toc-dot"></span>⚡ 60-Second Cheat Sheet</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-tables')"><span class="toc-dot"></span>📊 Key Reference Tables</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-lld')"><span class="toc-dot"></span>🏗 LLD Quick Reference</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-hld')"><span class="toc-dot"></span>🏛 HLD 6-Step Framework</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-payment')"><span class="toc-dot"></span>💳 Payment System Design</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-dsa')"><span class="toc-dot"></span>💡 DSA Cheat Sheet</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-companies')"><span class="toc-dot"></span>🏢 Company-Specific Paths</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-qtoask')"><span class="toc-dot"></span>❓ Questions to Ask</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-salary')"><span class="toc-dot"></span>💰 Salary Negotiation</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-studyplans')"><span class="toc-dot"></span>📅 Study Plans</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-star')"><span class="toc-dot"></span>⭐ STAR Framework</div>
+    <div class="guide-toc-link" onclick="jumpGuide('sec-playbook')"><span class="toc-dot"></span>📋 Interview Day Playbook</div>
+    <div class="guide-toc-link highlight" onclick="jumpGuide('sec-alisha')"><span class="toc-dot"></span>🌟 Alisha's Questions (20)</div>
+  </div>
+</div>
+
+<div class="guide-section" id="sec-cheatsheet">
 <div class="guide-h2">⚡ 60-Second Cheat Sheet — 10 Core Principles</div>
 <ul class="cheat-list">
 <li><strong>1. Measure first, optimize second</strong> — instrument P99 latency + error rate + saturation before changing anything. Never guess bottlenecks.</li>
@@ -478,7 +508,7 @@ details.aq-deep[open] summary{color:var(--saffron)}
 </ul>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-tables">
 <div class="guide-h2">📊 Key Reference Tables</div>
 <div class="guide-h3">Spring Transaction Propagation</div>
 <table><tr><th>Propagation</th><th>Behavior</th><th>When to Use</th></tr>
@@ -541,7 +571,7 @@ details.aq-deep[open] summary{color:var(--saffron)}
 <div class="guide-p">For a 4-core server with SSD (spindle=1): pool = 9. For 8-core with HDD RAID-5 (spindle=5): pool = 21. Typical range: 10–20 per app instance. Too many connections = context-switch overhead; too few = connection starvation.</div>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-lld">
 <div class="guide-h2">🏗 LLD Quick Reference</div>
 <div class="guide-h3">Parking Lot Design (Common LLD Question)</div>
 <div class="guide-p"><strong>Entities:</strong> ParkingLot → ParkingFloor → ParkingSpot → Ticket → Vehicle → Payment</div>
@@ -563,7 +593,7 @@ class ParkingLot {
 <div class="guide-p"><strong>Distributed LRU:</strong> Redis with <code>maxmemory-policy allkeys-lru</code>. Use TTL for time-based expiry on top.</div>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-hld">
 <div class="guide-h2">🏛 HLD 6-Step Framework</div>
 <ol class="playbook-list">
 <li><strong>Requirements (5 min):</strong> Functional (what it does) + Non-functional (QPS, latency SLA, availability %, consistency needs, data durability). Write them on the board.</li>
@@ -587,7 +617,7 @@ class ParkingLot {
 </table>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-payment">
 <div class="guide-h2">💳 Payment System Design (Deep Dive)</div>
 <div class="guide-h3">Double-Entry Ledger (NEVER single balance column)</div>
 <pre>-- WRONG: UPDATE accounts SET balance = balance - 100 WHERE id = ?
@@ -625,7 +655,7 @@ COMMIT;
 -- UPDATE outbox SET status='PUBLISHED' WHERE id = ?</pre>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-dsa">
 <div class="guide-h2">💡 DSA Cheat Sheet — Patterns & Complexity</div>
 <div class="guide-h3">Time Complexity Quick Reference</div>
 <table><tr><th>Operation</th><th>Array</th><th>HashMap</th><th>LinkedList</th><th>Heap</th><th>BST (balanced)</th></tr>
@@ -717,7 +747,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </table>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-companies">
 <div class="guide-h2">🏢 Company-Specific Study Paths</div>
 <div class="guide-h3">Amazon — Leadership Principle Heavy (40% of interview)</div>
 <ul class="cheat-list">
@@ -749,7 +779,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </ul>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-qtoask">
 <div class="guide-h2">❓ Questions to Ask Your Interviewer</div>
 <p class="guide-p">Asking smart questions signals strategic thinking and genuine interest. Always have 3-4 ready. <strong>Never ask about salary in technical rounds.</strong></p>
 <ul class="cheat-list">
@@ -766,7 +796,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </ul>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-salary">
 <div class="guide-h2">💰 Salary Negotiation for Backend Engineers</div>
 <div class="guide-h3">Key Principles</div>
 <ul class="cheat-list">
@@ -786,7 +816,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </table>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-studyplans">
 <div class="guide-h2">📅 Study Plans</div>
 <div class="guide-h3">1-Week Intensive (Interview in 7 days)</div>
 <table><tr><th>Day</th><th>Morning (2h)</th><th>Evening (2h)</th></tr>
@@ -812,7 +842,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </table>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-star">
 <div class="guide-h2">⭐ STAR Behavioral Framework</div>
 <div style="margin-bottom:12px">
 <div class="star-tip"><div class="star-label">S</div><div class="star-text"><strong>Situation</strong> — context in 1-2 sentences. Scale it: "handling ₹10Cr/day", "serving 5M users", "team of 8 engineers".</div></div>
@@ -829,7 +859,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </div>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-playbook">
 <div class="guide-h2">📋 Interview Day Playbook</div>
 <ol class="playbook-list">
 <li><strong>First 2 minutes:</strong> Repeat the question back to confirm scope. "So you want me to design X that handles Y scale with Z constraint — is that right?"</li>
@@ -842,7 +872,7 @@ for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
 </ol>
 </div>
 
-<div class="guide-section">
+<div class="guide-section" id="sec-alisha">
 <div class="guide-h2">🌟 Alisha's Questions — Real-World Production Crises</div>
 <div class="aq-intro">
   <strong>Curated by Alisha Sharan</strong> — 20 real production incidents that became iconic interview questions. Each scenario maps to an actual company crisis. Master these and you demonstrate <em>Staff Engineer</em> thinking: not just "what happened" but "how would you have designed it differently?"
@@ -2054,9 +2084,9 @@ public void sendWithRetry(String phone, String otp) {
     <div style="font-size:.8rem;color:var(--text2);margin-bottom:8px"><span id="im-cat"></span> • <span id="im-diff"></span></div>
     <div class="modal-q" id="im-question"></div>
     <div class="modal-reveal" id="im-reveal-area" style="display:none">
-      <div class="section strong"><span class="label">✅ Strong Answer</span><p id="im-strong"></p></div>
-      <div class="section principal" style="margin-top:12px"><span class="label">🚀 Principal Answer</span><p id="im-principal"></p></div>
-      <div class="section real" style="margin-top:12px"><span class="label">🏢 Real World</span><p id="im-real"></p></div>
+      <div class="ans-section as-strong"><div class="ans-hdr">✅ Strong Answer</div><div class="ans-body"><p id="im-strong"></p></div></div>
+      <div class="ans-section as-principal" style="margin-top:12px"><div class="ans-hdr">🚀 Principal Answer</div><div class="ans-body"><p id="im-principal"></p></div></div>
+      <div class="ans-section as-real" style="margin-top:12px"><div class="ans-hdr">🏢 Real World</div><div class="ans-body"><p id="im-real"></p></div></div>
     </div>
     <div id="im-rate" style="display:none">
       <div style="font-size:.85rem;color:var(--text2);text-align:center;margin-bottom:8px">Rate your answer:</div>
@@ -2082,7 +2112,7 @@ public void sendWithRetry(String phone, String otp) {
     <div style="font-size:.8rem;color:var(--text2);text-align:center;margin-bottom:12px">Question <span id="mock-progress"></span></div>
     <div class="modal-q" id="mock-question"></div>
     <div id="mock-answer" style="display:none">
-      <div class="section strong"><span class="label">✅ Strong Answer</span><p id="mock-strong"></p></div>
+      <div class="ans-section as-strong"><div class="ans-hdr">✅ Strong Answer</span><p id="mock-strong"></p></div>
     </div>
     <div class="modal-nav">
       <button class="btn" onclick="mockReveal()">Reveal</button>
@@ -4139,6 +4169,14 @@ function render(){
   renderStats();
 }
 
+
+function jumpGuide(id){
+  setTab('guide', document.querySelector('.tab'));
+  setTimeout(()=>{
+    const el=document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }, 80);
+}
 function renderSidebar(){
   const totalDone=S.answered.size;
   const pct=QS.length?Math.round(totalDone/QS.length*100):0;
@@ -4329,6 +4367,36 @@ function openMockMode(){
   sel.innerHTML=CATS.map(c=>`<option value="${c}">${c}</option>`).join('');
   document.getElementById('mock-setup-modal').classList.add('open');
 }
+// ── Flashcard Mode ──────────────────────────────────────
+function openFlashcards(){
+  const pool=filtered().length>0?filtered():QS;
+  const shuffled=[...pool].sort(()=>Math.random()-.5).slice(0,30);
+  S.fc={cards:shuffled,idx:0,flipped:false};
+  renderFC();
+  document.getElementById('fc-modal').style.display='flex';
+}
+function renderFC(){
+  const fc=S.fc;
+  if(!fc||!fc.cards.length)return;
+  const q=fc.cards[fc.idx];
+  document.getElementById('fc-progress').textContent=`${fc.idx+1} / ${fc.cards.length}`;
+  document.getElementById('fc-cat').textContent=q.c+' · '+q.d;
+  document.getElementById('fc-front-text').textContent=q.q;
+  document.getElementById('fc-back-text').innerHTML=
+    '<strong>Strong:</strong> '+q.strong+'<hr style="border-color:var(--border);margin:8px 0"><strong>Principal:</strong> '+q.principal;
+  const card=document.getElementById('fc-card');
+  card.classList.remove('flipped');
+  fc.flipped=false;
+}
+function flipFC(){
+  const card=document.getElementById('fc-card');
+  S.fc.flipped=!S.fc.flipped;
+  card.classList.toggle('flipped',S.fc.flipped);
+}
+function fcNext(){S.fc.idx=Math.min(S.fc.idx+1,S.fc.cards.length-1);renderFC();}
+function fcPrev(){S.fc.idx=Math.max(S.fc.idx-1,0);renderFC();}
+function closeFC(){document.getElementById('fc-modal').style.display='none';}
+
 function startMock(){
   closeModal('mock-setup-modal');
   const mins=parseInt(document.getElementById('mock-duration').value)||45;
@@ -7841,5 +7909,32 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
+<!-- Flashcard Modal -->
+<div class="modal-overlay" id="fc-modal" style="display:none" onclick="if(event.target===this)closeFC()">
+  <div class="modal" style="max-width:600px;padding:24px">
+    <button class="modal-close" onclick="closeFC()">✕</button>
+    <div style="font-size:.75rem;color:var(--text2);margin-bottom:4px">FLASHCARDS • <span id="fc-progress"></span></div>
+    <div style="font-size:.8rem;color:var(--teal);margin-bottom:16px" id="fc-cat"></div>
+    <div class="flashcard-wrap" onclick="flipFC()" style="cursor:pointer">
+      <div class="flashcard" id="fc-card">
+        <div class="fc-face fc-front">
+          <div style="font-size:.7rem;color:var(--text2);margin-bottom:12px;letter-spacing:.05em">QUESTION — click to reveal answer</div>
+          <div style="font-size:1.05rem;font-weight:600;color:var(--text1);line-height:1.5" id="fc-front-text"></div>
+        </div>
+        <div class="fc-face fc-back">
+          <div style="font-size:.7rem;color:var(--text2);margin-bottom:12px;letter-spacing:.05em">ANSWER — click to flip back</div>
+          <div style="font-size:.85rem;color:var(--text1);line-height:1.6;overflow-y:auto;max-height:300px" id="fc-back-text"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-nav" style="margin-top:16px">
+      <button class="btn" onclick="fcPrev()">← Prev</button>
+      <button class="btn teal" onclick="flipFC()">Flip Card</button>
+      <button class="btn" onclick="fcNext()">Next →</button>
+    </div>
+    <div style="font-size:.75rem;color:var(--text2);text-align:center;margin-top:8px">Showing up to 30 cards from current filter. Close and change category/difficulty to practice different topics.</div>
+  </div>
+</div>
 </body>
 </html>
