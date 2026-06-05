@@ -415,50 +415,50 @@ details.aq-deep[open] summary{color:var(--saffron)}
   <div class="hero-title">Senior Backend Engineer<br>Interview Mastery 2026</div>
   <div class="hero-sub">The most comprehensive backend interview prep — FAANG · Walmart · Adobe · Microsoft · Atlassian · Flipkart · Razorpay · PhonePe · Swiggy · Uber India</div>
   <div class="hero-pills">
-    <span class="hero-pill s">185 Questions</span>
-    <span class="hero-pill g">26 Categories</span>
+    <span class="hero-pill s">220 Questions</span>
+    <span class="hero-pill g">28 Categories</span>
     <span class="hero-pill t">Principal-level Answers</span>
     <span class="hero-pill p">Real-world Examples</span>
     <span class="hero-pill s">100% Offline</span>
     <span class="hero-pill g">Progress Tracking</span>
   </div>
   <div class="hero-cta">
-    <button class="btn btn-primary" onclick="document.querySelector('.tab:nth-child(2)').click()">❓ Start Practicing →</button>
-    <button class="btn btn-secondary" onclick="openInterviewMode()">🎯 Interview Mode</button>
-    <button class="btn btn-secondary" onclick="openMockMode()">⏱ Mock Interview</button>
+    <button class="cta-btn cta-primary" onclick="document.querySelector('.tab:nth-child(2)').click()">Start Practicing →</button>
+    <button class="cta-btn cta-secondary" onclick="openInterviewMode()">Interview Mode</button>
+    <button class="cta-btn cta-secondary" onclick="openMockMode()">Mock Interview</button>
   </div>
 </div>
 
 <div class="quick-cards">
   <div class="quick-card" onclick="document.querySelector('.tab:nth-child(2)').click()">
-    <div class="quick-card-icon">❓</div>
-    <div class="quick-card-title">Question Bank</div>
-    <div class="quick-card-sub">185 questions across 26 categories</div>
+    <div class="qc-icon">❓</div>
+    <div class="qc-title">Question Bank</div>
+    <div class="qc-sub">220 questions across 28 categories</div>
   </div>
   <div class="quick-card" onclick="openInterviewMode()">
-    <div class="quick-card-icon">🎯</div>
-    <div class="quick-card-title">Interview Mode</div>
-    <div class="quick-card-sub">One at a time, reveal &amp; self-rate</div>
+    <div class="qc-icon">🎯</div>
+    <div class="qc-title">Interview Mode</div>
+    <div class="qc-sub">One at a time, reveal &amp; self-rate</div>
   </div>
   <div class="quick-card" onclick="openMockMode()">
-    <div class="quick-card-icon">⏱</div>
-    <div class="quick-card-title">Mock Interview</div>
-    <div class="quick-card-sub">Timed 45-min session</div>
+    <div class="qc-icon">⏱</div>
+    <div class="qc-title">Mock Interview</div>
+    <div class="qc-sub">Timed 45-min session</div>
   </div>
   <div class="quick-card" onclick="document.querySelector('.tab:nth-child(3)').click()">
-    <div class="quick-card-icon">📊</div>
-    <div class="quick-card-title">Statistics</div>
-    <div class="quick-card-sub">Progress per category</div>
+    <div class="qc-icon">📊</div>
+    <div class="qc-title">Statistics</div>
+    <div class="qc-sub">Progress per category</div>
   </div>
   <div class="quick-card" onclick="randomQ()">
-    <div class="quick-card-icon">🎲</div>
-    <div class="quick-card-title">Random Question</div>
-    <div class="quick-card-sub">Test yourself randomly</div>
+    <div class="qc-icon">🎲</div>
+    <div class="qc-title">Random Question</div>
+    <div class="qc-sub">Test yourself randomly</div>
   </div>
   <div class="quick-card" onclick="window.print()">
-    <div class="quick-card-icon">🖨</div>
-    <div class="quick-card-title">Print / PDF</div>
-    <div class="quick-card-sub">Save for offline reading</div>
+    <div class="qc-icon">🖨</div>
+    <div class="qc-title">Print / PDF</div>
+    <div class="qc-sub">Save for offline reading</div>
   </div>
 </div>
 
@@ -623,6 +623,193 @@ COMMIT;
 -- Poll WHERE status='PENDING' ORDER BY created_at LIMIT 100
 -- Publish to Kafka with idempotency key = outbox.id
 -- UPDATE outbox SET status='PUBLISHED' WHERE id = ?</pre>
+</div>
+
+<div class="guide-section">
+<div class="guide-h2">💡 DSA Cheat Sheet — Patterns & Complexity</div>
+<div class="guide-h3">Time Complexity Quick Reference</div>
+<table><tr><th>Operation</th><th>Array</th><th>HashMap</th><th>LinkedList</th><th>Heap</th><th>BST (balanced)</th></tr>
+<tr><td>Access</td><td>O(1)</td><td>O(1) avg</td><td>O(n)</td><td>O(n)</td><td>O(log n)</td></tr>
+<tr><td>Search</td><td>O(n)</td><td>O(1) avg</td><td>O(n)</td><td>O(n)</td><td>O(log n)</td></tr>
+<tr><td>Insert</td><td>O(n)</td><td>O(1) avg</td><td>O(1) head</td><td>O(log n)</td><td>O(log n)</td></tr>
+<tr><td>Delete</td><td>O(n)</td><td>O(1) avg</td><td>O(1) known</td><td>O(log n)</td><td>O(log n)</td></tr>
+</table>
+<div class="guide-h3">Sorting Algorithms</div>
+<table><tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th><th>Stable</th></tr>
+<tr><td>Quicksort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n)</td><td>No</td></tr>
+<tr><td>Mergesort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>Yes</td></tr>
+<tr><td>Heapsort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(1)</td><td>No</td></tr>
+<tr><td>TimSort (Java)</td><td>O(n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>Yes</td></tr>
+<tr><td>Binary Search</td><td colspan="3">O(log n) — sorted array only</td><td>O(1)</td><td>—</td></tr>
+</table>
+<div class="guide-h3">Must-Know Patterns (Java Templates)</div>
+<pre>// ── Sliding Window ───────────────────────────────────────
+int left = 0, maxLen = 0;
+Map&lt;Character, Integer&gt; freq = new HashMap&lt;&gt;();
+for (int right = 0; right &lt; s.length(); right++) {
+    freq.merge(s.charAt(right), 1, Integer::sum);
+    while (freq.size() &gt; k) {          // constraint violated
+        freq.merge(s.charAt(left), -1, Integer::sum);
+        if (freq.get(s.charAt(left)) == 0) freq.remove(s.charAt(left));
+        left++;
+    }
+    maxLen = Math.max(maxLen, right - left + 1);
+}
+
+// ── Two Pointers (sorted array) ──────────────────────────
+int lo = 0, hi = arr.length - 1;
+while (lo &lt; hi) {
+    int sum = arr[lo] + arr[hi];
+    if (sum == target) return new int[]{lo, hi};
+    else if (sum &lt; target) lo++;
+    else hi--;
+}
+
+// ── Binary Search ────────────────────────────────────────
+int lo = 0, hi = arr.length - 1;
+while (lo &lt;= hi) {
+    int mid = lo + (hi - lo) / 2;   // avoids overflow vs (lo+hi)/2
+    if (arr[mid] == target) return mid;
+    else if (arr[mid] &lt; target) lo = mid + 1;
+    else hi = mid - 1;
+}
+
+// ── BFS (level-order / shortest path) ───────────────────
+Queue&lt;TreeNode&gt; q = new LinkedList&lt;&gt;();
+q.offer(root);
+while (!q.isEmpty()) {
+    int size = q.size();             // current level size
+    for (int i = 0; i &lt; size; i++) {
+        TreeNode node = q.poll();
+        // process node
+        if (node.left != null) q.offer(node.left);
+        if (node.right != null) q.offer(node.right);
+    }
+}
+
+// ── DFS (recursive) ──────────────────────────────────────
+void dfs(int node, boolean[] visited, Graph g) {
+    visited[node] = true;
+    // process node
+    for (int neighbor : g.adj(node))
+        if (!visited[neighbor]) dfs(neighbor, visited, g);
+}
+
+// ── Top-K with Min-Heap ──────────────────────────────────
+PriorityQueue&lt;Integer&gt; minHeap = new PriorityQueue&lt;&gt;(k);
+for (int num : nums) {
+    minHeap.offer(num);
+    if (minHeap.size() &gt; k) minHeap.poll(); // remove smallest
+}
+// minHeap now contains top K largest elements
+
+// ── Dynamic Programming (Fibonacci pattern) ──────────────
+int[] dp = new int[n + 1];
+dp[0] = 0; dp[1] = 1;
+for (int i = 2; i &lt;= n; i++) dp[i] = dp[i-1] + dp[i-2];</pre>
+<div class="guide-h3">Graph Algorithms Complexity</div>
+<table><tr><th>Algorithm</th><th>Time</th><th>Space</th><th>Use Case</th></tr>
+<tr><td>BFS</td><td>O(V+E)</td><td>O(V)</td><td>Shortest path (unweighted), level traversal</td></tr>
+<tr><td>DFS</td><td>O(V+E)</td><td>O(V)</td><td>Connected components, cycle detection, topological sort</td></tr>
+<tr><td>Dijkstra</td><td>O((V+E) log V)</td><td>O(V)</td><td>Shortest path (non-negative weights)</td></tr>
+<tr><td>Bellman-Ford</td><td>O(VE)</td><td>O(V)</td><td>Shortest path (negative weights)</td></tr>
+<tr><td>Union-Find</td><td>O(α(n)) ≈ O(1)</td><td>O(V)</td><td>Connected components, cycle detection in undirected graph</td></tr>
+</table>
+</div>
+
+<div class="guide-section">
+<div class="guide-h2">🏢 Company-Specific Study Paths</div>
+<div class="guide-h3">Amazon — Leadership Principle Heavy (40% of interview)</div>
+<ul class="cheat-list">
+<li><strong>Prepare 14 STAR stories</strong> — one per LP. Most asked: Customer Obsession, Ownership, Deliver Results, Dive Deep, Bias for Action, Disagree and Commit.</li>
+<li><strong>System Design focus</strong> — design questions always tie back to trade-offs and LPs. Mention cost (Frugality), simplicity (Invent and Simplify), customer impact.</li>
+<li><strong>Bar Raiser round</strong> — an additional interviewer whose job is to reject. Focuses on LPs and raises the bar above team average. Don't soften your stories.</li>
+<li><strong>Loop format</strong> — 4-5 rounds. Each round: 1 coding + 1-2 LPs. Senior: may replace coding with system design. Principal: multiple system design + LPs.</li>
+<li><strong>Coding</strong> — LeetCode Medium, arrays/strings/trees/graphs. Amazon focuses on clean code and edge cases over clever algorithms.</li>
+</ul>
+<div class="guide-h3">Google — Abstract Thinking + Scale</div>
+<ul class="cheat-list">
+<li><strong>System Design depth</strong> — Google expects detailed design for Google-scale systems. Know: Bigtable, Spanner, Chubby (Zookeeper), MapReduce, Pub/Sub, GFS architectures.</li>
+<li><strong>Coding bar is high</strong> — LeetCode Hard is common. Focus on: graph algorithms, DP, string manipulation, binary search variations.</li>
+<li><strong>Googliness</strong> — collaboration, intellectual humility, "what would you do differently?" questions.</li>
+<li><strong>Role-specific</strong> — L5 (Senior SWE) focuses on coding + design. L6 (Staff) focuses on design + leadership impact.</li>
+</ul>
+<div class="guide-h3">Walmart / Flipkart / Swiggy / Razorpay (India Focus)</div>
+<ul class="cheat-list">
+<li><strong>Java + Spring Boot depth</strong> — very hands-on. Expect: JPA internals, Spring Security config, transaction management, Kafka consumer design.</li>
+<li><strong>Practical system design</strong> — real Indian scale: handle Diwali sale (10x spike), UPI transactions, OTP at scale, rider tracking.</li>
+<li><strong>SQL proficiency</strong> — complex queries, query optimisation with EXPLAIN, index design. Window functions expected at senior level.</li>
+<li><strong>Take-home assignments</strong> — common at product companies. Full Spring Boot REST API with tests. Focus: clean architecture, error handling, test coverage.</li>
+</ul>
+<div class="guide-h3">Microsoft / Adobe / Atlassian</div>
+<ul class="cheat-list">
+<li><strong>OOP + Design Patterns</strong> — SOLID principles, common patterns (Strategy, Observer, Factory, Builder). Code design questions are common.</li>
+<li><strong>Behavioural focus (Microsoft)</strong> — growth mindset, collaboration. "Tell me about a time you helped someone else grow."</li>
+<li><strong>Cloud-native (Azure focus)</strong> — Azure Service Bus, Cosmos DB, Azure Functions. Equivalent to AWS equivalents.</li>
+</ul>
+</div>
+
+<div class="guide-section">
+<div class="guide-h2">❓ Questions to Ask Your Interviewer</div>
+<p class="guide-p">Asking smart questions signals strategic thinking and genuine interest. Always have 3-4 ready. <strong>Never ask about salary in technical rounds.</strong></p>
+<ul class="cheat-list">
+<li><strong>Tech debt</strong> — "What is the biggest technical challenge or area of tech debt your team is currently dealing with?"</li>
+<li><strong>Incident culture</strong> — "How does your team handle production incidents? Do you do blameless post-mortems?"</li>
+<li><strong>Deployment cadence</strong> — "How often does your team deploy to production? What does your CI/CD pipeline look like?"</li>
+<li><strong>On-call expectations</strong> — "What does the on-call rotation look like for this team? How many incidents per week on average?"</li>
+<li><strong>Learning & growth</strong> — "What does career progression look like for this role? How do engineers typically move to the next level?"</li>
+<li><strong>Team dynamics</strong> — "How does the team balance new feature development with maintenance and reliability work?"</li>
+<li><strong>Success definition</strong> — "What would success look like for someone in this role in the first 6 months?"</li>
+<li><strong>Technology choices</strong> — "How does the team evaluate and adopt new technologies? Can you give a recent example?"</li>
+<li><strong>Architecture evolution</strong> — "What is the most significant architectural change you have made in the last year and why?"</li>
+<li><strong>The role's impact</strong> — "What is the highest-impact project this team will work on in the next quarter?"</li>
+</ul>
+</div>
+
+<div class="guide-section">
+<div class="guide-h2">💰 Salary Negotiation for Backend Engineers</div>
+<div class="guide-h3">Key Principles</div>
+<ul class="cheat-list">
+<li><strong>Never give the first number</strong> — "I'd like to understand the full scope and responsibilities before discussing compensation." If pressed: give a range with your target at the bottom.</li>
+<li><strong>Total compensation, not just base</strong> — base + bonus + equity (RSUs/ESOP) + joining bonus + benefits. FAANG's equity vesting schedule matters enormously.</li>
+<li><strong>Use competing offers</strong> — "I have an offer from X at ₹Y package. Can you match or beat it?" Even a pending offer works.</li>
+<li><strong>Research first</strong> — levels.fyi for FAANG compensation. LinkedIn Salary, Glassdoor, Blind for Indian companies. Know the band for your target level.</li>
+<li><strong>Negotiate everything</strong> — joining bonus (easiest to negotiate), extra RSU cliff, work-from-home policy, tech budget. Companies often can't move base but CAN move other components.</li>
+<li><strong>Express enthusiasm while negotiating</strong> — "I'm very excited about this role. To make this an easy yes for me, could you help with [specific ask]?"</li>
+<li><strong>Get it in writing</strong> — verbal offers are not offers. Request the written offer before giving notice to current employer.</li>
+</ul>
+<div class="guide-h3">Indian Market 2026 Benchmarks</div>
+<table><tr><th>Level</th><th>Experience</th><th>Base (₹ LPA)</th><th>Total (Startup)</th><th>Total (FAANG)</th></tr>
+<tr><td>SDE-2 / Senior</td><td>4-6 yrs</td><td>25-40</td><td>30-50</td><td>80-120</td></tr>
+<tr><td>SDE-3 / Staff</td><td>7-10 yrs</td><td>45-70</td><td>60-100</td><td>150-220</td></tr>
+<tr><td>Principal / L6+</td><td>10+ yrs</td><td>80-120</td><td>120-200</td><td>250-400+</td></tr>
+</table>
+</div>
+
+<div class="guide-section">
+<div class="guide-h2">📅 Study Plans</div>
+<div class="guide-h3">1-Week Intensive (Interview in 7 days)</div>
+<table><tr><th>Day</th><th>Morning (2h)</th><th>Evening (2h)</th></tr>
+<tr><td>Mon</td><td>Scalability + System Design (Q1-20)</td><td>Behavioral STAR stories (write 5 stories)</td></tr>
+<tr><td>Tue</td><td>Microservices + Kafka/Messaging (Q21-50)</td><td>Mock interview: 2 system design questions</td></tr>
+<tr><td>Wed</td><td>Spring Boot + JPA/Hibernate (Q51-80)</td><td>Alisha's Questions: scenarios 1-10</td></tr>
+<tr><td>Thu</td><td>Java Core + Concurrency (Q81-110)</td><td>Alisha's Questions: scenarios 11-20</td></tr>
+<tr><td>Fri</td><td>Security + API Design (Q111-140)</td><td>Mock interview: full 45-min session</td></tr>
+<tr><td>Sat</td><td>Weak areas (use Statistics tab to identify)</td><td>Behavioral rehearsal — record yourself</td></tr>
+<tr><td>Sun</td><td>Light review: 60-Second Cheat Sheet + DSA patterns</td><td>Rest. Review notes. Prepare questions to ask.</td></tr>
+</table>
+<div class="guide-h3">2-Week Deep Dive</div>
+<table><tr><th>Week</th><th>Focus</th><th>Goal</th></tr>
+<tr><td>Week 1</td><td>Technical depth: all Question Bank categories</td><td>Answer 110+ questions, identify weak areas</td></tr>
+<tr><td>Week 2</td><td>Behavioral STAR stories + Mock interviews</td><td>14 LP stories written, 4 mock sessions done</td></tr>
+</table>
+<div class="guide-h3">4-Week Master Plan</div>
+<table><tr><th>Week</th><th>Theme</th><th>Activities</th></tr>
+<tr><td>1</td><td>Foundations</td><td>Easy Warm-Up all 15 + System Design basics + 1 mock</td></tr>
+<tr><td>2</td><td>Deep Technical</td><td>Scalability, Microservices, Kafka, Java Core, Security deep dives</td></tr>
+<tr><td>3</td><td>Real-World Scenarios</td><td>All 20 Alisha's Questions + Behavioral STAR stories</td></tr>
+<tr><td>4</td><td>Interview Simulation</td><td>Daily mock interviews, refine weak areas, salary research</td></tr>
+</table>
 </div>
 
 <div class="guide-section">
@@ -1848,15 +2035,13 @@ public void sendWithRetry(String phone, String otp) {
 </div>
       </div>
       <div class="tab-pane" id="pane-questions">
-        <div class="q-meta">
-          <span id="q-count">Loading...</span>
-          <span style="color:var(--text2);margin-left:auto;font-size:.8rem" id="answered-count"></span>
+        <div class="q-toolbar">
+          <span class="q-count-text" id="q-count">Loading...</span><span class="answered-badge" id="answered-count"></span>
         </div>
         <div id="questions-container"></div>
       </div>
       <div class="tab-pane" id="pane-stats">
-        <div class="guide-h2">Progress by Category</div>
-        <div class="stats-grid" id="stats-grid"></div>
+        <div id="stats-grid"></div>
       </div>
     </div>
   </main>
@@ -1925,7 +2110,7 @@ public void sendWithRetry(String phone, String otp) {
 <div class="toast" id="toast"></div>
 </div>
 <script>
-const CATS=['All','Scalability','Microservices','System Design','AWS/Cloud','Production Support','Database Design','SQL','NoSQL','Kafka/Messaging','Spring Boot','Java Core','JPA/Hibernate','Concurrency','Architecture','Performance Optimization','Security','API Design','Leadership','Team Management','Conflict Resolution','Ownership','Learning Ability','Behavioral','Communication','DevOps/CI-CD','Real-World Scenarios'];
+const CATS=['All','Scalability','Microservices','System Design','AWS/Cloud','Production Support','Database Design','SQL','NoSQL','Kafka/Messaging','Spring Boot','Java Core','JPA/Hibernate','Concurrency','Architecture','Performance Optimization','Security','API Design','Leadership','Team Management','Conflict Resolution','Ownership','Learning Ability','Behavioral','Communication','DevOps/CI-CD','Real-World Scenarios','Easy Warm-Up'];
 
 const QS=[
 // --- SCALABILITY (1-18) ---
@@ -3548,12 +3733,331 @@ principal:'The "checked vs unchecked" debate has been settled in modern Java: ch
 real:'Spring\'s DataAccessException hierarchy translates all JDBC/JPA checked exceptions to unchecked exceptions. Google Guava\'s design guidelines recommend unchecked exceptions. Kotlin\'s lack of checked exceptions is cited as a quality-of-life improvement over Java by most Kotlin developers.',
 mistakes:['Catching Exception at every level and re-throwing as checked — "exception tunneling" that defeats the type system','Not including the original exception as cause in translated exceptions — loses stack trace','Catching checked exception and logging only — swallows the error, no caller awareness'],
 fu:['How does @ControllerAdvice work in Spring Boot for global exception handling?','What is the difference between Error and Exception in Java?']}
+
+// ── Easy Warm-Up Questions (186–200) ───────────────────
+,{id:186,c:'Easy Warm-Up',d:'easy',q:'What is REST? What are its core principles?',
+intent:'Checks foundational understanding of HTTP API design before going deeper.',
+weak:'REST stands for Representational State Transfer. It uses HTTP methods like GET, POST, PUT, DELETE.',
+strong:'REST (Representational State Transfer) is an architectural style, not a protocol. 6 core constraints: (1) Client-Server separation — UI decoupled from storage. (2) Stateless — each request contains all info needed; server stores no session state between requests. (3) Cacheable — responses must declare themselves cacheable or not. (4) Uniform Interface — resource identification via URI, manipulation through representations, self-descriptive messages, HATEOAS. (5) Layered System — client can\'t tell if it\'s talking to end server or intermediary. (6) Code on Demand (optional) — server can send executable code. In practice: resources are nouns (not verbs), HTTP methods express intent (GET=read, POST=create, PUT=replace, PATCH=update, DELETE=remove), status codes convey outcome (200/201/204/400/401/403/404/409/500).',
+principal:'The most violated constraint in practice is Statelessness — using server-side sessions breaks this. Also HATEOAS (Hypermedia As The Engine Of Application State) is almost never implemented despite being in the original REST definition — most "REST" APIs are actually just HTTP/JSON APIs.',
+real:'Stripe\'s API is considered the gold standard for RESTful API design: clear resource naming (/v1/charges, /v1/customers), consistent error format, idempotency keys on mutations, versioning in URL.',
+mistakes:['Confusing REST with HTTP — REST is an architectural style; HTTP is the transport protocol','Using verbs in URLs (/getUser instead of GET /users/{id})','Ignoring HTTP status codes (returning 200 with error body)'],
+fu:['What is the difference between PUT and PATCH?','What is HATEOAS?']}
+
+,{id:187,c:'Easy Warm-Up',d:'easy',q:'What is the difference between a thread and a process?',
+intent:'Tests OS fundamentals needed to understand concurrency, containers, and JVM behaviour.',
+weak:'A process is a running program. A thread is a lightweight process inside it.',
+strong:'Process: an independent executing program with its own memory space (heap, stack, code, data segments), file descriptors, and OS resources. Isolated — one process crash doesn\'t affect others. IPC needed for communication. Thread: a unit of execution within a process, sharing the process memory space (heap, code, data) but with its own stack and registers. Cheaper to create (~10x vs process), faster context switch, but shared memory makes synchronisation necessary. In Java: each JVM runs in one process. Threads share the JVM heap (hence race conditions). JVM threads map 1:1 to OS threads (Java 21 virtual threads are multiplexed). Key difference: isolation vs efficiency. Containers (Docker) are like lightweight processes — each has its own filesystem/network namespace, but shares the OS kernel.',
+principal:'Java 21 virtual threads (Project Loom) change the calculus: you can now have millions of virtual threads without OS thread overhead. The OS-thread-per-request model breaks at scale; virtual threads restore the simple thread-per-request model while scaling. This is why Spring Boot 3.2+ enables virtual threads by default with Tomcat/Undertow.',
+real:'Nginx uses an event loop (single thread, non-blocking I/O) instead of thread-per-request — scales to millions of connections. Apache httpd uses thread-per-request — simpler but higher memory.',
+mistakes:['Forgetting that threads share heap — concurrent writes to shared mutable state cause data races','Confusing JVM threads with OS threads — relevant when sizing thread pools'],
+fu:['What is a thread pool and why use one?','What is the difference between concurrency and parallelism?']}
+
+,{id:188,c:'Easy Warm-Up',d:'easy',q:'What is a database index and how does it work?',
+intent:'Index design is fundamental to performance — this question filters candidates who just "add indexes."',
+weak:'An index speeds up queries by creating a separate data structure that helps find rows faster.',
+strong:'An index is a separate data structure (usually a B-Tree) that stores a sorted copy of one or more columns plus a pointer to the actual row. Without index: full table scan = O(n). With B-Tree index: O(log n). Types: (1) B-Tree (default) — balanced tree, supports =, <, >, BETWEEN, LIKE prefix. (2) Hash — exact-match only, O(1) but no range queries. (3) Composite/Compound — multiple columns; must follow leftmost-prefix rule. (4) Partial — indexes only a subset (WHERE is_active = true). (5) Covering index — includes all columns needed by query; no table lookup needed. Cost: every index slows down INSERT/UPDATE/DELETE (must maintain the index), uses storage. Write-heavy tables: minimize indexes. Read-heavy: index query predicates and sort columns.',
+principal:'The covering index is the highest-impact optimisation most developers miss. If your SELECT needs columns [a, b, c] and WHERE filters on [a, b], a composite index on (a, b, c) means the query never touches the main table — the index IS the answer. EXPLAIN ANALYZE is the only way to verify — "using index" vs "using index; using temporary table".',
+real:'PostgreSQL\'s B-Tree indexes support multi-column, partial, and expression indexes. MySQL InnoDB uses a clustered index on the primary key — secondary indexes store the PK value as the pointer, meaning secondary index lookups do TWO B-Tree traversals.',
+mistakes:['Creating indexes on every column without measuring query patterns','Not using EXPLAIN to verify indexes are being used','Forgetting composite index column order — index on (a,b) helps WHERE a=1 but NOT WHERE b=1 alone'],
+fu:['What is a clustered vs non-clustered index?','When should you NOT add an index?']}
+
+,{id:189,c:'Easy Warm-Up',d:'easy',q:'What is the difference between SQL and NoSQL databases? When do you choose each?',
+intent:'Tests whether candidate understands data modelling trade-offs, not just technology names.',
+weak:'SQL is relational with tables. NoSQL is for big data and doesn\'t use tables.',
+strong:'SQL (Relational): structured data, fixed schema, ACID transactions, powerful JOINs, vertical scaling first. Best for: financial systems, ERP, any domain with complex relationships and integrity constraints. NoSQL (Not Only SQL): flexible/no schema, horizontal scaling, various data models. Types: (1) Document (MongoDB) — JSON documents, flexible schema. Best for: user profiles, product catalogs, CMS. (2) Key-Value (Redis, DynamoDB) — ultra-fast lookups by key. Best for: caching, sessions, leaderboards. (3) Wide-Column (Cassandra) — row key + columns, massive write throughput. Best for: IoT time-series, activity feeds. (4) Graph (Neo4j) — relationships as first-class citizens. Best for: social networks, fraud detection. Decision: start with SQL. Move to NoSQL when you have a specific problem (scale, schema flexibility, specific data model) that SQL can\'t solve efficiently.',
+principal:'The CAP theorem applies here: SQL prioritises CP (consistency + partition tolerance). Cassandra prioritises AP (availability + partition tolerance). Real-world: most applications don\'t need to choose — they use BOTH. Relational DB for write-of-record (truth source), NoSQL for read-optimised views.',
+real:'Instagram uses PostgreSQL for the source of truth and Cassandra for activity feeds. Twitter uses MySQL for tweets + Redis for timelines. Uber uses MySQL + Redis + Cassandra depending on use case.',
+mistakes:['Choosing NoSQL because "it scales better" without understanding the trade-offs','Not understanding that NoSQL moves consistency burden to application code','Picking a document DB for highly relational data just to avoid schema migrations'],
+fu:['What is eventual consistency?','What is the CAP theorem?']}
+
+,{id:190,c:'Easy Warm-Up',d:'easy',q:'What is a load balancer and what algorithms does it use?',
+intent:'Fundamental distributed systems concept — tests understanding of horizontal scaling mechanics.',
+weak:'A load balancer distributes traffic across multiple servers so no single server gets overwhelmed.',
+strong:'A load balancer sits in front of a server pool, accepting client connections and forwarding to backends. Types: L4 (TCP/IP level — fast, no application awareness) and L7 (HTTP level — can route by URL, header, cookie; enables A/B testing, canary deployments). Common algorithms: (1) Round Robin — sequential distribution; simple but ignores server capacity differences. (2) Least Connections — sends to server with fewest active connections; better for variable request duration. (3) IP Hash — same client always hits same server; enables sticky sessions. (4) Weighted Round Robin — servers with more capacity get proportionally more requests. (5) Random — simple, effective with many backends. Health checks: LB probes backends (HTTP GET /health); removes unhealthy nodes automatically. Session persistence ("sticky sessions"): route same user to same server — needed for stateful apps but breaks horizontal scaling.',
+principal:'The right answer is stateless services + any LB algorithm. Sticky sessions are a band-aid for stateful services. Proper solution: externalise state to Redis, then any LB algorithm works and you can scale freely. At FAANG scale: DNS-based load balancing (multiple A records) + hardware LB (Nginx/HAProxy/AWS ALB) + service mesh (Envoy/Istio) for inter-service.',
+real:'AWS ALB (Application Load Balancer) is L7, supports path-based routing, WebSocket, gRPC. AWS NLB is L4, ultra-low latency for TCP. Cloudflare\'s global anycast routing is L3 — routes to nearest PoP.',
+mistakes:['Confusing horizontal scaling with load balancing (LB is the mechanism, horizontal scaling is the strategy)','Using sticky sessions as a permanent solution instead of fixing statefulness'],
+fu:['What is the difference between L4 and L7 load balancing?','How does blue-green deployment use a load balancer?']}
+
+,{id:191,c:'Easy Warm-Up',d:'easy',q:'What is HTTP vs HTTPS and how does TLS work?',
+intent:'Security basics that every backend engineer must know — foundation for deeper auth questions.',
+weak:'HTTPS is HTTP with SSL/TLS encryption so the data is secure.',
+strong:'HTTP sends data as plain text — anyone intercepting network traffic can read credentials, tokens, and personal data. HTTPS adds TLS (Transport Layer Security) on top of HTTP. TLS Handshake: (1) Client sends ClientHello (TLS version, cipher suites, random nonce). (2) Server sends certificate (public key + identity signed by CA). (3) Client verifies certificate against trusted CAs. (4) Key exchange: client and server use asymmetric crypto (RSA or ECDHE) to establish a shared symmetric key. (5) All subsequent communication encrypted with symmetric key (AES-256). Certificates: issued by Certificate Authorities (Let\'s Encrypt is free). HSTS (HTTP Strict Transport Security): browser-side policy preventing downgrade attacks. TLS 1.3 (current standard) removes weak cipher suites, reduces handshake from 2 round trips to 1.',
+principal:'Certificate pinning: mobile apps can pin the expected certificate fingerprint to prevent MITM even with a compromised CA. mTLS (mutual TLS): both client and server present certificates — used in service meshes (Istio) for zero-trust inter-service authentication. The session is encrypted but the IP+domain is visible — use Tor or VPN if metadata privacy is needed.',
+real:'Let\'s Encrypt democratised HTTPS by providing free automated certificates via the ACME protocol. Netflix mandates mTLS for all inter-service communication within AWS.',
+mistakes:['Thinking HTTPS prevents all attacks — it only encrypts in-transit; stored data still needs encryption at rest','Not enabling HSTS — allows SSL stripping attacks','Using self-signed certificates in production without proper verification'],
+fu:['What is Certificate Pinning?','What is mTLS and when do you use it?']}
+
+,{id:192,c:'Easy Warm-Up',d:'easy',q:'What is a deadlock and how do you prevent it?',
+intent:'Concurrency fundamentals — appears in both Java threading and database transaction interviews.',
+weak:'A deadlock is when two threads are waiting for each other and neither can proceed.',
+strong:'Deadlock occurs when: Thread A holds Lock 1, wants Lock 2. Thread B holds Lock 2, wants Lock 1. Both wait forever — Coffman conditions: Mutual exclusion, Hold and wait, No preemption, Circular wait. Java example: synchronized(lock1){ synchronized(lock2){ } } in Thread A and synchronized(lock2){ synchronized(lock1){ } } in Thread B. Prevention strategies: (1) Lock ordering — always acquire locks in the same global order (Thread A and B both take lock1 then lock2). (2) tryLock with timeout — ReentrantLock.tryLock(100ms) — fail and retry rather than wait forever. (3) Lock-free algorithms — atomic compare-and-swap (CAS) operations (AtomicInteger, ConcurrentHashMap). (4) Single lock/synchronized entry point — reduce lock granularity. DB deadlocks: PostgreSQL detects and kills one transaction (ERROR: deadlock detected). Fix: consistent row access order in all transactions.',
+principal:'In microservices: distributed deadlocks can occur across services via synchronous call chains (A calls B calls C calls A). Detect with distributed tracing (Zipkin/Jaeger). Prevent with circuit breakers + timeouts (never let a thread block indefinitely waiting for another service). Thread dump analysis: jstack <pid> — "Found X deadlock" section shows the cycle.',
+real:'Java\'s Collections.sort() in Java 7 had a subtle deadlock in TimSort under concurrent modification. The fix required redesigning the locking strategy. Most Java deadlocks are caught in development via thread dumps or detected by ThreadMXBean.findDeadlockedThreads().',
+mistakes:['Using nested synchronized blocks without consistent ordering','Holding locks while calling external services — blocks threads, causes cascading failures'],
+fu:['What is a livelock vs deadlock?','What is starvation in concurrency?']}
+
+,{id:193,c:'Easy Warm-Up',d:'easy',q:'What is caching and what are the main caching strategies?',
+intent:'Caching appears in every system design question — this tests if the candidate knows the patterns.',
+weak:'Caching stores frequently accessed data in memory to reduce database load.',
+strong:'Caching stores computed/fetched results to avoid repeating expensive operations. Strategies: (1) Cache-Aside (Lazy Loading) — app checks cache; on miss, reads DB and populates cache. Most common. Data only in cache when needed. Risk: cache miss storm on cold start. (2) Write-Through — writes go to cache AND DB simultaneously. Always consistent. Adds write latency. (3) Write-Behind (Write-Back) — writes go to cache, async flush to DB. Fastest writes, risk of data loss on cache crash. (4) Read-Through — cache sits in front of DB, handles population itself. (5) Refresh-Ahead — proactively refreshes cache before expiry. Cache invalidation: hardest problem. Strategies: TTL-based expiry, event-driven invalidation (write triggers cache delete). Levels: L1 (in-process, Caffeine), L2 (distributed, Redis). Eviction policies: LRU (Least Recently Used), LFU (Least Frequently Used), TTL.',
+principal:'Cache invalidation is one of the two hard problems in CS (along with naming things and off-by-one errors — Phil Karlton). Write-through seems safe but causes thundering herd if cache is flushed and DB is slow. The correct production pattern: cache-aside + TTL + explicit invalidation on writes + jitter on TTL to spread expiry.',
+real:'Facebook\'s Memcached deployment is one of the largest caching systems ever built. They published the "lease" mechanism to solve thundering herd. Redis at Twitter caches timelines, reducing DB reads by 90%+.',
+mistakes:['Not setting TTL — unbounded cache growth','Not accounting for cache stampede on popular key expiry','Caching mutable data without invalidation strategy'],
+fu:['What is a cache stampede and how do you prevent it?','What is the difference between Redis and Memcached?']}
+
+,{id:194,c:'Easy Warm-Up',d:'easy',q:'What is Dependency Injection and why is it important?',
+intent:'DI is foundational to Spring Boot — tests OOP design understanding.',
+weak:'Dependency Injection is when you inject dependencies into a class instead of creating them inside.',
+strong:'DI is a design pattern where objects receive their dependencies from an external source (injector) rather than creating them internally. Without DI: class A creates instance of B directly — A is tightly coupled to B\'s implementation. With DI: A receives B through constructor/setter — A depends on B\'s interface, not its implementation. Three types: (1) Constructor injection (preferred) — dependencies passed at construction; object always valid; easy to test. (2) Setter injection — optional dependencies; allows mutation after construction. (3) Field injection (@Autowired directly on field) — convenient but hides dependencies, can\'t be used with final fields, harder to test. In Spring Boot: @Component, @Service, @Repository classes are managed beans; Spring\'s IoC container creates and injects them. @Autowired / constructor injection are the mechanisms. Benefit: testability — inject mock/stub in tests without touching production code.',
+principal:'Constructor injection over field injection always. Reasons: (1) Makes dependencies explicit — you can\'t create the class in a test without providing all dependencies. (2) Allows final fields — immutability by design. (3) Works without Spring container — plain Java new. Field injection requires the Spring container to work — you can\'t test the class in isolation without spinning up an ApplicationContext or using @InjectMocks.',
+real:'Spring Framework\'s entire design is built on IoC/DI. The ApplicationContext is the DI container. Spring Boot\'s @SpringBootApplication enables component scanning for automatic DI wiring.',
+mistakes:['Using field injection because it\'s shorter — loses testability and immutability','Circular dependencies (A depends on B, B depends on A) — Spring resolves some but it\'s a design smell','Injecting concrete classes instead of interfaces — couples to implementation'],
+fu:['What is the difference between @Autowired and @Inject?','What is the difference between IoC and DI?']}
+
+,{id:195,c:'Easy Warm-Up',d:'easy',q:'What is a HashMap and how does it work internally in Java?',
+intent:'Data structure fundamentals — also appears in Java Core interviews at FAANG.',
+weak:'HashMap stores key-value pairs and allows O(1) lookup using the key\'s hash code.',
+strong:'HashMap uses an array of "buckets" (default 16). get(key): compute key.hashCode() → apply hash function → index into bucket array → traverse linked list/tree at bucket for equals() match. put(key, value): same hash → index → if collision: add to linked list at bucket. Collisions: two keys with same hash index land in same bucket — resolved by chaining (linked list). Java 8+: when bucket list exceeds 8 entries, converts to balanced TreeMap (O(log n) instead of O(n) for worst case). Load factor (default 0.75): when 75% of buckets are filled, resize (double array, rehash all entries). Thread safety: HashMap is NOT thread-safe. ConcurrentHashMap: uses segment locking (Java 7) or CAS + synchronized per bucket (Java 8+) for thread safety without full lock.',
+principal:'hashCode() contract: equal objects MUST have same hashCode, but same hashCode doesn\'t mean equal (hash collision). Custom objects as keys: must override both hashCode() AND equals() consistently. Failure mode: if hashCode always returns 1 (valid but terrible), HashMap degrades to O(n) — every key lands in same bucket. Real interview trap: "what happens when a HashMap key\'s hashCode changes after insertion?" — the entry is "lost" because the bucket index changes. Always use immutable objects as keys.',
+real:'Java String.hashCode() uses a polynomial rolling hash. ConcurrentHashMap\'s non-blocking reads are used throughout Netflix\'s service discovery code.',
+mistakes:['Using mutable objects as HashMap keys — hashCode changes, key is lost','Not overriding hashCode when overriding equals — equal objects end up in different buckets','Assuming HashMap iteration order is insertion order (use LinkedHashMap for that)'],
+fu:['What is the difference between HashMap and LinkedHashMap?','Why is String immutable in Java?']}
+
+,{id:196,c:'Easy Warm-Up',d:'easy',q:'What is the Singleton pattern and when should you avoid it?',
+intent:'Tests design pattern knowledge + understanding of anti-patterns and testability.',
+weak:'Singleton ensures only one instance of a class exists and provides a global access point.',
+strong:'Singleton: private constructor + static instance + static getInstance() method. Double-checked locking (thread-safe, efficient): check instance is null, synchronize, check again, create. Enum singleton (Joshua Bloch recommendation): the safest Java singleton — serialisation-safe, reflection-safe. Spring Beans are singletons by default (@Scope("singleton")) — Spring manages one instance per ApplicationContext. When to avoid: (1) Global state — makes reasoning hard, any code can modify it. (2) Testability — can\'t replace with mock without reflection hacks. (3) Concurrency — shared mutable state requires careful synchronisation. (4) Distributed systems — "singleton" per JVM; multiple instances = no singleton. Better alternatives: Spring-managed beans (gives you DI + test overrides), or pass dependencies explicitly.',
+principal:'The Singleton pattern is on the "avoid" list in modern Spring development precisely because Spring\'s DI already gives you one-instance-per-context behaviour with testability. The classic Singleton anti-pattern appears in legacy code: Singleton.getInstance().doSomething() — impossible to unit test because you can\'t swap the instance. Spring\'s @Component + @Autowired gives you singleton semantics without the anti-pattern.',
+real:'Josh Bloch\'s "Effective Java" (Item 3) recommends enum-based singletons. The Gang of Four Singleton is now widely considered an anti-pattern in modern OOP due to testability concerns.',
+mistakes:['Non-thread-safe singleton — multiple instances created under concurrent access','Using Singleton where DI (dependency injection) is the better solution','Treating Spring beans as non-singleton when they default to singleton scope'],
+fu:['What is the double-checked locking pattern in Java?','How does Spring\'s application context differ from a Singleton?']}
+
+,{id:197,c:'Easy Warm-Up',d:'easy',q:'What is the difference between a cookie, session, and JWT for authentication?',
+intent:'Auth fundamentals — this question appears in almost every backend interview.',
+weak:'Cookies store data on the client, sessions store data on the server, JWT is a token with encoded data.',
+strong:'Cookie: a small piece of data stored in the browser, sent with every request to the same domain. Attributes: HttpOnly (JS can\'t read), Secure (HTTPS only), SameSite (CSRF protection). Session (server-side): server stores session data in memory/Redis; sends a session ID to the client in a cookie. Stateful — server must look up the session on every request. Scales poorly: sticky sessions or distributed session store needed. JWT (JSON Web Token): self-contained token with header.payload.signature. Server generates and signs with secret key; client stores (cookie or localStorage); server verifies signature on each request — stateless, no DB lookup. Structure: header (alg, type) + payload (claims: userId, roles, exp) + signature (HMAC-SHA256 or RSA). Trade-offs: Session — easy to revoke (delete from store). JWT — can\'t revoke individual tokens until expiry (use short expiry + refresh tokens). JWT payload is base64 encoded, NOT encrypted — don\'t store sensitive data.',
+principal:'JWT is not a session replacement — it\'s a different trade-off. Sessions: mutable server-side state, easy revocation, requires sticky sessions or Redis. JWT: stateless, scales easily, difficult revocation (need a token blacklist, defeating statelessness). Best practice: short-lived JWT (15min) + long-lived refresh token (stored HttpOnly cookie, server-validated). On logout: invalidate refresh token. This gives you stateless access tokens + revocable sessions.',
+real:'Auth0 and Okta use JWT for access tokens with short expiry. GitHub uses opaque tokens (not JWT) for API access — they can be revoked instantly. Spring Security supports both session-based and JWT-based auth.',
+mistakes:['Storing sensitive data in JWT payload (it\'s base64 encoded, not encrypted)','Long-lived JWTs without refresh token rotation','Not setting HttpOnly + Secure flags on session cookies'],
+fu:['What is OAuth 2.0 and how does it differ from authentication?','What is the difference between authentication and authorisation?']}
+
+,{id:198,c:'Easy Warm-Up',d:'easy',q:'What are the main HTTP status code categories and the most important codes?',
+intent:'Every API response uses status codes — wrong codes break client integrations.',
+weak:'200 is success, 404 is not found, 500 is server error.',
+strong:'5 categories: 1xx (informational), 2xx (success), 3xx (redirection), 4xx (client error), 5xx (server error). Critical codes: 200 OK (success), 201 Created (POST success, return Location header), 204 No Content (DELETE success, no body), 301 Moved Permanently (permanent redirect, browser caches), 302 Found (temporary redirect), 304 Not Modified (cache still valid), 400 Bad Request (invalid input — include error detail), 401 Unauthorized (not authenticated — misleading name), 403 Forbidden (authenticated but lacks permission), 404 Not Found, 409 Conflict (resource state conflict — e.g., duplicate email), 410 Gone (resource permanently deleted), 422 Unprocessable Entity (semantic validation error), 429 Too Many Requests (rate limit exceeded, include Retry-After header), 500 Internal Server Error (generic), 502 Bad Gateway (upstream service failed), 503 Service Unavailable (overloaded/maintenance, include Retry-After), 504 Gateway Timeout.',
+principal:'The most misused codes in production: 200 OK with an error body ("success: false") — forces every client to parse body to detect errors. Use proper status codes. 401 vs 403: 401 = "who are you?" (not authenticated), 403 = "I know who you are, but no" (not authorised). 404 vs 410: 404 = maybe exists, maybe not. 410 = definitively gone. Use 410 for deleted resources so crawlers stop indexing.',
+real:'Stripe returns detailed 4xx errors with a "code" field and "message" for humans. GitHub API uses 429 with X-RateLimit-* headers. Spring Boot\'s @ResponseStatus maps exceptions to HTTP codes.',
+mistakes:['Returning 200 for error responses — breaks monitoring, alerting, and client retry logic','Using 500 for client errors — 500 means the server broke, not the client','Not returning 201 with Location header on resource creation'],
+fu:['What headers should accompany a 429 response?','Why should you never return a 200 with an error body?']}
+
+,{id:199,c:'Easy Warm-Up',d:'easy',q:'What is a message queue and why do you use it?',
+intent:'Async communication is foundational to microservices — this tests architectural thinking.',
+weak:'A message queue stores messages so services can communicate asynchronously.',
+strong:'A message queue is a buffer that decouples producers from consumers. Producer writes messages; consumer reads and processes at its own pace. Key benefits: (1) Decoupling — producer doesn\'t need consumer to be running. (2) Load levelling — queue absorbs traffic spikes; consumer processes at sustainable rate. (3) Reliability — messages persist until consumed; consumer crash = message not lost. (4) Async processing — producer gets immediate response; slow work happens in background. Patterns: Point-to-Point (one producer, one consumer — e.g., SQS), Pub/Sub (one producer, multiple consumers — e.g., Kafka, SNS). When to use: sending emails, processing payments, video transcoding, notification delivery, data pipelines. Trade-off: adds complexity (eventual consistency, idempotency, ordering concerns, dead letter queues). Common: Kafka (log-based, replay), RabbitMQ (exchange/routing), AWS SQS (managed, at-least-once).',
+principal:'The key decision: synchronous (direct HTTP call) vs asynchronous (queue). Synchronous: immediate response, tight coupling, cascading failures. Async: decoupled, resilient, but eventual consistency. Rule of thumb: user is waiting → synchronous. Side effects (email, analytics, notifications) → async queue. Kafka vs SQS: Kafka for ordered event streaming and replay; SQS for simple task queues with at-least-once delivery.',
+real:'Amazon.com: every order triggers dozens of async events (inventory update, email, analytics, recommendations). All via SQS/SNS internally. LinkedIn built Kafka for their activity stream — now used everywhere.',
+mistakes:['Putting synchronous user-facing operations in a queue (adds latency without benefit)','Not designing for at-least-once delivery — idempotent consumers are non-negotiable','No dead letter queue — failed messages disappear silently'],
+fu:['What is the difference between a message queue and an event log?','What is at-least-once vs exactly-once delivery?']}
+
+,{id:200,c:'Easy Warm-Up',d:'easy',q:'What is Docker and what problem does it solve?',
+intent:'Containers are now table stakes — this tests understanding beyond "it runs everywhere."',
+weak:'Docker packages applications with their dependencies so they run consistently in any environment.',
+strong:'Docker solves the "works on my machine" problem by packaging an app with its complete runtime environment (code, runtime, libraries, environment variables, config) into a portable container image. Key concepts: Image: read-only template built from a Dockerfile (layers). Container: running instance of an image (isolated process). Dockerfile: build instructions (FROM base image, COPY code, RUN install deps, CMD start command). Registry: image storage (Docker Hub, ECR, GCR). Isolation: Linux namespaces (process, network, filesystem) + cgroups (CPU, memory limits). vs VM: VMs virtualise hardware (heavy, minutes to start). Containers virtualise the OS (lightweight, seconds to start, share kernel). Immutability: containers are replaced not patched — predictable deployments. Layers: Docker images use union filesystem (OverlayFS) — shared base layers reduce storage.',
+principal:'The important interview insight: containers enable immutable infrastructure. Instead of "update the server," you "replace the container." This makes rollbacks trivial (redeploy previous image tag). Docker alone doesn\'t solve production concerns: Kubernetes handles orchestration (scheduling, scaling, health checks, service discovery). The Dockerfile is infrastructure as code — treat it like application code (lint, scan for vulnerabilities, minimal base images to reduce attack surface).',
+real:'Google has been running containers internally (Borg/Kubernetes) since 2003. Docker democratised containers in 2013. Spring Boot 3 has first-class Docker support: spring-boot-build-image Gradle/Maven plugin creates OCI images without a Dockerfile.',
+mistakes:['Running containers as root (security risk — use USER directive)','Using :latest tag in production — non-deterministic builds','Storing application state inside containers — it\'s lost on restart (use volumes or external storage)'],
+fu:['What is Kubernetes and how does it differ from Docker?','What is a multi-stage Docker build?']}
+
+// ── Behavioral / Amazon Leadership Principles (201–220) ─
+,{id:201,c:'Behavioral',d:'medium',q:'Tell me about a time you had to make a decision with incomplete data (Amazon LP: Are Right, A Lot / Bias for Action)',
+intent:'Tests decision-making under uncertainty, intellectual courage, and comfort with ambiguity.',
+weak:'We didn\'t have all the information but I researched it and made a decision.',
+strong:'Structured answer (STAR): "At [company], we had to decide whether to migrate our payment service to a new vendor within 2 weeks — the old contract was expiring. We had incomplete load test data (only 30% of projected peak traffic tested) and no prod equivalent environment. I identified the 3 highest-risk unknowns: (1) peak throughput, (2) failover time, (3) reconciliation format. I made a risk-ranked decision: proceed with migration but deploy a feature flag that reverts to old vendor in 30 seconds if error rate spikes. Defined a clear abort criterion: >1% error rate triggers immediate rollback. The migration went live — we hit one edge case in reconciliation that we\'d flagged as a risk, activated the flag, reverted, fixed the format, redeployed 4 hours later. Result: zero customer impact, migration complete on time."',
+principal:'What Amazon wants to hear: you didn\'t wait for perfect data (that never comes). You identified the highest-risk unknowns, designed a reversible decision where possible, defined explicit abort criteria, and moved. The "Are Right, A Lot" LP isn\'t about never being wrong — it\'s about having strong judgment, seeking diverse input, and course-correcting fast. Bonus: mention what you learned for next time.',
+real:'Jeff Bezos\'s "two-pizza rule" and "two-door decision framework": most decisions are reversible (Type 2 — make fast, correct if wrong). Only truly irreversible decisions (Type 1) warrant slow, deliberate process.',
+mistakes:['Describing a situation where you waited for all data — shows lack of bias for action','No clear decision framework — "I just went with my gut" is unconvincing at senior level','Not mentioning what you would do differently — shows no learning'],
+fu:['How do you distinguish between a Type 1 and Type 2 decision?','Describe a time you changed your mind based on new data.']}
+
+,{id:202,c:'Behavioral',d:'medium',q:'Describe a time you disagreed with your manager or team\'s technical direction. What did you do? (Amazon LP: Have Backbone; Disagree and Commit)',
+intent:'Tests intellectual honesty, communication under conflict, and professional maturity.',
+weak:'I disagreed but went along with the team\'s decision.',
+strong:'"The team decided to implement a synchronous service-to-service call for order fulfilment notifications — I believed this created an unacceptable cascading failure risk based on previous incidents. I first made sure I fully understood their reasoning (they were optimising for simplicity and time-to-delivery). I prepared a written technical doc with: the specific failure scenario, historical incident data showing the cascading pattern, the async alternative with estimated implementation time (+2 days), and risk comparison. I presented it in the design review and proposed: \'let\'s implement sync now with a clear async migration ticket as P1 for next sprint.\' The team agreed on the async migration. During the sprint, the sync service was knocked by a downstream timeout — no incident because the async path had already replaced it. Result: the team established async-by-default as a team principle."',
+principal:'"Disagree and Commit" means: make your case clearly, once, with data. If the decision goes the other way: commit fully without undermining. At Amazon, passive-aggressive compliance (doing the task while signalling you disagree) is worse than direct disagreement. The key phrases: "I want to make sure we\'ve considered X risk" not "This is wrong."',
+real:'Amazon\'s leadership review process explicitly rewards engineers who push back on bad technical decisions backed by data. The LP is specifically "Disagree AND Commit" — not "Disagree and drag your feet."',
+mistakes:['Describing a situation where you just complied without raising the concern — shows no backbone','Being unable to describe what you did when overruled — were you able to commit?','Making it personal rather than technical — "my manager was wrong" vs "the design had these specific risks"'],
+fu:['How do you handle technical disagreements with someone more senior than you?','Tell me about a time you were wrong about a technical decision.']}
+
+,{id:203,c:'Behavioral',d:'medium',q:'Tell me about the most complex system you\'ve ever debugged. Walk me through your process. (Amazon LP: Dive Deep)',
+intent:'Tests systematic debugging, curiosity, and willingness to go to root cause.',
+weak:'I debugged a complex issue by checking logs and narrowing down the cause.',
+strong:'"Our payment processing service started showing 0.3% of transactions silently failing — no exception, no error log, just missing in our reconciliation report. This happened only at specific times. Debugging process: (1) Established what \'normal\' looked like from metrics (transaction rate, DB write rate, Kafka produce rate). (2) Found: DB write rate was normal, Kafka produce rate had occasional 0.1s gaps — correlated with the missing transactions. (3) Checked Kafka producer config — found max.block.ms was 100ms. Producer was silently timing out without throwing an exception because we caught Exception and logged \'produce failed\' at DEBUG level. (4) Root cause: a saturation spike on our Kafka cluster caused producer backpressure; our error handling swallowed it. Fix: (1) Raise log level to WARN for produce failures. (2) Add Kafka produce error rate to dashboards. (3) Fix max.block.ms to 5000ms with proper retry. Result: zero silent failures since, and we added this to our Kafka producer checklist."',
+principal:'Amazon\'s Dive Deep LP means you don\'t stop at "it\'s fixed" — you understand exactly why it happened and why it won\'t happen again. The 5 Whys methodology: keep asking "why?" until you reach a root cause you can address systematically. In code reviews and design reviews: "that\'s interesting, tell me more" when something seems off.',
+real:'Jeff Bezos was known for asking "why?" repeatedly in reviews. The Amazon bug bash practice and COE (Correction of Errors) documents require root cause analysis and systematic prevention.',
+mistakes:['Describing a trivial bug — the question asks for the MOST complex one you\'ve faced','Being vague about your specific debugging steps — interviewers probe for concrete actions','Not mentioning what you put in place to prevent recurrence'],
+fu:['How do you debug a production issue you can\'t reproduce locally?','What observability tools do you use and why?']}
+
+,{id:204,c:'Behavioral',d:'medium',q:'Tell me about a time you raised the bar on quality for your team. (Amazon LP: Insist on the Highest Standards)',
+intent:'Tests whether candidate sets quality standards and raises them, not just maintains them.',
+weak:'I reviewed my team\'s code and pointed out issues to improve quality.',
+strong:'"I joined a team where the integration test coverage was 12% and deployments frequently caused prod incidents. Instead of just complaining, I: (1) Proposed a team-level OKR: raise test coverage to 60% and reduce deployment-related incidents by 50% in one quarter. (2) Created a testing guide (specific to our domain — not generic) with worked examples. (3) Added coverage checks to the CI pipeline — PRs with coverage regression required extra reviewer approval. (4) Led \'Test clinic\' sessions (30 min Fridays) where we refactored the trickiest untested code together. (5) Recognised teammates in team meetings when they caught bugs in code review. Result: 61% coverage in 10 weeks, 0 deployment incidents that quarter (vs 4 the previous quarter). Two team members adopted this as their own practice and are now mentoring others."',
+principal:'Amazon\'s \'Insist on Highest Standards\' isn\'t about perfectionism — it\'s about setting clear bars, leading by example, and not accepting \'good enough\' as a permanent state. Key: you raised the standard for everyone, not just your own code.',
+real:'Google\'s code review culture requires specific reviewers for specific types of changes (readability, security). Amazon\'s bar raiser in interviews is a role specifically designed to maintain hiring standards.',
+mistakes:['Describing only your own high-quality work — the question asks about raising the bar for the TEAM','Not quantifying the improvement — how much did quality improve?','Raising standards through enforcement/mandates only without enablement'],
+fu:['How do you balance code quality with delivery speed?','Tell me about a time you had to push back on a "ship it" mentality.']}
+
+,{id:205,c:'Behavioral',d:'medium',q:'Describe a situation where you had to deliver a project with significantly constrained resources. (Amazon LP: Frugality)',
+intent:'Tests resourcefulness, prioritisation, and ability to deliver value under constraints.',
+weak:'We had limited time and resources, so I prioritised the most important tasks.',
+strong:'"We needed to build an internal analytics dashboard for our ops team. I had a 2-week window, no budget for new infrastructure, and could allocate only 20% of my time. I applied the following: (1) Reused our existing PostgreSQL DB with materialized views instead of spinning up a separate analytics DB. (2) Used Chart.js (open source) instead of a paid dashboard tool. (3) Identified the 3 metrics the ops team actually needed (vs their wish list of 15). (4) Built the MVP in 3 days — deployed, got feedback, iterated. Total cost: 0 additional infrastructure. Result: ops team reduced their daily manual reporting time from 2 hours to 10 minutes. Six months later, only 4 of the original 15 metrics turned out to be needed — the frugal MVP approach prevented over-engineering."',
+principal:'Amazon\'s Frugality LP: \'accomplish more with less.\' This isn\'t about being cheap — it\'s about eliminating waste and finding elegant solutions. The interview question tests whether you default to \'I need more resources\' or \'how do I get the outcome with what I have?\'',
+real:'Amazon famously operates with small teams (two-pizza rule) and expects each team to be self-sufficient. AWS services started as internal tools built with constrained resources.',
+mistakes:['Describing scope reduction without mentioning you still met the actual need','Not quantifying the constraint — "limited resources" is vague','Not mentioning what you did NOT build and why that was the right call'],
+fu:['How do you decide what to cut when you can\'t do everything?','Tell me about a time you built something that could have been much more complex.']}
+
+,{id:206,c:'Behavioral',d:'medium',q:'Tell me about a time you earned or maintained trust during a difficult situation. (Amazon LP: Earn Trust)',
+intent:'Tests transparency, communication under pressure, and long-term relationship building.',
+weak:'A customer was upset and I resolved their issue quickly to rebuild their trust.',
+strong:'"Our team caused a production incident that affected 200 merchants for 4 hours — a config change I reviewed had an untested edge case. Actions: (1) Immediate transparency: I posted a detailed incident timeline in our internal channel within 15 minutes with a clear \'we caused this, working on a fix\' message — no hedging. (2) Communicated estimated resolution time with updates every 30 minutes even when there was no new information. (3) When fixed: published a COE (Correction of Errors) within 48 hours — including a section acknowledging my specific review gap. (4) Followed up with the 3 most impacted merchants directly, explained what happened and what we\'d changed. Result: our NPS with affected merchants improved in the next survey. One merchant said the transparency made them MORE confident in us."',
+principal:'Earn Trust at Amazon means: be transparent (especially about failures), deliver what you promise (or proactively communicate if you can\'t), and acknowledge your mistakes without deflection. The trust is built during adversity, not during easy wins.',
+real:'Ben Horowitz\'s "The Hard Thing About Hard Things" discusses transparency during crises as the foundation of leadership trust. Amazon\'s customer obsession LP is deeply tied to earning trust — customers trust Amazon partly because of how they handle failures.',
+mistakes:['Describing only a success — the LP is specifically about earning trust during difficulty','Attributing the failure to the team/system without acknowledging your contribution','Not mentioning the follow-through actions — trust is rebuilt through demonstrated change'],
+fu:['How do you handle a situation where you\'ve lost trust with a stakeholder?','Describe a time you had to give difficult feedback to a peer.']}
+
+,{id:207,c:'Behavioral',d:'hard',q:'Tell me about a time you invented a creative solution to a problem that couldn\'t be solved with existing tools. (Amazon LP: Invent and Simplify)',
+intent:'Tests first-principles thinking, creative problem-solving, and bias away from complexity.',
+weak:'I couldn\'t find an existing tool that solved our problem, so I built a custom solution.',
+strong:'"Our microservice architecture had 40 services and no way to understand end-to-end data flow for compliance. Off-the-shelf tools either required SDK instrumentation in every service (3-month effort) or were too expensive. I invented: a lightweight \'shadow proxy\' pattern — a sidecar that reads Kafka topics and builds a data lineage graph without touching service code. Built with: Kafka consumer + Neo4j graph DB + a simple UI showing data flow. Developed it in 3 weeks as a 20% project. Result: compliance audit completed in 2 days (was estimated 3 weeks). The pattern was adopted by 2 other teams for their own observability needs. Key insight: the existing tools assumed service code instrumentation; I inverted the assumption and listened passively instead."',
+principal:'"Invent and Simplify" means: the best solution is often simpler than what exists, and sometimes you need to build it. But \'invent\' doesn\'t mean complexity — often the invention IS the simplification. The LP explicitly says: "find ways to simplify." Be suspicious of complex solutions to simple problems.',
+real:'Amazon invented many internal tools that became AWS products — SQS, DynamoDB, and Lambda all started as internal solutions to real problems.',
+mistakes:['Describing a standard implementation of a known pattern — not inventing','Over-engineering a solution when a simple one exists — misses the "simplify" part','Not explaining why existing tools couldn\'t solve the problem'],
+fu:['Tell me about a time you simplified a complex system.','When do you decide to build vs buy?']}
+
+,{id:208,c:'Behavioral',d:'medium',q:'Describe a project where you took full ownership from start to finish. (Amazon LP: Ownership)',
+intent:'Tests accountability, end-to-end thinking, and whether candidate thinks beyond their immediate role.',
+weak:'I built the feature from requirements to deployment.',
+strong:'"When our monitoring team left the company, no one owned our observability stack. I volunteered to own it despite it being outside my sprint commitments. I: (1) Took a full inventory of what existed and what was missing. (2) Identified the 3 critical gaps: no service-level alerting, no on-call runbooks, and Grafana dashboards 6 months out of date. (3) Wrote the runbooks for our 12 most common production issues. (4) Set up RED method dashboards for every service (Rate, Errors, Duration). (5) Trained 6 engineers on the alerting system. (6) Established a \'monitoring owner\' rotation so ownership was sustainable. Result: mean-time-to-detect for incidents dropped from 45 min to 8 min. I still own the system 18 months later."',
+principal:'Amazon\'s Ownership LP means: owners don\'t say "that\'s not my job." They notice gaps, fill them, and don\'t put down ownership when the work gets boring. The test question is: what did you own that was outside your formal responsibility?',
+real:'Amazon\'s \'you build it, you run it\' culture gives teams full ownership of their services including on-call. This ownership model drives reliability because the people who write the code are the people who get paged at 3am.',
+mistakes:['Describing ownership of only your assigned work — the question is about going beyond','Not mentioning the outcome and long-term impact','Describing ownership without the accountability aspect — what did you do when things went wrong?'],
+fu:['Tell me about a time you had to go beyond your formal role to get something done.','How do you handle owning something outside your expertise?']}
+
+,{id:209,c:'Behavioral',d:'medium',q:'Tell me about a time you significantly simplified a complex process or system. (Amazon LP: Invent and Simplify)',
+intent:'Tests architectural judgment, ability to identify unnecessary complexity, and the courage to remove it.',
+weak:'I refactored some complicated code to make it simpler and more maintainable.',
+strong:'"Our deployment process had grown to 47 manual steps over 3 years, documented in a 20-page Confluence doc. Deploy time: 4 hours, required 2 engineers, and caused 1-2 incidents per month due to human error. I proposed simplifying it. Analysis: 30 of the 47 steps were workarounds for problems that no longer existed (system migrations long completed). I eliminated them. The remaining 17 I automated with GitHub Actions. The Confluence doc was replaced by a single command: ./deploy.sh --env prod. Result: deploy time: 20 minutes (12x faster), no human error incidents in 6 months, single engineer can deploy independently. The 20-page doc is now a 3-line README."',
+principal:'The best simplification identifies \'accidental complexity\' (complexity you added unnecessarily) vs \'essential complexity\' (inherent to the problem). Most legacy systems are 80% accidental complexity. The courage to delete code/process is as important as the skill to write it. Amazon\'s bar for simplicity: \'could a new engineer understand this in their first week?\'',
+real:'Amazon\'s website was famously complex in its early days — Jeff Bezos\'s "API mandate" was a simplification. Stripe\'s API is considered simple precisely because of enormous effort to hide complexity.',
+mistakes:['Describing a code refactor without business impact — simplification should matter to the business','Not quantifying the before/after state','Simplifying the wrong things — removing useful complexity vs harmful accidental complexity'],
+fu:['How do you decide what complexity is accidental vs essential?','Tell me about a system you wish you\'d designed more simply from the start.']}
+
+,{id:210,c:'Behavioral',d:'hard',q:'Describe a time you had to deliver results despite significant obstacles or ambiguity. (Amazon LP: Deliver Results)',
+intent:'Tests resilience, execution under pressure, and results-orientation.',
+weak:'We faced many challenges but we kept working hard and delivered the project.',
+strong:'"I led a migration of our authentication service 2 weeks before a PCI compliance audit — a date we couldn\'t move. 3 days in, we discovered the new auth provider had an undocumented rate limit (1000 req/min) that would break our flash sale flows (10K req/min peak). Obstacles: (1) New vendor couldn\'t change the limit in time. (2) Rolling back would fail the audit. (3) Our existing caching layer didn\'t cover auth tokens. Actions: (1) Immediately assembled the team to generate options — we had 4 viable paths in 2 hours. (2) Chose: add auth token caching layer with 5-min TTL — reuses tokens for same user within window, reducing auth calls by 94%. (3) Built, tested, deployed in 36 hours. Result: PCI audit passed, flash sale peak handled with 98% cache hit rate. Post-mortem: added vendor rate limit discovery to our vendor evaluation checklist."',
+principal:'"Deliver Results" is the last LP but arguably the most important — it\'s the culmination of all others. What Amazon listens for: you kept your eye on the actual goal (not intermediate deliverables), you found creative paths around obstacles rather than escalating immediately, you communicated proactively when at risk.',
+real:'Amazon\'s goal-setting (OKR-equivalent): teams commit to specific measurable outcomes. "Delivering results" means hitting those outcomes, not just working hard.',
+mistakes:['Describing efforts without outcomes — "we worked really hard" is not a result','Not acknowledging the obstacles were real — minimising difficulty','Not mentioning what you\'d do differently — shows no learning'],
+fu:['What do you do when you realise you\'re going to miss a deadline?','Tell me about a time you had to reprioritise mid-project.']}
+
+// ── Spring Security / OAuth2 / Security (211–220) ──────
+,{id:211,c:'Security',d:'medium',q:'How does OAuth 2.0 work? Explain the Authorization Code flow.',
+intent:'OAuth 2.0 is used in every major application — this tests understanding of modern auth.',
+weak:'OAuth 2.0 lets users grant third-party apps access to their data without sharing passwords.',
+strong:'OAuth 2.0 is an authorisation framework (not authentication). Authorization Code Flow (most secure, for server-side apps): (1) Client redirects user to Authorization Server (e.g., Google) with: client_id, scope, redirect_uri, state (CSRF protection), code_challenge (PKCE). (2) User authenticates on Auth Server and grants consent. (3) Auth Server redirects to redirect_uri with an authorization code (short-lived, single-use). (4) Client\'s backend exchanges code for tokens at Token Endpoint (sends code + code_verifier). (5) Auth Server returns: access_token (short-lived, 1h), refresh_token (long-lived, 30d). (6) Client uses access_token in Authorization: Bearer header for API calls. (7) On expiry: use refresh_token to get new access_token. PKCE (Proof Key for Code Exchange): prevents authorization code interception — required for public clients (SPAs, mobile apps). Scopes: define what access is granted (openid, profile, email, read:user).',
+principal:'OAuth 2.0 key insight: the access_token never leaves the browser in the Authorization Code flow (code is exchanged server-side). Client Credentials flow is for M2M (machine-to-machine) — no user involved, service authenticates directly with client_id + secret. Implicit flow: deprecated. Do NOT use. PKCE replaces it.',
+real:'Google, GitHub, Facebook all use OAuth 2.0 Authorization Code + PKCE. Spring Security supports all OAuth2 flows via spring-security-oauth2-client.',
+mistakes:['Confusing OAuth 2.0 (authorisation) with OpenID Connect (authentication)','Using Implicit flow in a new system — it\'s deprecated and insecure','Not implementing PKCE for public clients (SPAs, mobile)'],
+fu:['What is the difference between OAuth 2.0 and OpenID Connect?','What is JWT and how is it used with OAuth 2.0?']}
+
+,{id:212,c:'Security',d:'medium',q:'How do you implement JWT authentication in Spring Boot?',
+intent:'JWT is now the default for stateless microservice authentication — practical implementation matters.',
+weak:'You add a filter that validates the JWT token and sets the SecurityContext.',
+strong:'Implementation: (1) Dependency: spring-boot-starter-security + jjwt-api. (2) JwtService: generate tokens (Jwts.builder() + HMAC-SHA256 or RS256 signing), validate tokens (parse + verify signature + check expiry), extract claims. (3) JwtAuthFilter extends OncePerRequestFilter: extract Bearer token from Authorization header → validate → load UserDetails → set SecurityContextHolder. (4) SecurityConfig: add JwtAuthFilter before UsernamePasswordAuthenticationFilter, disable session creation (SessionCreationPolicy.STATELESS), disable CSRF (stateless APIs). (5) /login endpoint: authenticate with UsernamePasswordAuthenticationToken → generate JWT → return. Token structure: header (alg:HS256) + payload (sub, roles, iat, exp) + signature. Refresh: short-lived access token (15 min) + long-lived refresh token (7d) stored in HttpOnly cookie.',
+principal:'RS256 (asymmetric) vs HS256 (symmetric): HS256 uses a shared secret — all services that validate must have the secret. RS256 uses private key to sign, public key to verify — Auth Service has private key, all other services only need the public key (safe to distribute). At microservices scale: RS256 + JWKS endpoint (/.well-known/jwks.json) lets each service fetch the public key and verify tokens independently.',
+real:'Spring Authorization Server (spring-authorization-server) implements the full OAuth2 Authorization Server. Keycloak and Auth0 use RS256 by default. Netflix\'s Passport service issues RS256 JWTs.',
+mistakes:['Storing JWT in localStorage — vulnerable to XSS (use HttpOnly cookie)','Not validating the \'exp\' claim — expired tokens accepted','Putting sensitive data in the payload — base64 encoded, not encrypted'],
+fu:['How do you handle token revocation with JWT?','What is the difference between HS256 and RS256?']}
+
+,{id:213,c:'Security',d:'medium',q:'What is CSRF and how does Spring Security prevent it?',
+intent:'CSRF is one of the OWASP Top 10 — understanding the attack AND the defence is required.',
+weak:'CSRF is when an attacker tricks a user into making unwanted requests. Spring Security adds a CSRF token to prevent it.',
+strong:'CSRF (Cross-Site Request Forgery): an attacker tricks an authenticated user\'s browser into making an unwanted request to your site. Example: user is logged into bank.com (session cookie auto-sent). Attacker\'s evil.com has a hidden form POST to bank.com/transfer. User visits evil.com → browser sends the POST with the bank.com session cookie → bank processes it. Defence — Synchronizer Token Pattern: server embeds a secret CSRF token in each form. POST must include the token in the request body (not auto-sent by browser). Spring Security auto-generates and validates CSRF tokens for all state-changing requests. For REST APIs: stateless JWTs are NOT vulnerable to CSRF (no cookies auto-sent) — disable CSRF in Spring Security for JWT APIs. SameSite cookie attribute: SameSite=Strict/Lax prevents browsers from sending cookies on cross-site requests — modern defence that doesn\'t require tokens.',
+principal:'The "disable CSRF for REST APIs" decision only applies when: (1) Your API is stateless (JWT, not session cookies) AND (2) Tokens are stored in Authorization header, not cookies. If you put JWT in a HttpOnly cookie, CSRF is relevant again. Modern recommendation: SameSite=Lax (default in modern browsers) + CSRF token for legacy support.',
+real:'Spring Security 6 disables CSRF protection by default for REST APIs when using JWT. Ruby on Rails, Django, and Laravel all implement CSRF protection by default for form submissions.',
+mistakes:['Disabling CSRF in Spring Security without understanding the implications','Not implementing SameSite cookies as a defence-in-depth layer','Confusing CSRF with XSS — different attacks, different defences'],
+fu:['What is the difference between CSRF and XSS?','When is it safe to disable CSRF protection?']}
+
+,{id:214,c:'Security',d:'hard',q:'How do you secure microservices communication? Explain mTLS and service mesh.',
+intent:'Tests depth on zero-trust security architecture for distributed systems.',
+weak:'You secure microservices with API keys or JWT tokens passed between services.',
+strong:'Options (increasing security): (1) Network-level: VPC/private subnet — services only reachable within the network. Still needs auth for lateral movement. (2) JWT propagation: API Gateway validates external JWT, issues internal JWT for service-to-service. Services validate internal JWT (same auth service). (3) mTLS (mutual TLS): both client and server present certificates and verify each other. Unlike regular TLS (server only presents cert), mTLS authenticates both endpoints. Each service has a certificate issued by an internal CA. The certificate IS the identity. Service mesh (Istio/Linkerd): injects a sidecar proxy (Envoy) next to each service. Sidecar handles: mTLS automatically (no app code changes), circuit breaking, observability (traces), traffic management. The app only talks to localhost; the sidecar handles all network security. SPIFFE/SPIRE: provides workload identity — issues short-lived X.509 certificates to services based on their Kubernetes service account.',
+principal:'Zero-trust means: every service must prove its identity on every request, regardless of network location. VPC perimeter security is "castle and moat" — once inside, everything is trusted. Zero-trust is "every door is locked." Istio is operationally complex but provides mTLS + observability + traffic management as a platform — the right choice at 50+ services.',
+real:'Netflix mandates mTLS for all inter-service communication. Google\'s BeyondCorp was one of the first zero-trust implementations. Istio is used at Airbnb, Lyft, and most large Kubernetes deployments.',
+mistakes:['Relying on network perimeter alone without service-level authentication','Not rotating certificates — long-lived certs increase breach window','Implementing JWT propagation without validating the issuer — any compromised service can generate tokens'],
+fu:['What is SPIFFE/SPIRE?','How do you handle service-to-service authentication without a service mesh?']}
+
+,{id:215,c:'Security',d:'medium',q:'What is Spring Security\'s filter chain and how does it work?',
+intent:'Spring Security internals are tested at mid-to-senior level for Spring Boot developers.',
+weak:'Spring Security has a filter chain that processes every HTTP request through a series of security checks.',
+strong:'Spring Security\'s security filter chain is a series of servlet filters (implementations of javax.servlet.Filter) that process every incoming HTTP request in order. Key filters (in order): (1) DisableEncodeUrlFilter — prevents session ID in URLs. (2) SecurityContextPersistenceFilter — loads SecurityContext from session (stateful) or creates empty context (stateless). (3) CsrfFilter — validates CSRF token for state-changing requests. (4) LogoutFilter — intercepts logout URL. (5) UsernamePasswordAuthenticationFilter — processes form login. (6) JwtAuthFilter (custom) — validates JWT, sets SecurityContext. (7) ExceptionTranslationFilter — converts Spring Security exceptions to HTTP responses (401/403). (8) FilterSecurityInterceptor — final access control check against @PreAuthorize / HttpSecurity config. SecurityContextHolder: thread-local storage of the current Authentication object (Principal + credentials + authorities). Principal = currently authenticated user. Multiple SecurityFilterChains: Spring Security 5.7+ supports multiple chains — different config for /api/** vs /admin/**.',
+principal:'The most important mental model: SecurityContextHolder is the global state of "who is this request." Every security check reads from it. Your JwtAuthFilter\'s job is to: (1) Extract credentials, (2) Validate them, (3) Populate the SecurityContext. After that, @PreAuthorize and HttpSecurity rules work automatically.',
+real:'Spring Security\'s filter chain concept is borrowed from Java EE servlet filters. The design is intentionally extensible — any filter can be inserted at any point in the chain.',
+mistakes:['Not understanding filter ordering — JWT filter must run before authentication filters','Storing SecurityContext state between requests in stateless APIs (use SessionCreationPolicy.STATELESS)','Calling SecurityContextHolder.getContext().getAuthentication() from a non-request thread — context not propagated'],
+fu:['How does @PreAuthorize work internally?','What is the difference between authenticated() and hasRole() in Spring Security?']}
+
+,{id:216,c:'Security',d:'medium',q:'What is the OWASP Top 10? Which are most relevant for backend Java developers?',
+intent:'Security awareness is expected at senior level — the OWASP Top 10 is the baseline.',
+weak:'OWASP Top 10 lists the most common web vulnerabilities like SQL injection and XSS.',
+strong:'OWASP Top 10 2021: (1) Broken Access Control — most common. User can access other users\' data or perform admin actions. Fix: server-side enforcement of @PreAuthorize, never trust client-sent user IDs. (2) Cryptographic Failures — sensitive data exposed (PII, passwords, payment data). Fix: encrypt at rest + in transit, bcrypt passwords (never MD5/SHA1 for passwords). (3) Injection (SQL, LDAP, Command) — malicious data executed as code. Fix: parameterised queries / JPA (never string concatenation), input validation. (4) Insecure Design — architectural security gaps. Fix: threat modelling, security in design not as afterthought. (5) Security Misconfiguration — default credentials, verbose error messages, open cloud buckets. Fix: spring-boot-actuator secured, no stack traces in prod responses. (6) Vulnerable Components — outdated dependencies with known CVEs. Fix: dependabot / OWASP dependency check in CI. (7) Authentication Failures — weak passwords, brute force. Fix: rate limiting on auth, strong password policy, MFA. (8) Integrity Failures — CI/CD pipeline compromise, insecure deserialization. (9) Logging/Monitoring Failures — breaches not detected. Fix: centralized logging, alerting on auth failures. (10) SSRF — server-side request forgery. Fix: whitelist external URLs, block internal metadata endpoints.',
+principal:'For backend Java: the most impactful are: (1) Broken Access Control — check that every method on every controller validates the user can access that specific resource (not just "is authenticated"). (2) Injection — JPA parameterised queries protect SQL injection; @RequestBody deserialization can be a vector. (3) Security Misconfiguration — actuator endpoints (/env, /heapdump) exposed publicly is a critical CVE in Spring Boot apps.',
+real:'The Equifax breach (2017) was OWASP #6 — a known Apache Struts vulnerability not patched. The Log4Shell vulnerability (2021) was a Java deserialization injection vulnerability.',
+mistakes:['Treating security as a final step — it must be in every PR','Not restricting Spring Actuator endpoints in production','String concatenation in JPQL queries — still vulnerable to injection despite using JPA'],
+fu:['How do you prevent SQL injection in a Spring Boot application?','What is SSRF and how do you prevent it?']}
+
+,{id:217,c:'Security',d:'hard',q:'How do you implement Role-Based Access Control (RBAC) in Spring Boot and when do you use ABAC instead?',
+intent:'Access control design is critical for enterprise applications — tests architectural maturity.',
+weak:'You define roles (ADMIN, USER) and use @Secured or @PreAuthorize to restrict access.',
+strong:'RBAC: assign users to roles, assign permissions to roles, check role at runtime. Spring implementation: (1) UserDetails.getAuthorities() returns roles (ROLE_ADMIN, ROLE_USER). (2) @PreAuthorize("hasRole(\'ADMIN\')") on methods. (3) HttpSecurity.requestMatchers("/admin/**").hasRole("ADMIN"). (4) Custom: grant specific permissions (not just roles) — hasAuthority("user:write"). Hierarchical roles: ROLE_ADMIN inherits ROLE_USER with RoleHierarchy bean. ABAC (Attribute-Based Access Control): access based on attributes of user, resource, and environment. Example: a user can edit a document if: user.department == document.department AND user.clearanceLevel >= document.classification AND time.current is within business hours. Spring Security: @PreAuthorize("@documentSecurity.canEdit(authentication, #docId)") — calls a Spring bean for complex logic. When RBAC is insufficient: multi-tenant systems (tenant A can\'t see tenant B\'s data), row-level security (user sees only their own orders), time-based access, geographic restrictions.',
+principal:'RBAC scales to ~10-20 roles before it becomes unmaintainable (role explosion). At that point, ABAC or ReBAC (Relationship-Based AC — like Google Zanzibar) are more maintainable. Google\'s Zanzibar paper describes how they handle access control at scale: permission = "user X has relation Y to object Z" — powers Google Drive sharing semantics.',
+real:'AWS IAM is a sophisticated ABAC system — policies evaluate user attributes + resource tags + conditions. Spring Boot + @PreAuthorize + Spring Data JPA\'s @Query filtering is a common enterprise RBAC+row-level security pattern.',
+mistakes:['Role explosion — creating a new role for every slightly different permission combination','Not considering row-level security — just because a user is authenticated doesn\'t mean they can see ALL resources of that type','Doing access control in the UI only — server-side enforcement is mandatory'],
+fu:['How do you implement multi-tenant row-level security in Spring Boot?','What is Google Zanzibar?']}
+
+,{id:218,c:'Security',d:'medium',q:'What is SQL injection and how does Spring Boot + JPA prevent it?',
+intent:'Injection attacks are #3 in OWASP — every Java developer must understand both the attack and defence.',
+weak:'SQL injection is when malicious SQL is injected into a query. JPA prevents it by using parameterised queries.',
+strong:'SQL injection: attacker inserts SQL into user input that gets executed as a query. Classic example: SELECT * FROM users WHERE username=&#39;[input]&#39; — if input is "admin&#39;--", the query becomes SELECT * FROM users WHERE username=&#39;admin&#39;--&#39; (rest commented out — authentication bypassed). Parameterised queries (PreparedStatement): the driver sends query structure and parameters separately — parameters are NEVER interpreted as SQL. JPA protects by default: Spring Data JPA repository methods (findByUsername(String username)) use parameterised queries automatically. @Query("SELECT u FROM User u WHERE u.email = :email") — also parameterised. JPQL is safe — JPA handles parameterisation. Vulnerable pattern: @Query(value = "SELECT * FROM users WHERE username = &#39;" + username + "&#39;", nativeQuery = true) — native query with string concatenation. Also vulnerable: JdbcTemplate with string concatenation (use "?" placeholders instead). Hibernate Criteria API and QueryDSL are also injection-safe.',
+principal:'Beyond SQL: Spring Boot apps can be vulnerable to: (1) JPQL injection in @Query with native=false and string concat. (2) LDAP injection — use Spring LDAP template with parameters. (3) Log injection — user input in log messages can forge log entries (use parameterised logging: log.info("User: {}", input) not log.info("User: " + input)). (4) NoSQL injection — MongoDB: malicious JSON in query operators ($where, $regex).',
+real:'The 2008 Heartland Payment Systems breach (134M cards compromised) was an SQL injection attack. Despite being known since the 1990s, SQL injection remains #3 in OWASP 2021.',
+mistakes:['Using native queries with string concatenation — the most common JPA SQL injection vector','Not validating/sanitising input even with parameterised queries — defence in depth','Logging user input directly — log injection + potential PII leakage'],
+fu:['How do you prevent NoSQL injection in a MongoDB Spring application?','What is input validation vs input sanitisation?']}
+
+,{id:219,c:'Security',d:'medium',q:'How do you securely store passwords and what hashing algorithm should you use?',
+intent:'Password storage is a fundamental security topic — wrong answers here are immediate red flags.',
+weak:'You should hash passwords using SHA-256 or MD5 before storing them in the database.',
+strong:'NEVER use MD5 or SHA-1/256/512 for passwords. Why: these are fast — an attacker with the hash can try billions of combinations per second (GPU-accelerated). A 6-character password breaks in milliseconds. Correct approach: purpose-built slow hashing algorithms. (1) bcrypt — adaptive cost factor (rounds), built-in salt. Standard choice. Spring Security default: BCryptPasswordEncoder. (2) Argon2 — winner of Password Hashing Competition 2015. Memory-hard — resistant to GPU attacks. Spring: Argon2PasswordEncoder. (3) PBKDF2 — NIST-approved, used in FIPS environments. Avoid: MD5, SHA-*, plain text, reversible encryption (password is not a secret you need to recover — it only needs to be verified). Spring Boot implementation: @Bean PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(12); } — factor 12 means 2^12 rounds. Salting: bcrypt generates a unique random salt per password — same password produces different hashes. Verification: passwordEncoder.matches(rawPassword, storedHash) — never decrypt.',
+principal:'Cost factor tuning: bcrypt with cost 12 takes ~250ms on modern hardware — acceptable for login (user types once), but prevents bulk cracking. Argon2id (id variant) is the modern recommendation combining resistance to side-channel attacks AND GPU/ASIC attacks. Pepper: application-level secret added before hashing — even if DB is compromised, attacker needs the pepper to crack passwords. Store pepper in Vault/AWS Secrets Manager, not in the DB.',
+real:'The LinkedIn breach (2012) used unsalted SHA-1 — 117M passwords cracked in days. The Adobe breach (2013) used 3DES encryption (reversible!) — all passwords exposed. Both are textbook examples of why purpose-built password hashing is non-negotiable.',
+mistakes:['Using SHA-256 for passwords — it\'s fast, making it unsuitable for password storage','Not using a unique salt per password — enables rainbow table attacks','Logging passwords anywhere in the codebase — common in debug/error logging'],
+fu:['What is a rainbow table and how does salting defeat it?','What is a pepper in password hashing?']}
+
+,{id:220,c:'Security',d:'hard',q:'How do you implement rate limiting in Spring Boot to prevent abuse and DDoS?',
+intent:'Rate limiting is a critical production concern tested in system design and implementation questions.',
+weak:'You implement rate limiting by checking how many requests a user has made in a time window.',
+strong:'Rate limiting controls the frequency of requests. Algorithms: (1) Token Bucket — bucket holds N tokens, refills at rate R/sec. Each request consumes a token. Best for: allowing short bursts, smooth long-term rate. Redis-backed implementation. (2) Sliding Window Log — track exact timestamps of recent requests. Accurate but memory-intensive. (3) Fixed Window Counter — count requests per fixed time window (1 min). Simple, but edge bursts (2x rate at window boundary). (4) Leaky Bucket — requests processed at fixed rate, excess queued or dropped. Best for: smoothing bursty traffic. Spring Boot implementation: (1) Resilience4j RateLimiter: @RateLimiter(name = "api") on methods. Config: limitForPeriod=100, limitRefreshPeriod=1s. (2) Bucket4j with Redis: for distributed rate limiting across multiple instances. (3) Spring Cloud Gateway: built-in Redis rate limiting filter. Granularity: per IP, per user, per API key, per endpoint. Response: 429 Too Many Requests + Retry-After header + X-RateLimit-Limit/Remaining/Reset headers.',
+principal:'Single-instance rate limiting (Resilience4j in-process) breaks in a horizontally scaled system — each instance has its own counters. Production requires distributed rate limiting (Redis-backed, or API Gateway). Key architecture: rate limiting belongs at the EDGE (API Gateway/ingress) for DDoS protection, and at the SERVICE level for business rules (max 5 OTP/user/hour). Two-layer approach: API Gateway (coarse, IP-based) + Resilience4j (fine, user/endpoint specific).',
+real:'Cloudflare\'s rate limiting handles DDoS at the edge. GitHub API uses X-RateLimit-* headers — 5000 requests/hour for authenticated users. Stripe uses per-API-key rate limiting for their payment APIs.',
+mistakes:['Implementing rate limiting only in the application layer — easily bypassed by multiple instances','Not returning proper 429 responses with Retry-After headers — clients can\'t back off intelligently','Rate limiting globally without per-user limits — one user can exhaust the shared limit'],
+fu:['How do you handle rate limit bypass via IP rotation?','What is the difference between rate limiting and throttling?']}
 ];
 // ── State ──────────────────────────────────────────────
 const S={
   answered:new Set(JSON.parse(localStorage.getItem('gs_answered')||'[]')),
   bookmarked:new Set(JSON.parse(localStorage.getItem('gs_bookmarked')||'[]')),
   favorites:new Set(JSON.parse(localStorage.getItem('gs_favorites')||'[]')),
+  notes:JSON.parse(localStorage.getItem('gs_notes')||'{}'),
   expanded:new Set(),
   cat:'All', diff:'all', search:'',
   tab:'guide',
@@ -3565,6 +4069,20 @@ function save(){
   localStorage.setItem('gs_answered',JSON.stringify([...S.answered]));
   localStorage.setItem('gs_bookmarked',JSON.stringify([...S.bookmarked]));
   localStorage.setItem('gs_favorites',JSON.stringify([...S.favorites]));
+  localStorage.setItem('gs_notes',JSON.stringify(S.notes));
+}
+
+function saveNote(id,val){
+  if(val.trim())S.notes[id]=val;else delete S.notes[id];
+  save();
+}
+
+function searchFor(e,term){
+  e.stopPropagation();
+  setTab('questions',document.querySelectorAll('.tab')[1]);
+  S.search=term;
+  document.getElementById('search').value=term;
+  render();
 }
 
 function filtered(){
@@ -3581,29 +4099,31 @@ function dc(d){return{easy:'var(--teal)',medium:'var(--gold)',hard:'var(--saffro
 
 function renderCard(q){
   const exp=S.expanded.has(q.id),ans=S.answered.has(q.id),bk=S.bookmarked.has(q.id),fv=S.favorites.has(q.id);
-  return`<div class="card${ans?' answered':''}" id="q${q.id}">
+  const note=S.notes[q.id]||'';
+  return`<div class="card${ans?' answered':''}${exp?' expanded':''}" id="q${q.id}">
 <div class="card-header" onclick="toggleExp(${q.id})">
-  <div class="card-left">
+  <div class="card-meta">
     <span class="q-num">#${q.id}</span>
     <span class="cat-badge">${q.c}</span>
-    <span class="diff-badge" style="color:${dc(q.d)}">${q.d}</span>
+    <span class="diff-badge ${q.d}">${q.d}</span>
   </div>
   <div class="card-title">${q.q}</div>
   <div class="card-actions">
-    <button onclick="toggleBk(event,${q.id})" class="icon-btn${bk?' active':''}" title="Bookmark">🔖</button>
-    <button onclick="toggleFv(event,${q.id})" class="icon-btn${fv?' active':''}" title="Favorite">⭐</button>
-    <button onclick="toggleAns(event,${q.id})" class="icon-btn${ans?' active':''}" title="Mark answered">✓</button>
-    <span class="chevron">${exp?'▲':'▼'}</span>
+    <button onclick="toggleBk(event,${q.id})" class="act-btn${bk?' active':''}" title="Bookmark">🔖</button>
+    <button onclick="toggleFv(event,${q.id})" class="act-btn fav${fv?' active':''}" title="Favorite">⭐</button>
+    <button onclick="toggleAns(event,${q.id})" class="act-btn ans${ans?' active':''}" title="Mark answered">✓</button>
+    <span class="chevron">▼</span>
   </div>
 </div>
 ${exp?`<div class="card-body">
-  <div class="section intent"><span class="label">🎯 Interviewer's Intent</span><p>${q.intent}</p></div>
-  <div class="section weak"><span class="label">❌ Weak Answer</span><p>${q.weak}</p></div>
-  <div class="section strong"><span class="label">✅ Strong Answer</span><p>${q.strong}</p></div>
-  <div class="section principal"><span class="label">🚀 Principal Engineer Answer</span><p>${q.principal}</p></div>
-  <div class="section real"><span class="label">🏢 Real World Example</span><p>${q.real}</p></div>
-  <div class="section mistakes"><span class="label">⚠️ Common Mistakes</span><ul>${q.mistakes.map(m=>`<li>${m}</li>`).join('')}</ul></div>
-  <div class="section followups"><span class="label">🔍 Follow-up Questions</span><ul>${q.fu.map(f=>`<li>${f}</li>`).join('')}</ul></div>
+  <div class="ans-section as-intent"><div class="ans-hdr">Interviewer's Intent</div><div class="ans-body"><p>${q.intent}</p></div></div>
+  <div class="ans-section as-weak"><div class="ans-hdr">Weak Answer</div><div class="ans-body"><p>${q.weak}</p></div></div>
+  <div class="ans-section as-strong"><div class="ans-hdr">Strong Answer</div><div class="ans-body"><p>${q.strong}</p></div></div>
+  <div class="ans-section as-principal"><div class="ans-hdr">Principal Engineer Answer</div><div class="ans-body"><p>${q.principal}</p></div></div>
+  <div class="ans-section as-real"><div class="ans-hdr">Real World Example</div><div class="ans-body"><p>${q.real}</p></div></div>
+  <div class="ans-section as-mistakes"><div class="ans-hdr">Common Mistakes</div><div class="ans-body"><ul>${q.mistakes.map(m=>`<li>${m}</li>`).join('')}</ul></div></div>
+  <div class="ans-section as-fu"><div class="ans-hdr">Follow-up Questions</div><div class="ans-body"><div class="fu-chips">${q.fu.map(f=>`<span class="fu-chip" onclick="searchFor(event,'${f.replace(/'/g,"&#39;")}')">${f}</span>`).join('')}</div></div></div>
+  <div class="ans-section as-notes"><div class="ans-hdr">My Notes</div><textarea class="note-area" placeholder="Add personal notes, mnemonics, or reminders..." onchange="saveNote(${q.id},this.value)">${note}</textarea></div>
 </div>`:''}
 </div>`;
 }
@@ -3643,19 +4163,56 @@ function renderSidebar(){
 
 function renderStats(){
   if(S.tab!=='stats')return;
-  const cats=CATS.filter(c=>c!=='All');
-  const html=cats.map(c=>{
+  const total=QS.length,done=S.answered.size,pct=total?Math.round(done/total*100):0;
+  const easy=QS.filter(q=>q.d==='easy'),med=QS.filter(q=>q.d==='medium'),hard=QS.filter(q=>q.d==='hard');
+  const ed=easy.filter(q=>S.answered.has(q.id)).length;
+  const md=med.filter(q=>S.answered.has(q.id)).length;
+  const hd=hard.filter(q=>S.answered.has(q.id)).length;
+  const bk=S.bookmarked.size,fv=S.favorites.size;
+  const overview=`<div class="stats-overview">
+    <div class="stat-summary"><div class="ss-val">${done}</div><div class="ss-label">Answered</div></div>
+    <div class="stat-summary"><div class="ss-val" style="color:var(--teal)">${ed}/${easy.length}</div><div class="ss-label">Easy</div></div>
+    <div class="stat-summary"><div class="ss-val" style="color:var(--gold)">${md}/${med.length}</div><div class="ss-label">Medium</div></div>
+    <div class="stat-summary"><div class="ss-val" style="color:var(--red)">${hd}/${hard.length}</div><div class="ss-label">Hard</div></div>
+    <div class="stat-summary"><div class="ss-val" style="color:var(--saffron)">${pct}%</div><div class="ss-label">Overall</div></div>
+    <div class="stat-summary"><div class="ss-val" style="color:var(--gold)">${fv}</div><div class="ss-label">Favorites</div></div>
+    <div class="stat-summary"><div class="ss-val" style="color:var(--purple)">${bk}</div><div class="ss-label">Bookmarks</div></div>
+  </div>`;
+  const grid=CATS.filter(c=>c!=='All').map(c=>{
     const qs=QS.filter(q=>q.c===c);
-    const done=qs.filter(q=>S.answered.has(q.id)).length;
-    const pct=qs.length?Math.round(done/qs.length*100):0;
-    return`<div class="stat-card">
+    const d=qs.filter(q=>S.answered.has(q.id)).length;
+    const p=qs.length?Math.round(d/qs.length*100):0;
+    return`<div class="stat-card" onclick="setCatAndGo('${c.replace(/'/g,"\\'")}')">
       <div class="stat-cat">${c}</div>
-      <div class="stat-nums"><strong>${done}</strong> / ${qs.length} answered</div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
-      <div class="progress-text">${pct}% complete</div>
+      <div class="stat-nums"><strong>${d}</strong> / ${qs.length}</div>
+      <div class="stat-bar"><div class="stat-fill${p===100?' full':''}" style="width:${p}%"></div></div>
+      <div class="stat-pct">${p}%</div>
     </div>`;
   }).join('');
-  document.getElementById('stats-grid').innerHTML=html;
+  const actions=`<div class="stats-actions">
+    <button class="btn" onclick="if(confirm('Reset all progress?')){S.answered.clear();S.bookmarked.clear();S.favorites.clear();save();render();toast('Progress reset');}">Reset Progress</button>
+    <button class="btn" onclick="exportStats()">Export CSV</button>
+  </div>`;
+  document.getElementById('stats-grid').innerHTML=overview+grid+actions;
+}
+
+function setCatAndGo(c){
+  setTab('questions',document.querySelectorAll('.tab')[1]);
+  setTimeout(()=>{setCat(c,null);},50);
+}
+
+function exportStats(){
+  const rows=[['Category','Total','Done','Pct']];
+  CATS.filter(c=>c!=='All').forEach(c=>{
+    const qs=QS.filter(q=>q.c===c);
+    const d=qs.filter(q=>S.answered.has(q.id)).length;
+    rows.push([c,qs.length,d,qs.length?Math.round(d/qs.length*100)+'%':'0%']);
+  });
+  const csv=rows.map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='backend-mastery-progress.csv';
+  a.click();
 }
 
 // ── Toggle actions ──────────────────────────────────────
