@@ -1,0 +1,731 @@
+/* ═══════════════════════════════════════════════════════════
+   INTERVIEW MASTERY 2026 — PREMIUM UPGRADE LAYER
+   Drop after main-styles. Uses same design tokens.
+   Base easing: cubic-bezier(0.22, 1, 0.36, 1) "spring"
+═══════════════════════════════════════════════════════════ */
+
+/* ── SHARED MICRO-INTERACTION BASE ─────────────────────── */
+:root {
+  --spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --glow-s: 0 0 18px rgba(232, 93, 38, 0.28);
+  --glow-t: 0 0 18px rgba(23, 196, 146, 0.22);
+  --glow-g: 0 0 18px rgba(245, 166, 35, 0.24);
+}
+
+/* ── 1. CARD — premium gradient border + lift + accent bar ── */
+.card {
+  background: var(--bg2);
+  /* gradient border via box-shadow layering (no wrapper needed) */
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  border-radius: var(--radius);
+  margin-bottom: 7px;
+  position: relative;
+  /* paint the gradient "border" behind the card */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  transition:
+    box-shadow 0.2s var(--spring),
+    transform 0.2s var(--spring),
+    border-color 0.2s var(--spring);
+}
+
+/* Gradient border overlay via ::before pseudo */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(232, 93, 38, 0.10) 40%,
+    rgba(245, 166, 35, 0.08) 70%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s var(--spring);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 0 1px rgba(232, 93, 38, 0.22),
+    var(--glow-s),
+    0 8px 28px rgba(0, 0, 0, 0.45);
+}
+.card:hover::before { opacity: 1; }
+
+/* Expanded (active) state: left saffron accent bar */
+.card.expanded {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(232, 93, 38, 0.28),
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    0 0 0 0px rgba(232, 93, 38, 0.06) inset;
+}
+.card.expanded::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--saffron) 0%, var(--gold) 100%);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 10px rgba(232, 93, 38, 0.55);
+}
+
+/* Answered cards keep teal accent */
+.card.answered::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  background: linear-gradient(180deg, var(--teal) 0%, #0fb37a 100%);
+  border-radius: 0 2px 2px 0;
+  box-shadow: 0 0 8px rgba(23, 196, 146, 0.45);
+}
+.card.answered {
+  border-left: none; /* remove old flat border, ::after handles it */
+}
+
+/* ── 2. CARD-HEADER — better rhythm ─────────────────────── */
+.card-header {
+  padding: 14px 16px 14px 20px; /* 20px left to clear accent bar */
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  user-select: none;
+  transition: background 0.15s var(--spring);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.card:not(.expanded) .card-header:hover {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+/* ── 3. CAT-BADGE — per-category pill color coding ───────── */
+.cat-badge {
+  font-size: .61rem;
+  padding: 2px 7px;
+  border-radius: 20px; /* pill */
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: .02em;
+  /* default: saffron */
+  background: var(--s2);
+  color: var(--saffron);
+  border: 1px solid rgba(232, 93, 38, 0.25);
+  transition: all 0.2s var(--spring);
+}
+
+/* Scalability → teal */
+.cat-badge[data-cat="Scalability"],
+.cat-badge[data-cat="System Design"],
+.cat-badge[data-cat="Caching"],
+.cat-badge[data-cat="Distributed Systems"] {
+  background: rgba(23, 196, 146, 0.12);
+  color: #17C492;
+  border-color: rgba(23, 196, 146, 0.28);
+}
+
+/* Security → red */
+.cat-badge[data-cat="Security"],
+.cat-badge[data-cat="Authentication"],
+.cat-badge[data-cat="Authorization"] {
+  background: rgba(255, 87, 87, 0.1);
+  color: #FF5757;
+  border-color: rgba(255, 87, 87, 0.25);
+}
+
+/* Behavioral → purple */
+.cat-badge[data-cat="Behavioral"],
+.cat-badge[data-cat="Leadership"],
+.cat-badge[data-cat="Culture Fit"] {
+  background: rgba(155, 109, 255, 0.12);
+  color: #9B6DFF;
+  border-color: rgba(155, 109, 255, 0.28);
+}
+
+/* Easy Warm-Up / Basic → green */
+.cat-badge[data-cat="Easy Warm-Up"],
+.cat-badge[data-cat="Fundamentals"],
+.cat-badge[data-cat="Basics"] {
+  background: rgba(29, 209, 161, 0.12);
+  color: #1DD1A1;
+  border-color: rgba(29, 209, 161, 0.28);
+}
+
+/* Java Core → blue */
+.cat-badge[data-cat="Java Core"],
+.cat-badge[data-cat="Java"],
+.cat-badge[data-cat="JVM"] {
+  background: rgba(74, 144, 226, 0.12);
+  color: #4A90E2;
+  border-color: rgba(74, 144, 226, 0.28);
+}
+
+/* Spring Boot / Frameworks → indigo */
+.cat-badge[data-cat="Spring Boot"],
+.cat-badge[data-cat="Spring"],
+.cat-badge[data-cat="Framework"] {
+  background: rgba(99, 102, 241, 0.12);
+  color: #818CF8;
+  border-color: rgba(99, 102, 241, 0.28);
+}
+
+/* Messaging / Kafka → gold */
+.cat-badge[data-cat="Kafka"],
+.cat-badge[data-cat="Messaging"],
+.cat-badge[data-cat="Event Streaming"],
+.cat-badge[data-cat="Message Queue"] {
+  background: rgba(245, 166, 35, 0.12);
+  color: #F5A623;
+  border-color: rgba(245, 166, 35, 0.28);
+}
+
+/* Database / SQL → cyan */
+.cat-badge[data-cat="Database"],
+.cat-badge[data-cat="SQL"],
+.cat-badge[data-cat="NoSQL"],
+.cat-badge[data-cat="PostgreSQL"],
+.cat-badge[data-cat="MongoDB"] {
+  background: rgba(6, 182, 212, 0.12);
+  color: #22D3EE;
+  border-color: rgba(6, 182, 212, 0.28);
+}
+
+/* AWS / Cloud → orange-amber */
+.cat-badge[data-cat="AWS"],
+.cat-badge[data-cat="Cloud"],
+.cat-badge[data-cat="DevOps"],
+.cat-badge[data-cat="Infrastructure"] {
+  background: rgba(251, 146, 60, 0.12);
+  color: #FB923C;
+  border-color: rgba(251, 146, 60, 0.28);
+}
+
+/* Microservices → pink */
+.cat-badge[data-cat="Microservices"],
+.cat-badge[data-cat="Architecture"],
+.cat-badge[data-cat="Design Patterns"] {
+  background: rgba(244, 114, 182, 0.12);
+  color: #F472B6;
+  border-color: rgba(244, 114, 182, 0.28);
+}
+
+/* ── 4. DIFF-BADGE — glow dots ───────────────────────────── */
+.diff-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: .6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 2px 7px 2px 5px;
+  border-radius: 20px;
+  transition: all 0.2s var(--spring);
+}
+
+/* Dot pseudo-element */
+.diff-badge::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.diff-badge.easy {
+  color: var(--teal);
+  background: rgba(23, 196, 146, 0.1);
+  border: 1px solid rgba(23, 196, 146, 0.22);
+}
+.diff-badge.easy::before {
+  background: var(--teal);
+  box-shadow: 0 0 6px rgba(23, 196, 146, 0.8);
+}
+
+.diff-badge.medium {
+  color: var(--gold);
+  background: rgba(245, 166, 35, 0.1);
+  border: 1px solid rgba(245, 166, 35, 0.22);
+}
+.diff-badge.medium::before {
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(245, 166, 35, 0.8);
+}
+
+.diff-badge.hard {
+  color: #FF5757;
+  background: rgba(255, 87, 87, 0.1);
+  border: 1px solid rgba(255, 87, 87, 0.22);
+}
+.diff-badge.hard::before {
+  background: #FF5757;
+  box-shadow: 0 0 6px rgba(255, 87, 87, 0.8);
+}
+
+/* ── 5. ANS-SECTION — left-border accent + tinted bg ─────── */
+
+/* Base: strip old top/bottom radius split approach, unify */
+.ans-section {
+  margin-top: 14px;
+  border-radius: 8px;
+  overflow: hidden;
+  border-left: 3px solid transparent; /* overridden per variant */
+  transition: box-shadow 0.2s var(--spring);
+}
+.ans-section:hover {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Intent — blue */
+.as-intent {
+  border-left-color: #4B9FFF;
+  background: rgba(75, 159, 255, 0.04);
+  border-top: 1px solid rgba(75, 159, 255, 0.15);
+  border-right: 1px solid rgba(75, 159, 255, 0.15);
+  border-bottom: 1px solid rgba(75, 159, 255, 0.15);
+}
+.as-intent .ans-hdr {
+  background: rgba(75, 159, 255, 0.1);
+  color: #4B9FFF;
+  border-bottom: 1px solid rgba(75, 159, 255, 0.15);
+  border-radius: 0;
+}
+.as-intent .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+/* Weak — red */
+.as-weak {
+  border-left-color: #FF5757;
+  background: rgba(255, 87, 87, 0.03);
+  border-top: 1px solid rgba(255, 87, 87, 0.15);
+  border-right: 1px solid rgba(255, 87, 87, 0.15);
+  border-bottom: 1px solid rgba(255, 87, 87, 0.15);
+}
+.as-weak .ans-hdr {
+  background: rgba(255, 87, 87, 0.1);
+  color: #FF5757;
+  border-bottom: 1px solid rgba(255, 87, 87, 0.15);
+  border-radius: 0;
+}
+.as-weak .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+/* Strong — teal */
+.as-strong {
+  border-left-color: #17C492;
+  background: rgba(23, 196, 146, 0.04);
+  border-top: 1px solid rgba(23, 196, 146, 0.18);
+  border-right: 1px solid rgba(23, 196, 146, 0.18);
+  border-bottom: 1px solid rgba(23, 196, 146, 0.18);
+}
+.as-strong .ans-hdr {
+  background: rgba(23, 196, 146, 0.1);
+  color: #17C492;
+  border-bottom: 1px solid rgba(23, 196, 146, 0.18);
+  border-radius: 0;
+}
+.as-strong .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text);
+}
+
+/* Principal — gold */
+.as-principal {
+  border-left-color: #F5A623;
+  background: rgba(245, 166, 35, 0.03);
+  border-top: 1px solid rgba(245, 166, 35, 0.18);
+  border-right: 1px solid rgba(245, 166, 35, 0.18);
+  border-bottom: 1px solid rgba(245, 166, 35, 0.18);
+}
+.as-principal .ans-hdr {
+  background: rgba(245, 166, 35, 0.1);
+  color: #F5A623;
+  border-bottom: 1px solid rgba(245, 166, 35, 0.18);
+  border-radius: 0;
+}
+.as-principal .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+/* Real / War Story — purple */
+.as-real {
+  border-left-color: #A78BFA;
+  background: rgba(167, 139, 250, 0.04);
+  border-top: 1px solid rgba(167, 139, 250, 0.15);
+  border-right: 1px solid rgba(167, 139, 250, 0.15);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+}
+.as-real .ans-hdr {
+  background: rgba(167, 139, 250, 0.1);
+  color: #A78BFA;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.15);
+  border-radius: 0;
+}
+.as-real .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-style: italic;
+}
+
+/* Mistakes — saffron */
+.as-mistakes {
+  border-left-color: #E85D26;
+  background: rgba(232, 93, 38, 0.04);
+  border-top: 1px solid rgba(232, 93, 38, 0.18);
+  border-right: 1px solid rgba(232, 93, 38, 0.18);
+  border-bottom: 1px solid rgba(232, 93, 38, 0.18);
+}
+.as-mistakes .ans-hdr {
+  background: rgba(232, 93, 38, 0.1);
+  color: #E85D26;
+  border-bottom: 1px solid rgba(232, 93, 38, 0.18);
+  border-radius: 0;
+}
+.as-mistakes .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+/* Follow-Up — neutral slate */
+.as-fu {
+  border-left-color: rgba(155, 151, 184, 0.5);
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.as-fu .ans-hdr {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+.as-fu .ans-body {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+/* ── 6. #SEARCH — glassmorphism ──────────────────────────── */
+#search {
+  width: 100%;
+  padding: 7px 12px 7px 32px;
+  /* frosted glass */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: .8rem;
+  outline: none;
+  transition:
+    border-color 0.2s var(--spring),
+    box-shadow 0.2s var(--spring),
+    background 0.2s var(--spring);
+}
+#search::placeholder { color: var(--text3); }
+#search:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+#search:focus {
+  background: rgba(232, 93, 38, 0.05);
+  border-color: var(--saffron);
+  box-shadow:
+    0 0 0 3px rgba(232, 93, 38, 0.14),
+    0 0 16px rgba(232, 93, 38, 0.12);
+}
+
+/* ── 7. TAB.ACTIVE — sliding underline animation ─────────── */
+.tab {
+  padding: 0 16px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--text3);
+  position: relative;
+  border-bottom: 2px solid transparent;
+  transition:
+    color 0.2s var(--spring);
+  user-select: none;
+  gap: 5px;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--text2); }
+
+/* Remove old border-bottom approach, use ::after slide-in */
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; /* sits on the tabs border-bottom */
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold));
+  border-radius: 2px 2px 0 0;
+  transition:
+    left 0.3s var(--spring),
+    right 0.3s var(--spring);
+}
+.tab.active {
+  color: var(--text);
+  font-weight: 600;
+  border-bottom-color: transparent; /* let ::after handle it */
+}
+.tab.active::after {
+  left: 12px;
+  right: 12px;
+  box-shadow: 0 -1px 8px rgba(232, 93, 38, 0.4);
+}
+
+/* ── 8. STAT-CARD — bento style ──────────────────────────── */
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-top: 2px solid transparent; /* gradient border top */
+  border-radius: var(--radius);
+  padding: 13px 15px 13px 15px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s var(--spring),
+    box-shadow 0.2s var(--spring),
+    border-color 0.2s var(--spring);
+}
+/* Gradient top strip */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--saffron) 0%, var(--gold) 50%, var(--teal) 100%);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.stat-card:hover {
+  transform: scale(1.025) translateY(-2px);
+  box-shadow:
+    0 6px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(232, 93, 38, 0.15);
+  border-color: rgba(232, 93, 38, 0.18);
+}
+/* Big number gets icon-scale treatment */
+.stat-card .ss-val,
+.stat-card .stat-cat {
+  transition: color 0.2s var(--spring);
+}
+.stat-card:hover .stat-cat { color: var(--saffron); }
+
+/* ── 9. SIDEBAR — glass panel + left gradient edge ──────── */
+aside {
+  width: 236px;
+  background: rgba(14, 12, 30, 0.7);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex-shrink: 0;
+  padding-bottom: 16px;
+  position: relative;
+}
+/* Subtle left-edge gradient shimmer */
+aside::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(232, 93, 38, 0.4) 25%,
+    rgba(245, 166, 35, 0.3) 50%,
+    rgba(23, 196, 146, 0.35) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ── 10. PROGRESS-RING-FILL — gradient stroke via SVG defs ─ */
+/*
+  Place this inline SVG <defs> block inside your progress ring SVG:
+
+  <defs>
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#E85D26"/>
+      <stop offset="50%"  stop-color="#F5A623"/>
+      <stop offset="100%" stop-color="#17C492"/>
+    </linearGradient>
+  </defs>
+
+  The .progress-ring-fill already references stroke:url(#ringGrad)
+*/
+.progress-ring-fill {
+  fill: none;
+  stroke: url(#ringGrad);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 100.53;
+  stroke-dashoffset: 100.53;
+  transition: stroke-dashoffset 0.7s var(--spring);
+  filter: drop-shadow(0 0 4px rgba(232, 93, 38, 0.5));
+}
+
+/* ── 11. ACT-BTN — pill micro-button with hover glow ─────── */
+.act-btn {
+  background: none;
+  border: none;
+  color: var(--text3);
+  font-size: .8rem;
+  padding: 5px 7px;
+  border-radius: 20px; /* pill */
+  transition:
+    background 0.2s var(--spring),
+    color 0.2s var(--spring),
+    box-shadow 0.2s var(--spring),
+    transform 0.15s var(--spring);
+  line-height: 1;
+  cursor: pointer;
+}
+.act-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text);
+  transform: scale(1.12);
+}
+.act-btn:active { transform: scale(0.95); }
+
+/* Bookmark — gold glow */
+.act-btn.fav.active {
+  color: var(--gold);
+  background: rgba(245, 166, 35, 0.1);
+  box-shadow: 0 0 10px rgba(245, 166, 35, 0.35);
+}
+/* Answered — teal glow */
+.act-btn.ans.active {
+  color: var(--teal);
+  background: rgba(23, 196, 146, 0.1);
+  box-shadow: 0 0 10px rgba(23, 196, 146, 0.35);
+}
+/* Generic active — saffron */
+.act-btn.active {
+  color: var(--saffron);
+  background: rgba(232, 93, 38, 0.1);
+  box-shadow: 0 0 10px rgba(232, 93, 38, 0.3);
+}
+
+/* ── 12. FU-CHIP — tag with hover animation ──────────────── */
+.fu-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px; /* pill */
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border2);
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  font-style: normal;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 0.2s var(--spring),
+    color 0.2s var(--spring),
+    border-color 0.2s var(--spring),
+    box-shadow 0.2s var(--spring),
+    transform 0.2s var(--spring);
+}
+/* Shimmer sweep on hover */
+.fu-chip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; bottom: 0;
+  width: 60%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(232, 93, 38, 0.15),
+    transparent
+  );
+  transition: left 0.4s var(--spring);
+}
+.fu-chip:hover {
+  background: rgba(232, 93, 38, 0.1);
+  border-color: rgba(232, 93, 38, 0.4);
+  color: var(--saffron);
+  box-shadow: 0 0 12px rgba(232, 93, 38, 0.2);
+  transform: translateY(-1px);
+}
+.fu-chip:hover::before { left: 130%; }
+.fu-chip:active { transform: translateY(0) scale(0.97); }
+
+/* ── BONUS: Stat summary cards bento style ───────────────── */
+.stat-summary {
+  flex: 1;
+  min-width: 120px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s var(--spring),
+    box-shadow 0.2s var(--spring);
+}
+.stat-summary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+.stat-summary .ss-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--saffron), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -.04em;
+  line-height: 1;
+}
+
+/* ── BONUS: Scrollbar glow ───────────────────────────────── */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(232, 93, 38, 0.3), rgba(245, 166, 35, 0.2));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(232, 93, 38, 0.5), rgba(245, 166, 35, 0.4));
+}
