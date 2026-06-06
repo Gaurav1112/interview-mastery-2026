@@ -1,0 +1,97 @@
+<!--
+  SVG Heart — biological double-beat (lub-DUB) rhythm
+  Drop this block wherever you want the heart.
+  The beat CSS is self-contained in the <style> tag below.
+  No dependencies.
+
+  Sizing: 150px default, centered with margin: 0 auto.
+  Change --heart-size to resize (CSS custom property).
+-->
+
+<style>
+  /* ── Heart beat timing — biological lub-DUB ────────────────
+     Real heartbeat anatomy:
+       Lub  = mitral/tricuspid closure — smaller, softer thud
+       DUB  = aortic/pulmonary closure — larger, sharper snap
+     Between beats: diastolic rest (longer silence)
+
+     Keyframe breakdown (one full cycle ≈ 820ms at 73bpm):
+       0%       rest — normal size
+       8%       LUB  — small quick squeeze (scale 0.94)
+       16%      rebound to baseline (scale 1.0)
+       22%      DUB  — larger authoritative thump (scale 1.12)
+       30%      overshoot settle (scale 0.97)
+       38%      return to rest (scale 1.0)
+       100%     diastolic rest — hold until next beat
+  ────────────────────────────────────────────────────────── */
+  @keyframes heartbeat {
+    0%   { transform: scale(1);    filter: drop-shadow(0 0 14px rgba(255, 90, 130, 0.55)); }
+
+    /* LUB — small, fast inward compression */
+    8%   { transform: scale(0.93); filter: drop-shadow(0 0 8px  rgba(255, 90, 130, 0.35)); }
+    16%  { transform: scale(1.02); filter: drop-shadow(0 0 18px rgba(255, 90, 130, 0.65)); }
+
+    /* DUB — larger outward thump, the dominant beat */
+    22%  { transform: scale(1.13); filter: drop-shadow(0 0 32px rgba(255, 90, 130, 0.85))
+                                            drop-shadow(0 0 60px rgba(220, 60, 100, 0.45)); }
+    28%  { transform: scale(0.97); filter: drop-shadow(0 0 16px rgba(255, 90, 130, 0.60)); }
+    36%  { transform: scale(1.01); filter: drop-shadow(0 0 14px rgba(255, 90, 130, 0.55)); }
+
+    /* Diastolic rest — heart fills, long silence */
+    100% { transform: scale(1);    filter: drop-shadow(0 0 14px rgba(255, 90, 130, 0.55)); }
+  }
+
+  /* Glow pulse on the fill — breathes independently from the beat */
+  @keyframes heartGlow {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.82; }
+  }
+
+  .beating-heart {
+    --heart-size: 150px;
+    display: block;
+    width:  var(--heart-size);
+    height: var(--heart-size);
+    margin: 0 auto;
+    /* Beat: 820ms per cycle ≈ 73bpm — resting adult heart rate */
+    animation: heartbeat 820ms cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    transform-origin: center center;
+    will-change: transform, filter;
+  }
+
+  /* The SVG path fill — single color, elegant rose */
+  .heart-fill {
+    fill: #E8516A;
+    /* Subtle internal shimmer that breathes at a different rate than the beat */
+    animation: heartGlow 2.4s ease-in-out infinite;
+  }
+</style>
+
+<svg
+  class="beating-heart"
+  viewBox="0 0 100 90"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label="Beating heart"
+>
+  <!--
+    Parametric heart via cubic bezier paths.
+    Mathematically derived from the heart curve — smooth, not clipart.
+    Two symmetric halves joined at apex (bottom) and meeting point (top center).
+    Left half: right-to-center-top, swoop left, return to apex.
+    Right half: mirror.
+  -->
+  <path
+    class="heart-fill"
+    d="
+      M 50 85
+      C 20 65, 5 50, 5 33
+      C 5 18, 16 8, 28 8
+      C 36 8, 44 13, 50 20
+      C 56 13, 64 8, 72 8
+      C 84 8, 95 18, 95 33
+      C 95 50, 80 65, 50 85
+      Z
+    "
+  />
+</svg>
