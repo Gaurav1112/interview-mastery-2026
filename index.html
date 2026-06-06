@@ -389,8 +389,22 @@ details.aq-deep[open] summary{color:var(--saffron)}
 .toast{position:fixed;bottom:18px;right:18px;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:8px 15px;border-radius:6px;font-size:.78rem;z-index:2000;opacity:0;transform:translateY(7px);transition:all .25s;pointer-events:none;max-width:270px;box-shadow:var(--shadow)}
 .toast.show{opacity:1;transform:translateY(0)}
 
+/* ── MOBILE HAMBURGER ─────────────────────────────────────── */
+.mob-menu-btn{display:none;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:1.1rem;line-height:1;padding:5px 9px;cursor:pointer;transition:all .15s;flex-shrink:0}
+.mob-menu-btn:hover{background:var(--surface);color:var(--saffron);border-color:var(--saffron)}
+
 /* ── RESPONSIVE ──────────────────────────────────────── */
-@media(max-width:768px){aside{display:none}.logo-tag{display:none}#search{max-width:140px}.header-actions .hbtn:not(.accent):not(.soft){display:none}.tab-content{padding:14px}}
+@media(max-width:768px){
+  aside{display:none}
+  aside.mob-open{display:flex;position:fixed;top:52px;left:0;bottom:0;z-index:500;width:260px;box-shadow:4px 0 24px rgba(0,0,0,.5)}
+  .mob-overlay{display:none;position:fixed;inset:0;top:52px;background:rgba(0,0,0,.55);z-index:499}
+  .mob-overlay.mob-open{display:block}
+  .mob-menu-btn{display:flex;align-items:center;justify-content:center}
+  .logo-tag{display:none}
+  #search{max-width:140px}
+  .header-actions .hbtn:not(.accent):not(.soft){display:none}
+  .tab-content{padding:14px}
+}
 
 /* ── PRINT ───────────────────────────────────────────── */
 @media print{aside,header,.tabs,.header-actions{display:none!important}.card-body{display:block!important}.tab-pane{display:block!important}.card{break-inside:avoid}}
@@ -623,6 +637,7 @@ details.aq-deep[open] summary{color:var(--saffron)}
 
 <div id="app">
 <header>
+  <button class="mob-menu-btn" id="mob-menu-btn" onclick="toggleMobileMenu()" title="Menu" aria-label="Open navigation menu">☰</button>
   <div class="logo">Backend Mastery 2026<span class="logo-tag">FAANG Ready</span></div>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
@@ -637,6 +652,7 @@ details.aq-deep[open] summary{color:var(--saffron)}
     <button class="hbtn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">◑</button>
   </div>
 </header>
+<div class="mob-overlay" id="mob-overlay" onclick="toggleMobileMenu()"></div>
 <div class="body-wrap">
   <aside id="sidebar">
     <div class="sb-block">
@@ -689,6 +705,8 @@ details.aq-deep[open] summary{color:var(--saffron)}
     <span class="hero-pill p">Real-world Examples</span>
     <span class="hero-pill s">100% Offline</span>
     <span class="hero-pill g">Progress Tracking</span>
+    <span class="hero-pill t">DevOps/K8s</span>
+    <span class="hero-pill p">AI/ML</span>
   </div>
   <div class="hero-cta">
     <button class="cta-btn cta-primary" onclick="document.querySelector('.tab:nth-child(2)').click()">Start Practicing →</button>
@@ -5213,6 +5231,33 @@ document.addEventListener('keydown',e=>{
 
 // ── Init ─────────────────────────────────────────────────
 render();
+
+// ── Mobile menu toggle ────────────────────────────────────
+function toggleMobileMenu(){
+  const sidebar=document.getElementById('sidebar');
+  const overlay=document.getElementById('mob-overlay');
+  const btn=document.getElementById('mob-menu-btn');
+  const isOpen=sidebar.classList.contains('mob-open');
+  if(isOpen){
+    sidebar.classList.remove('mob-open');
+    overlay.classList.remove('mob-open');
+    btn.setAttribute('aria-label','Open navigation menu');
+    btn.textContent='☰';
+  }else{
+    sidebar.classList.add('mob-open');
+    overlay.classList.add('mob-open');
+    btn.setAttribute('aria-label','Close navigation menu');
+    btn.textContent='✕';
+  }
+}
+// Close mobile menu when a category is selected
+document.addEventListener('click',function(e){
+  const catLink=e.target.closest('#cat-list li');
+  if(catLink&&window.innerWidth<=768){
+    const sidebar=document.getElementById('sidebar');
+    if(sidebar.classList.contains('mob-open'))toggleMobileMenu();
+  }
+});
 </script>
 
 <!-- Mermaid.js — inlined for offline use -->
